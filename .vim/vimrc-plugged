@@ -1,0 +1,109 @@
+set nocompatible
+
+if empty(glob('~/.vim/autoload/plug.vim'))
+    if executable('curl')
+        silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+                    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+        autocmd VimEnter * PlugInstall | source $MYVIMRC
+    else
+        echomsg 'plug.vim does not exist, and curl is not available - please do it manually'
+    endif
+endif
+
+call plug#begin('~/.vim/plugins.plug')
+
+"Plug 'itblinker/manager.vim'
+Plug '~/DEV/mine.projects/vim.plugins/manager.vim'
+
+Plug 'google/vim-maktaba'
+
+Plug 'itblinker/fgrep.vim'
+"Plug '~/DEV/mine.projects/vim.plugins/fgrep.vim'
+
+Plug 'itblinker/ttcn.vim'
+"Plug '~/DEV/projects/vim.plugins/ttcn.vim'
+
+Plug 'tblinker/cplane.sct.vim'
+"Plug '~/DEV/projects/vim.plugins/cplane.sct.vim'
+
+Plug 'itblinker/highlighter.vim'
+"Plug '~/DEV/projects/vim.plugins/highlighter.vim'
+
+Plug 'aklt/plantuml-syntax'
+"Plug 'freitass/todo.txt-vim'
+"Plug 'ihacklog/HiCursorWords'
+"Plug 'jceb/vim-editqf'     "rare usable - it's used to laod/save quickfix/location list
+"Plug 'vim-scripts/Mark'
+Plug 'kshenoy/vim-signature'
+Plug 'MattesGroeger/vim-bookmarks'
+"Plug 'sk1418/QFGrep'
+"Plug 'Shougo/junkfile.vim'
+"Plug 'Shougo/vimshell.vim'
+"Plug 'Shougo/vimfiler.vim'
+"Plug 'Shougo/neopairs.vim'
+"Plug 'Shougo/unite-outline'
+"Plug 'plasticboy/vim-markdown'
+"Plug 'tpope/vim-repeat'
+"Plug 'szw/vim-g'
+"Plug 'mtth/scratch.vim'
+"Plug 'fmoralesc/vim-pad'
+"Plug 'vim-scripts/Txtfmt-The-Vim-Highlighter'
+"Plug 'lfv89/vim-interestingwords'
+"Plug 'idbrii/AsyncCommand'
+Plug 'vimwiki/vimwiki'
+"Plug 'mrtazz/simplenote.vim'
+Plug 'Shougo/neomru.vim'
+Plug 'scrooloose/nerdtree'
+Plug 'sjl/gundo.vim'
+Plug 'yssl/QFEnter'
+"Plug 'embear/vim-localvimrc'
+Plug 'easymotion/vim-easymotion'
+Plug 'ntpeters/vim-better-whitespace'
+Plug 'bronson/vim-trailing-whitespace'
+Plug 'scrooloose/nerdcommenter'
+"Plug 'majutsushi/tagbar'
+Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'vim-scripts/VimgrepBuffer'
+"Plug 'terryma/vim-multiple-cursors'
+Plug 'google/vim-searchindex'
+Plug 'Shougo/vimproc.vim', {'dir': '~/.vim/plugged/vimproc.vim', 'do': 'make'}
+Plug 'Shougo/neoyank.vim'
+Plug 'Shougo/unite.vim'
+"Plug 'Shougo/unite-build'
+Plug 'Shougo/unite-session'
+"Plug 'Shougo/neoinclude.vim'
+"Plug 'bbchung/gtags.vim'
+Plug 'tsukkee/unite-tag' | Plug 'ton/vim-bufsurf'
+Plug 'hewes/unite-gtags' | Plug 'ton/vim-bufsurf'
+Plug 'osyo-manga/unite-quickfix'
+Plug 'Shougo/unite-help'
+Plug 'thinca/vim-unite-history'
+Plug 'tacroe/unite-mark'
+Plug 'kmnk/vim-unite-svn'
+"Plug 'kopischke/unite-spell-suggest'
+Plug 'kmnk/vim-unite-giti'
+Plug 'Shougo/tabpagebuffer.vim'
+"Plug 'tpope/vim-surround'
+Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-eunuch'
+Plug 'mhinz/vim-signify'
+Plug 'tmux-plugins/vim-tmux'
+Plug 'tmux-plugins/vim-tmux-focus-events'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'szw/vim-maximizer'
+Plug 'vifm/vifm.vim'
+Plug 'cohama/lexima.vim'
+Plug 'bling/vim-bufferline'
+Plug 'mkitt/tabline.vim'
+Plug 'justinmk/gv.vim'
+Plug 'tpope/vim-fugitive'
+Plug 'vim-jp/vital.vim'
+Plug 'google/vim-glaive'
+Plug 'https://github.com/vim-utils/vim-man.git'
+Plug 'https://github.com/vim-utils/vim-husk.git'
+Plug 'guns/vim-sexp'
+Plug 'junegunn/vim-easy-align'
+Plug 'kien/rainbow_parentheses.vim'
+
+call plug#end()
+"}}}

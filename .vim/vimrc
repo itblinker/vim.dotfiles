@@ -1,109 +1,209 @@
-set nocompatible
-
-if empty(glob('~/.vim/autoload/plug.vim'))
-    if executable('curl')
-        silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-                    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-        autocmd VimEnter * PlugInstall | source $MYVIMRC
-    else
-        echomsg 'plug.vim does not exist, and curl is not available - please do it manually'
-    endif
+if &compatible
+  set nocompatible
 endif
 
-call plug#begin('~/.vim/plugins.plug')
+"{{{ plugins | configuration
+"{{{ dein.vim | paths configuration
 
-"Plug 'itblinker/manager.vim'
-Plug '~/DEV/projects/vim.plugins/manager.vim'
+" adding folder for dein autoloads functions
+" original folder pointed for instaler.sh
+"execute 'set rtp+='.expand('${HOME}/DEV/git.softwares/dein.vim')
+execute 'set rtp+='.expand('$HOME/DEV/git.softwares/dein.vim')
 
-Plug 'google/vim-maktaba'
+" path where downloaded plugins will be stored
+call dein#begin(expand('$HOME/DEV/bin/dein.vim'))
+"{{{
+    call dein#add('Shougo/dein.vim')
+"}}}
+"}}}
 
-"Plug 'itblinker/fgrep.vim'
-Plug '~/DEV/projects/vim.plugins/fgrep.vim'
+    call dein#add('Shougo/unite.vim')
+    call dein#add('google/vim-maktaba')
+    call dein#add('itblinker/fgrep.vim')
+    call dein#add('itblinker/ttcn.vim')
+    call dein#add('tblinker/cplane.sct')
+    call dein#add('itblinker/highlighter.vim')
+    call dein#add('aklt/plantuml-syntax')
+    call dein#add('kshenoy/vim-signature')
+    call dein#add('MattesGroeger/vim-bookmarks')
+    call dein#add('vimwiki/vimwiki')
+    call dein#add('Shougo/neomru.vim')
+    call dein#add('scrooloose/nerdtree')
+    call dein#add('sjl/gundo.vim')
+    call dein#add('yssl/QFEnter')
+    call dein#add('easymotion/vim-easymotion')
+    call dein#add('ntpeters/vim-better-whitespace')
+    call dein#add('bronson/vim-trailing-whitespace')
+    call dein#add('scrooloose/nerdcommenter')
+    call dein#add('octol/vim-cpp-enhanced-highlight')
+    call dein#add('vim-scripts/VimgrepBuffer')
+    call dein#add('google/vim-searchindex')
+    call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
+    call dein#add('Shougo/neoyank.vim')
+    call dein#add('Shougo/unite.vim')
+    call dein#add('Shougo/unite-session')
+    call dein#add('ton/vim-bufsurf')
+    call dein#add('tsukkee/unite-tag')
+    call dein#add('hewes/unite-gtags')
+    call dein#add('osyo-manga/unite-quickfix')
+    call dein#add('Shougo/unite-help')
+    call dein#add('thinca/vim-unite-history')
+    call dein#add('tacroe/unite-mark')
+    call dein#add('kmnk/vim-unite-svn')
+    call dein#add('kmnk/vim-unite-giti')
+    call dein#add('Shougo/tabpagebuffer.vim')
+    call dein#add('tpope/vim-dispatch')
+    call dein#add('tpope/vim-eunuch')
+    call dein#add('mhinz/vim-signify')
+    call dein#add('tmux-plugins/vim-tmux')
+    call dein#add('tmux-plugins/vim-tmux-focus-events')
+    call dein#add('christoomey/vim-tmux-navigator')
+    call dein#add('szw/vim-maximizer')
+    call dein#add('vifm/vifm.vim')
+    call dein#add('cohama/lexima.vim')
+    call dein#add('bling/vim-bufferline')
+    call dein#add('mkitt/tabline.vim')
+    call dein#add('justinmk/gv.vim')
+    call dein#add('tpope/vim-fugitive')
+    call dein#add('vim-jp/vital.vim')
+    call dein#add('google/vim-glaive')
+    call dein#add('https://github.com/vim-utils/vim-man.git')
+    call dein#add('https://github.com/vim-utils/vim-husk.git')
+    call dein#add('guns/vim-sexp')
+    call dein#add('junegunn/vim-easy-align')
+    call dein#add('kien/rainbow_parentheses.vim')
 
-Plug 'itblinker/ttcn.vim'
-"Plug '~/DEV/projects/vim.plugins/ttcn.vim'
+"{{{ check / try to use
+    "Plug 'jceb/vim-editqf'     "rare usable - it's used to laod/save quickfix/location list
+    "Plug 'sk1418/QFGrep'
+    "Plug 'Shougo/junkfile.vim'
+    "Plug 'Shougo/vimshell.vim'
+    "Plug 'Shougo/vimfiler.vim'
+    "Plug 'Shougo/neopairs.vim'
+    "Plug 'Shougo/unite-outline'
+    "Plug 'plasticboy/vim-markdown'
+    "Plug 'tpope/vim-repeat'
+    "Plug 'szw/vim-g'
+    "Plug 'mtth/scratch.vim'
+    "Plug 'fmoralesc/vim-pad'
+    "Plug 'vim-scripts/Txtfmt-The-Vim-Highlighter'
+    "Plug 'lfv89/vim-interestingwords'
+    "Plug 'idbrii/AsyncCommand'
+    "Plug 'mrtazz/simplenote.vim'
+    "Plug 'embear/vim-localvimrc'
+    "Plug 'majutsushi/tagbar'
+    "Plug 'terryma/vim-multiple-cursors'
+    "Plug 'Shougo/unite-build'
+    "Plug 'Shougo/neoinclude.vim'
+    "Plug 'bbchung/gtags.vim'
+    "Plug 'kopischke/unite-spell-suggest'
+    "Plug 'tpope/vim-surround'
+"}}}
 
-"Plug 'tblinker/cplane.sct.vim'
-Plug '~/DEV/projects/vim.plugins/cplane.sct.vim'
+"{{{ dein.vim | end statement
+call dein#end()
+"}}}
+"}}}
 
-"Plug 'itblinker/highlighter.vim'
-Plug '~/DEV/projects/vim.plugins/highlighter.vim'
+"{{{ settings | global
+syntax enable
+filetype plugin indent on
 
-Plug 'aklt/plantuml-syntax'
-"Plug 'freitass/todo.txt-vim'
-"Plug 'ihacklog/HiCursorWords'
-"Plug 'jceb/vim-editqf'     "rare usable - it's used to laod/save quickfix/location list
-"Plug 'vim-scripts/Mark'
-Plug 'kshenoy/vim-signature'
-Plug 'MattesGroeger/vim-bookmarks'
-"Plug 'sk1418/QFGrep'
-"Plug 'Shougo/junkfile.vim'
-"Plug 'Shougo/vimshell.vim'
-"Plug 'Shougo/vimfiler.vim'
-"Plug 'Shougo/neopairs.vim'
-"Plug 'Shougo/unite-outline'
-"Plug 'plasticboy/vim-markdown'
-"Plug 'tpope/vim-repeat'
-"Plug 'szw/vim-g'
-"Plug 'mtth/scratch.vim'
-"Plug 'fmoralesc/vim-pad'
-"Plug 'vim-scripts/Txtfmt-The-Vim-Highlighter'
-"Plug 'lfv89/vim-interestingwords'
-"Plug 'idbrii/AsyncCommand'
-Plug 'vimwiki/vimwiki'
-"Plug 'mrtazz/simplenote.vim'
-Plug 'Shougo/neomru.vim'
-Plug 'scrooloose/nerdtree'
-Plug 'sjl/gundo.vim'
-Plug 'yssl/QFEnter'
-"Plug 'embear/vim-localvimrc'
-Plug 'easymotion/vim-easymotion'
-Plug 'ntpeters/vim-better-whitespace'
-Plug 'bronson/vim-trailing-whitespace'
-Plug 'scrooloose/nerdcommenter'
-"Plug 'majutsushi/tagbar'
-Plug 'octol/vim-cpp-enhanced-highlight'
-Plug 'vim-scripts/VimgrepBuffer'
-"Plug 'terryma/vim-multiple-cursors'
-Plug 'google/vim-searchindex'
-Plug 'Shougo/vimproc.vim', {'dir': '~/.vim/plugged/vimproc.vim', 'do': 'make'}
-Plug 'Shougo/neoyank.vim'
-Plug 'Shougo/unite.vim'
-"Plug 'Shougo/unite-build'
-Plug 'Shougo/unite-session'
-"Plug 'Shougo/neoinclude.vim'
-"Plug 'bbchung/gtags.vim'
-Plug 'tsukkee/unite-tag' | Plug 'ton/vim-bufsurf'
-Plug 'hewes/unite-gtags' | Plug 'ton/vim-bufsurf'
-Plug 'osyo-manga/unite-quickfix'
-Plug 'Shougo/unite-help'
-Plug 'thinca/vim-unite-history'
-Plug 'tacroe/unite-mark'
-Plug 'kmnk/vim-unite-svn'
-"Plug 'kopischke/unite-spell-suggest'
-Plug 'kmnk/vim-unite-giti'
-Plug 'Shougo/tabpagebuffer.vim'
-"Plug 'tpope/vim-surround'
-Plug 'tpope/vim-dispatch'
-Plug 'tpope/vim-eunuch'
-Plug 'mhinz/vim-signify'
-Plug 'tmux-plugins/vim-tmux'
-Plug 'tmux-plugins/vim-tmux-focus-events'
-Plug 'christoomey/vim-tmux-navigator'
-Plug 'szw/vim-maximizer'
-Plug 'vifm/vifm.vim'
-Plug 'cohama/lexima.vim'
-Plug 'bling/vim-bufferline'
-Plug 'mkitt/tabline.vim'
-Plug 'justinmk/gv.vim'
-Plug 'tpope/vim-fugitive'
-Plug 'vim-jp/vital.vim'
-Plug 'google/vim-glaive'
-Plug 'https://github.com/vim-utils/vim-man.git'
-Plug 'https://github.com/vim-utils/vim-husk.git'
-Plug 'guns/vim-sexp'
-Plug 'junegunn/vim-easy-align'
-Plug 'kien/rainbow_parentheses.vim'
+set wildignore+=*/.git/*,*/.hg/*,*/.svn/*
+set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*
 
-call plug#end()
+set encoding=utf-8
+set title
+
+au CursorHold * checktime
+au FocusLost * silent redraw!
+
+" should open copen/lopen on bottom
+abbreviate copen botright copen
+abbreviate lopen botright lopen
+
+set ttyfast
+set clipboard^=unnamed,unnamedplus
+
+set background=dark
+if has('gui_running')
+    colorscheme elflord
+else
+    colorscheme ron
+endif
+
+set hidden
+set autoread
+set autowrite
+set nobackup
+set nowb
+set noswapfile
+
+set linebreak
+set number
+set relativenumber
+
+set ttimeoutlen=10
+
+set autoindent
+set copyindent
+
+set nostartofline
+set nowrap
+set backspace=indent,eol,start
+
+set mouse=
+
+set eol
+
+set splitright
+set splitbelow
+
+set showcmd
+set laststatus=2
+set wildmenu
+set wildmode=list:full
+
+set visualbell
+set noerrorbells
+
+set showmatch
+set incsearch
+set hlsearch
+set ignorecase
+set smartcase
+
+set history=1000
+set undolevels=1000
+
+set foldmethod=marker
+"}}}
+
+"{{{ mappings | global
+execute 'let g:mapleader = '','''
+
+inoremap jk <esc>
+nnoremap <leader><space> :nohlsearch<CR>
+
+nnoremap <c-k> <c-w>k
+nnoremap <c-l> <c-w>l
+nnoremap <c-h> <c-w>h
+nnoremap <c-x> <c-w>x
+
+noremap <silent> <left> :3wincmd <<cr>
+noremap <silent> <right> :3wincmd ><cr>
+noremap <silent> <down> :3wincmd +<cr>
+noremap <silent> <up> :3wincmd -<cr>
+
+vnoremap < <gv
+vnoremap > >gv
+
+nnoremap <leader>\| :vsplit<CR>
+nnoremap <leader>_ :split<CR>
+
+"vnoremap <leader>G :call manager#utils#GrepFromPath(manager#utils#GetFromVisualSelection(), getcwd())<CR>
+"vnoremap <leader>o :call manager#plugin#unite#FindFile(manager#utils#GetFromVisualSelection())<CR>
+
+set pastetoggle=<F2>
+
 "}}}

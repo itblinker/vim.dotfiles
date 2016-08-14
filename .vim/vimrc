@@ -17,7 +17,12 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'))
 "}}}
 "}}}
 
-    call dein#add('Shougo/unite.vim')
+    call dein#add('Shougo/unite.vim',
+                \ {
+                \ 'on_event' : ['VimEnter'],
+                \ 'hook_post_source': 'call vimrc#plugins#unite#Setup()'
+                \ })
+
     call dein#add('google/vim-maktaba')
     call dein#add('itblinker/fgrep.vim')
     call dein#add('itblinker/ttcn.vim')
@@ -40,7 +45,6 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'))
     call dein#add('google/vim-searchindex')
     call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
     call dein#add('Shougo/neoyank.vim')
-    call dein#add('Shougo/unite.vim')
     call dein#add('Shougo/unite-session')
     call dein#add('ton/vim-bufsurf')
     call dein#add('tsukkee/unite-tag')

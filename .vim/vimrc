@@ -19,8 +19,20 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'))
 
     call dein#add('Shougo/unite.vim',
                 \ {
-                \ 'on_event' : ['VimEnter'],
+                \ 'on_event' : 'VimEnter',
                 \ 'hook_post_source': 'call vimrc#plugins#unite#Setup()'
+                \ })
+
+    call dein#add('ton/vim-bufsurf',
+                \ {
+                \ 'on_event' : 'VimEnter',
+                \ 'hook_post_source': 'call vimrc#plugins#bufsurf#Setup()'
+                \ })
+
+    call dein#add('octol/vim-cpp-enhanced-highlight',
+                \ {
+                \ 'on_ft' : 'cpp',
+                \ 'hook_post_source': 'call vimrc#plugins#cppenhancedhighlits#Setup()'
                 \ })
 
     call dein#add('google/vim-maktaba')
@@ -40,13 +52,11 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'))
     call dein#add('ntpeters/vim-better-whitespace')
     call dein#add('bronson/vim-trailing-whitespace')
     call dein#add('scrooloose/nerdcommenter')
-    call dein#add('octol/vim-cpp-enhanced-highlight')
-    call dein#add('vim-scripts/VimgrepBuffer')
     call dein#add('google/vim-searchindex')
     call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
     call dein#add('Shougo/neoyank.vim')
     call dein#add('Shougo/unite-session')
-    call dein#add('ton/vim-bufsurf')
+    call dein#add('vim-scripts/VimgrepBuffer')
     call dein#add('tsukkee/unite-tag')
     call dein#add('hewes/unite-gtags')
     call dein#add('osyo-manga/unite-quickfix')
@@ -201,6 +211,9 @@ noremap <silent> <up> :3wincmd -<cr>
 
 vnoremap < <gv
 vnoremap > >gv
+
+vnoremap p pgvy
+vnoremap P Pgvy
 
 nnoremap <leader>\| :vsplit<CR>
 nnoremap <leader>_ :split<CR>

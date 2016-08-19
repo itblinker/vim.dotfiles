@@ -35,11 +35,17 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'))
                 \ 'hook_post_source': 'call vimrc#plugins#cppenhancedhighlits#Setup()'
                 \ })
 
-    call dein#add('google/vim-maktaba')
-    call dein#add('itblinker/fgrep.vim')
-    call dein#add('itblinker/ttcn.vim')
+    call dein#add('google/vim-maktaba',
+                \ {
+                \ 'lazy' : 1,
+                \ 'hook_source': 'call vimrc#plugins#maktaba#Setup()'
+                \ })
+
+
+    "call dein#add('itblinker/fgrep.vim')
+    "call dein#add('itblinker/ttcn.vim')
     call dein#add('tblinker/cplane.sct')
-    call dein#add('itblinker/highlighter.vim')
+    "call dein#add('itblinker/highlighter.vim')
     call dein#add('aklt/plantuml-syntax')
     call dein#add('kshenoy/vim-signature')
     call dein#add('MattesGroeger/vim-bookmarks')
@@ -80,7 +86,7 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'))
     call dein#add('justinmk/gv.vim')
     call dein#add('tpope/vim-fugitive')
     call dein#add('vim-jp/vital.vim')
-    call dein#add('google/vim-glaive')
+    "call dein#add('google/vim-glaive')
     call dein#add('https://github.com/vim-utils/vim-man.git')
     call dein#add('https://github.com/vim-utils/vim-husk.git')
     call dein#add('guns/vim-sexp')

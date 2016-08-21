@@ -19,36 +19,62 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'))
 
     call dein#add('Shougo/unite.vim',
                 \ {
+                \ 'name' : 'unite',
                 \ 'on_event' : 'VimEnter',
-                \ 'hook_post_source': 'call vimrc#plugins#unite#Setup()'
+                \ 'hook_post_source': 'call vimrc#plugins#unite#PostSourceSetup()'
                 \ })
 
-    call dein#add('ton/vim-bufsurf',
+    call dein#add('MattesGroeger/vim-bookmarks',
                 \ {
+                \ 'name' : 'bookmarks',
                 \ 'on_event' : 'VimEnter',
-                \ 'hook_post_source': 'call vimrc#plugins#bufsurf#Setup()'
-                \ })
-
-    call dein#add('octol/vim-cpp-enhanced-highlight',
-                \ {
-                \ 'on_ft' : 'cpp',
-                \ 'hook_post_source': 'call vimrc#plugins#cppenhancedhighlits#Setup()'
+                \ 'hook_post_source': 'call vimrc#plugins#vimbookmarks#PostSourceSetup()'
                 \ })
 
     call dein#add('google/vim-maktaba',
                 \ {
+                \ 'name' : 'maktaba',
                 \ 'lazy' : 1,
-                \ 'hook_source': 'call vimrc#plugins#maktaba#Setup()'
+                \ 'hook_source': 'call vimrc#plugins#maktaba#PreSourceSetup()'
                 \ })
+
+    "----------------------------
+    "test it'
+    call dein#add('ton/vim-bufsurf',
+                \ {
+                \ 'name' : 'bufsurf',
+                \ 'on_event' : 'VimEnter',
+                \ 'hook_post_source': 'call vimrc#plugins#bufsurf#PostSourceSetup()'
+                \ })
+
+    call dein#add('octol/vim-cpp-enhanced-highlight',
+                \ {
+                \ 'name' : 'cpp-enhanced-highlight',
+                \ 'on_ft' : 'cpp',
+                \ 'hook_post_source': 'call vimrc#plugins#cppenhancedhighlits#PostSourceSetup()'
+                \ })
+
+
+    call dein#add('aklt/plantuml-syntax',
+                \ {
+                \ 'name' : 'plantuml-syntax',
+                \ })
+
+    call dein#add('kshenoy/vim-signature',
+                \ {
+                \ 'name' : 'signaure'
+                \ })
+
 
 
     "call dein#add('itblinker/fgrep.vim')
     "call dein#add('itblinker/ttcn.vim')
-    call dein#add('tblinker/cplane.sct')
+    "call dein#add('tblinker/cplane.sct')
     "call dein#add('itblinker/highlighter.vim')
-    call dein#add('aklt/plantuml-syntax')
-    call dein#add('kshenoy/vim-signature')
-    call dein#add('MattesGroeger/vim-bookmarks')
+
+
+
+
     call dein#add('vimwiki/vimwiki')
     call dein#add('Shougo/neomru.vim')
     call dein#add('scrooloose/nerdtree')

@@ -1,4 +1,4 @@
-function vimrc#plugins#unite#Setup()
+function vimrc#plugins#unite#PostSourceSetup()
     call s:settings()
     call s:mappings()
 endfunction

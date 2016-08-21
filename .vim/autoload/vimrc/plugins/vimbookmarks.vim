@@ -18,5 +18,4 @@ function s:mappings()
     noremap mt :BookmarkToggle<CR>
     noremap mn :BookmarkAnnotate<CR>
     noremap md :BookmarkClear<CR>
-    let g:dupa_marks = 1
 endfunction

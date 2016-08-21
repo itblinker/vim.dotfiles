@@ -17,11 +17,18 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'))
 "}}}
 "}}}
 
-    call dein#add('Shougo/unite.vim',
+    call dein#add('scrooloose/nerdtree',
                 \ {
-                \ 'name' : 'unite',
+                \ 'name' : 'nerdtree',
                 \ 'on_event' : 'VimEnter',
-                \ 'hook_post_source': 'call vimrc#plugins#unite#PostSourceSetup()'
+                \ 'hook_post_source' : 'call vimrc#plugins#nerdtree#PostSourceSetup()'
+                \ })
+
+    call dein#add('easymotion/vim-easymotion',
+                \ {
+                \ 'name' : 'easymotion',
+                \ 'on_event' : 'VimEnter',
+                \ 'hook_post_source' : 'call vimrc#plugins#easymotion#PostSourceSetup()()'
                 \ })
 
     call dein#add('MattesGroeger/vim-bookmarks',
@@ -31,15 +38,42 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'))
                 \ 'hook_post_source': 'call vimrc#plugins#vimbookmarks#PostSourceSetup()'
                 \ })
 
-    call dein#add('google/vim-maktaba',
+    call dein#add('Shougo/vimproc.vim',
                 \ {
-                \ 'name' : 'maktaba',
-                \ 'lazy' : 1,
-                \ 'hook_source': 'call vimrc#plugins#maktaba#PreSourceSetup()'
+                \ 'name' : 'vimproc',
+                \ 'build' : 'make'
                 \ })
 
-    "----------------------------
-    "test it'
+    call dein#add('Shougo/unite.vim',
+                \ {
+                \ 'name' : 'unite',
+                \ 'on_event' : 'VimEnter',
+                \ 'hook_post_source': 'call vimrc#plugins#unite#PostSourceSetup()'
+                \ })
+
+    call dein#add('Shougo/neomru.vim')
+    call dein#add('Shougo/neoyank.vim')
+
+    call dein#add('Shougo/unite-session')
+    call dein#add('Shougo/unite-help')
+    call dein#add('Shougo/tabpagebuffer.vim')
+    "Plug 'Shougo/junkfile.vim'
+    "Plug 'Shougo/vimshell.vim'
+    "Plug 'Shougo/vimfiler.vim'
+    "Plug 'Shougo/neopairs.vim'
+    "Plug 'Shougo/unite-outline'
+    "Plug 'Shougo/unite-build'
+    "Plug 'Shougo/neoinclude.vim'
+
+    call dein#add('tsukkee/unite-tag')
+    call dein#add('hewes/unite-gtags')
+    call dein#add('osyo-manga/unite-quickfix')
+    call dein#add('thinca/vim-unite-history')
+    call dein#add('tacroe/unite-mark')
+    call dein#add('kmnk/vim-unite-svn')
+    call dein#add('kmnk/vim-unite-giti')
+    "Plug 'kopischke/unite-spell-suggest'
+
     call dein#add('ton/vim-bufsurf',
                 \ {
                 \ 'name' : 'bufsurf',
@@ -47,57 +81,24 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'))
                 \ 'hook_post_source': 'call vimrc#plugins#bufsurf#PostSourceSetup()'
                 \ })
 
-    call dein#add('octol/vim-cpp-enhanced-highlight',
-                \ {
-                \ 'name' : 'cpp-enhanced-highlight',
-                \ 'on_ft' : 'cpp',
-                \ 'hook_post_source': 'call vimrc#plugins#cppenhancedhighlits#PostSourceSetup()'
-                \ })
-
-
-    call dein#add('aklt/plantuml-syntax',
-                \ {
-                \ 'name' : 'plantuml-syntax',
-                \ })
-
     call dein#add('kshenoy/vim-signature',
                 \ {
                 \ 'name' : 'signaure'
                 \ })
-
-
 
     "call dein#add('itblinker/fgrep.vim')
     "call dein#add('itblinker/ttcn.vim')
     "call dein#add('tblinker/cplane.sct')
     "call dein#add('itblinker/highlighter.vim')
 
-
-
-
     call dein#add('vimwiki/vimwiki')
-    call dein#add('Shougo/neomru.vim')
-    call dein#add('scrooloose/nerdtree')
     call dein#add('sjl/gundo.vim')
     call dein#add('yssl/QFEnter')
-    call dein#add('easymotion/vim-easymotion')
     call dein#add('ntpeters/vim-better-whitespace')
     call dein#add('bronson/vim-trailing-whitespace')
     call dein#add('scrooloose/nerdcommenter')
     call dein#add('google/vim-searchindex')
-    call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
-    call dein#add('Shougo/neoyank.vim')
-    call dein#add('Shougo/unite-session')
     call dein#add('vim-scripts/VimgrepBuffer')
-    call dein#add('tsukkee/unite-tag')
-    call dein#add('hewes/unite-gtags')
-    call dein#add('osyo-manga/unite-quickfix')
-    call dein#add('Shougo/unite-help')
-    call dein#add('thinca/vim-unite-history')
-    call dein#add('tacroe/unite-mark')
-    call dein#add('kmnk/vim-unite-svn')
-    call dein#add('kmnk/vim-unite-giti')
-    call dein#add('Shougo/tabpagebuffer.vim')
     call dein#add('tpope/vim-dispatch')
     call dein#add('tpope/vim-eunuch')
     call dein#add('mhinz/vim-signify')
@@ -111,22 +112,47 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'))
     call dein#add('mkitt/tabline.vim')
     call dein#add('justinmk/gv.vim')
     call dein#add('tpope/vim-fugitive')
-    call dein#add('vim-jp/vital.vim')
+
     "call dein#add('google/vim-glaive')
-    call dein#add('https://github.com/vim-utils/vim-man.git')
-    call dein#add('https://github.com/vim-utils/vim-husk.git')
+
     call dein#add('guns/vim-sexp')
     call dein#add('junegunn/vim-easy-align')
     call dein#add('kien/rainbow_parentheses.vim')
 
+"{{{ syntax, filetypes
+    call dein#add('octol/vim-cpp-enhanced-highlight',
+                \ {
+                \ 'name' : 'cpp-enhanced-highlight',
+                \ 'on_ft' : 'cpp',
+                \ 'hook_post_source': 'call vimrc#plugins#cppenhancedhighlits#PostSourceSetup()'
+                \ })
+
+    call dein#add('aklt/plantuml-syntax',
+                \ {
+                \ 'name' : 'plantuml-syntax',
+                \ })
+"}}}
+"{{{ libraries
+    call dein#add('google/vim-maktaba',
+                \ {
+                \ 'name' : 'maktaba',
+                \ 'lazy' : 1,
+                \ 'hook_source': 'call vimrc#plugins#maktaba#PreSourceSetup()'
+                \ })
+
+    call dein#add('vim-jp/vital.vim',
+                \ {
+                \ 'name' : 'vital',
+                \ 'lazy' : 1
+                \ })
+"}}}
+
+    call dein#add('https://github.com/vim-utils/vim-man.git')
+    call dein#add('https://github.com/vim-utils/vim-husk.git')
+
 "{{{ check / try to use
     "Plug 'jceb/vim-editqf'     "rare usable - it's used to laod/save quickfix/location list
     "Plug 'sk1418/QFGrep'
-    "Plug 'Shougo/junkfile.vim'
-    "Plug 'Shougo/vimshell.vim'
-    "Plug 'Shougo/vimfiler.vim'
-    "Plug 'Shougo/neopairs.vim'
-    "Plug 'Shougo/unite-outline'
     "Plug 'plasticboy/vim-markdown'
     "Plug 'tpope/vim-repeat'
     "Plug 'szw/vim-g'
@@ -139,10 +165,8 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'))
     "Plug 'embear/vim-localvimrc'
     "Plug 'majutsushi/tagbar'
     "Plug 'terryma/vim-multiple-cursors'
-    "Plug 'Shougo/unite-build'
-    "Plug 'Shougo/neoinclude.vim'
     "Plug 'bbchung/gtags.vim'
-    "Plug 'kopischke/unite-spell-suggest'
+
     "Plug 'tpope/vim-surround'
 "}}}
 

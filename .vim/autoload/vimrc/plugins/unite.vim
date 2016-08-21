@@ -13,6 +13,7 @@ function s:settings()
     call s:yank()
 endfunction
 
+
 function s:matching()
     call unite#filters#matcher_default#use(['matcher_glob'])
     call unite#filters#sorter_default#use(['sorter_rank'])
@@ -21,18 +22,22 @@ function s:matching()
     let g:unite_prompt = '>> '
 endfunction
 
+
 function s:paths()
     "let g:unite_data_directory = g:vim_manager_home_dir.'/unite'
 endfunction
+
 
 function s:caching()
     let g:unite_source_rec_min_cache_files = 100
     let g:unite_source_rec_max_cache_files = 0
 endfunction
 
+
 function s:find()
     let g:unite_source_find_default_expr = '-iname '
 endfunction
+
 
 function s:grep()
     let g:unite_source_grep_default_opts = '-inH --exclude-dir=.git --exclude-dir=.svn --exclude-dir=.bzr'
@@ -46,6 +51,7 @@ function s:grep()
         let g:unite_source_grep_recursive_opt = ''
     endif
 endfunction
+
 
 function s:yank()
     let g:unite_source_history_yank_enable = 1

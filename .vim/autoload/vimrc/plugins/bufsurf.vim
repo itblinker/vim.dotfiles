@@ -1,4 +1,4 @@
-function vimrc#plugins#bufsurf#Setup()
+function vimrc#plugins#bufsurf#PostSourceSetup()
     call s:mappings()
 endfunction
 

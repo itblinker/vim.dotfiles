@@ -1,4 +1,4 @@
-function vimrc#plugins#vimbookmarks#Setup()
+function manager#plugin#vimbookmarks#Setup()
     call s:settings()
     call s:mappings()
 endfunction

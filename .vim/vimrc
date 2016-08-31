@@ -11,7 +11,7 @@ endif
 execute 'set rtp+='.expand('$HOME/DEV/git.softwares/dein.vim')
 
 " path where downloaded plugins will be stored
-call dein#begin(expand('$HOME/DEV/bin/dein.vim'))
+call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
 "{{{
     call dein#add('Shougo/dein.vim')
 "}}}
@@ -28,7 +28,7 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'))
                 \ {
                 \ 'name' : 'easymotion',
                 \ 'on_event' : 'VimEnter',
-                \ 'hook_post_source' : 'call vimrc#plugins#easymotion#PostSourceSetup()()'
+                \ 'hook_post_source' : 'call vimrc#plugins#easymotion#PostSourceSetup()'
                 \ })
 
     call dein#add('MattesGroeger/vim-bookmarks',
@@ -36,6 +36,11 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'))
                 \ 'name' : 'bookmarks',
                 \ 'on_event' : 'VimEnter',
                 \ 'hook_post_source': 'call vimrc#plugins#vimbookmarks#PostSourceSetup()'
+                \ })
+
+    call dein#add('vimwiki/vimwiki',
+                \ {
+                \ 'if' : 0
                 \ })
 
     call dein#add('Shougo/vimproc.vim',
@@ -54,9 +59,43 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'))
     call dein#add('Shougo/neomru.vim')
     call dein#add('Shougo/neoyank.vim')
 
-    call dein#add('Shougo/unite-session')
+    call dein#add('Shougo/unite-session',
+                \ {
+                \ 'name' : 'unite-session',
+                \ 'on_event' : 'VimEnter',
+                \ 'hook_post_source': 'call vimrc#plugins#unitesession#PostSourceSetup()'
+                \ })
+
+    call dein#add('tsukkee/unite-tag',
+                \ {
+                \ 'name' : 'unite-tag',
+                \ 'on_event' : 'VimEnter',
+                \ 'hook_post_source': 'call vimrc#plugins#uniteTags#PostSourceSetup()'
+                \ })
+
+    call dein#add('hewes/unite-gtags',
+                \ {
+                \ 'name' : 'unite-gtags',
+                \ 'on_event' : 'VimEnter',
+                \ 'hook_post_source': 'call vimrc#plugins#uniteGtags#PostSourceSetup()'
+                \ })
+
+    call dein#add('osyo-manga/unite-quickfix',
+                \ {
+                \ 'name' : 'unite-quickfix',
+                \ 'on_event' : 'VimEnter',
+                \ 'hook_post_source': 'call vimrc#plugins#uniteQuickFix#PostSourceSetup()'
+                \ })
+
+
+    call dein#add('thinca/vim-unite-history')
+    call dein#add('tacroe/unite-mark')
+    call dein#add('kmnk/vim-unite-svn')
+    call dein#add('kmnk/vim-unite-giti')
     call dein#add('Shougo/unite-help')
+
     call dein#add('Shougo/tabpagebuffer.vim')
+
     "Plug 'Shougo/junkfile.vim'
     "Plug 'Shougo/vimshell.vim'
     "Plug 'Shougo/vimfiler.vim'
@@ -64,15 +103,14 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'))
     "Plug 'Shougo/unite-outline'
     "Plug 'Shougo/unite-build'
     "Plug 'Shougo/neoinclude.vim'
-
-    call dein#add('tsukkee/unite-tag')
-    call dein#add('hewes/unite-gtags')
-    call dein#add('osyo-manga/unite-quickfix')
-    call dein#add('thinca/vim-unite-history')
-    call dein#add('tacroe/unite-mark')
-    call dein#add('kmnk/vim-unite-svn')
-    call dein#add('kmnk/vim-unite-giti')
     "Plug 'kopischke/unite-spell-suggest'
+
+    call dein#add('sjl/gundo.vim',
+                \ {
+                \ 'name' : 'gundo',
+                \ 'on_event' : 'VimEnter',
+                \ 'hook_post_source': 'call vimrc#plugins#gundo#PostSourceSetup()'
+                \ })
 
     call dein#add('ton/vim-bufsurf',
                 \ {
@@ -91,20 +129,27 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'))
     "call dein#add('tblinker/cplane.sct')
     "call dein#add('itblinker/highlighter.vim')
 
-    call dein#add('vimwiki/vimwiki')
-    call dein#add('sjl/gundo.vim')
-    call dein#add('yssl/QFEnter')
+    call dein#add('yssl/QFEnter',
+                \ {
+                \ 'name' : 'qfenter',
+                \ 'on_event' : 'VimEnter',
+                \ 'hook_post_source': 'call vimrc#plugins#qfenter#PostSourceSetup()'
+                \ })
+
+
+    call dein#add('tmux-plugins/vim-tmux')
+    call dein#add('tmux-plugins/vim-tmux-focus-events')
+    call dein#add('christoomey/vim-tmux-navigator')
+
     call dein#add('ntpeters/vim-better-whitespace')
     call dein#add('bronson/vim-trailing-whitespace')
-    call dein#add('scrooloose/nerdcommenter')
+    "call dein#add('scrooloose/nerdcommenter')
     call dein#add('google/vim-searchindex')
     call dein#add('vim-scripts/VimgrepBuffer')
     call dein#add('tpope/vim-dispatch')
     call dein#add('tpope/vim-eunuch')
     call dein#add('mhinz/vim-signify')
-    call dein#add('tmux-plugins/vim-tmux')
-    call dein#add('tmux-plugins/vim-tmux-focus-events')
-    call dein#add('christoomey/vim-tmux-navigator')
+
     call dein#add('szw/vim-maximizer')
     call dein#add('vifm/vifm.vim')
     call dein#add('cohama/lexima.vim')
@@ -119,7 +164,9 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'))
     call dein#add('junegunn/vim-easy-align')
     call dein#add('kien/rainbow_parentheses.vim')
 
-"{{{ syntax, filetypes
+    "
+    " filetypes
+    "
     call dein#add('octol/vim-cpp-enhanced-highlight',
                 \ {
                 \ 'name' : 'cpp-enhanced-highlight',
@@ -131,8 +178,9 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'))
                 \ {
                 \ 'name' : 'plantuml-syntax',
                 \ })
-"}}}
-"{{{ libraries
+    "
+    " libraries
+    "
     call dein#add('google/vim-maktaba',
                 \ {
                 \ 'name' : 'maktaba',

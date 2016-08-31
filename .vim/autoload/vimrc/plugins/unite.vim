@@ -5,6 +5,7 @@ endfunction
 
 
 function s:settings()
+    "call s:defaultProfile()
     call s:matching()
     call s:paths()
     call s:caching()
@@ -13,6 +14,14 @@ function s:settings()
     call s:yank()
 endfunction
 
+
+"function s:defaultProfile()
+	"call unite#custom#profile('default', 'context',
+                "\ {
+				"\ 'start_insert': 0
+				"\ })
+
+"endfunction
 
 function s:matching()
     call unite#filters#matcher_default#use(['matcher_glob'])

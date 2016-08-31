@@ -1,6 +1,7 @@
-function manager#plugin#unitesession#Settings()
-    let g:unite_source_session_enable_auto_save = 1
+function vimrc#plugins#unitesession#PostSourceSetup()
+    call s:settings()
 endfunction
 
-function manager#plugin#unitesession#Mappings()
+function s:settings()
+    let g:unite_source_session_enable_auto_save = 1
 endfunction

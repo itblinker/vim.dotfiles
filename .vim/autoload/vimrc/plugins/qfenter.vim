@@ -1,3 +1,9 @@
+function vimrc#plugins#qfenter#PostSourceSetup()
+    call s:settings()
+    call s:mappings()
+endfunction
+
+
 function s:settings()
     let g:qfenter_enable_autoquickfix = 0
 
@@ -16,8 +22,5 @@ function s:mappings()
 endfunction
 
 
-function manager#plugin#qfenter#Setup()
-    call s:settings()
-    call s:mappings()
-endfunction
+
 

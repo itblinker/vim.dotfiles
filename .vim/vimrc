@@ -63,6 +63,13 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                     \ 'depends' : ['unite'],
                     \ 'hook_post_source': 'call vimrc#plugins#neoyank#PostSourceSetup()'
                     \ })
+
+    call dein#add('Shougo/unite-session',
+                \ {
+                \ 'name' : 'unite-session',
+                \ 'on_event' : 'VimEnter',
+                \ 'hook_post_source': 'call vimrc#plugins#unitesession#PostSourceSetup()'
+                \ })
     endif
 
     call dein#add('scrooloose/nerdtree',
@@ -78,10 +85,6 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ 'on_event' : 'VimEnter',
                 \ 'hook_post_source' : 'call vimrc#plugins#easymotion#PostSourceSetup()'
                 \ })
-
-
-
-
 
     call dein#add('Shougo/unite-session',
                 \ {

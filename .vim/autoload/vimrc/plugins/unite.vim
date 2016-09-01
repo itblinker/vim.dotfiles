@@ -10,7 +10,6 @@ function s:settings()
     call s:caching()
     call s:find()
     call s:grep()
-    call s:yank()
 endfunction
 
 
@@ -64,12 +63,6 @@ function s:grep()
                     \ '''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'''
         let g:unite_source_grep_recursive_opt = ''
     endif
-endfunction
-
-
-function s:yank()
-    let g:unite_source_history_yank_enable = 1
-    let g:unite_source_yank_history_save_clipboard = 1
 endfunction
 
 

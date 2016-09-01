@@ -90,7 +90,6 @@ function s:mappings()
     nnoremap <leader>e :Unite change<CR>
 
     nnoremap <leader>c :Unite history/command<CR>
-    nnoremap <leader>y :Unite history/yank<CR>
 
     "execute 'nnoremap <leader>sm :call manager#plugin#unite#MruSourcesinCwd()<CR>'
     "execute 'nnoremap <leader>ss :call manager#plugin#unite#FindSimiliarFilesByUnite()<CR>'

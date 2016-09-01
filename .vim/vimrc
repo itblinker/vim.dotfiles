@@ -55,10 +55,15 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                     \ 'depends' : ['unite'],
                     \ 'hook_post_source': 'call vimrc#plugins#neomru#PostSourceSetup()'
                     \ })
+
+        call dein#add('Shougo/neoyank.vim',
+                    \ {
+                    \ 'name' : 'neoyank',
+                    \ 'on_event' : 'VimEnter',
+                    \ 'depends' : ['unite'],
+                    \ 'hook_post_source': 'call vimrc#plugins#neoyank#PostSourceSetup()'
+                    \ })
     endif
-
-
-
 
     call dein#add('scrooloose/nerdtree',
                 \ {
@@ -76,7 +81,7 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
 
 
 
-    call dein#add('Shougo/neoyank.vim')
+
 
     call dein#add('Shougo/unite-session',
                 \ {
@@ -247,13 +252,12 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
     "Plug 'tpope/vim-surround'
 "}}}
 
-
 "{{{ dein.vim | end statement
 call dein#end()
 "}}}
-"}}}
 
 "{{{ settings | global
+
 syntax enable
 filetype plugin indent on
 
@@ -325,6 +329,7 @@ set history=1000
 set undolevels=1000
 
 set foldmethod=marker
+
 "}}}
 
 "{{{ mappings | global

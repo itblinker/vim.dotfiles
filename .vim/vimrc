@@ -17,6 +17,49 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
 "}}}
 "}}}
 
+    call dein#add('Shougo/vimproc.vim',
+                \ {
+                \ 'name' : 'vimproc',
+                \ 'build' : 'make',
+                \ 'lazy' : 1
+                \ })
+
+    call dein#add('Shougo/unite.vim',
+                \ {
+                \ 'name' : 'unite',
+                \ 'on_event' : 'VimEnter',
+                \ 'hook_post_source': 'call vimrc#plugins#unite#PostSourceSetup()'
+                \ })
+
+    call dein#add('Shougo/tabpagebuffer.vim',
+                \ {
+                \ 'name' : 'tabpagebuffer',
+                \ 'on_event' : 'VimEnter',
+                \ 'depends' : ['unite'],
+                \ 'hook_post_source': 'call vimrc#plugins#tabpagebuffer#PostSourceSetup()'
+                \ })
+
+    if vimrc#isCwdWritable()
+        call dein#add('MattesGroeger/vim-bookmarks',
+                    \ {
+                    \ 'name' : 'vimbookmarks',
+                    \ 'on_event' : 'VimEnter',
+                    \ 'depends' : ['unite'],
+                    \ 'hook_post_source': 'call vimrc#plugins#vimbookmarks#PostSourceSetup()'
+                    \ })
+
+        call dein#add('Shougo/neomru.vim',
+                    \ {
+                    \ 'name' : 'neomru',
+                    \ 'on_event' : 'VimEnter',
+                    \ 'depends' : ['unite'],
+                    \ 'hook_post_source': 'call vimrc#plugins#neomru#PostSourceSetup()'
+                    \ })
+    endif
+
+
+
+
     call dein#add('scrooloose/nerdtree',
                 \ {
                 \ 'name' : 'nerdtree',
@@ -31,41 +74,8 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ 'hook_post_source' : 'call vimrc#plugins#easymotion#PostSourceSetup()'
                 \ })
 
-    call dein#add('Shougo/unite.vim',
-                \ {
-                \ 'name' : 'unite',
-                \ 'on_event' : 'VimEnter',
-                \ 'hook_post_source': 'call vimrc#plugins#unite#PostSourceSetup()'
-                \ })
-
-    call dein#add('MattesGroeger/vim-bookmarks',
-                \ {
-                \ 'name' : 'vimbookmarks',
-                \ 'on_event' : 'VimEnter',
-                \ 'on_if' : 'filewritable(getcwd())',
-                \ 'depends' : ['unite'],
-                \ 'hook_post_source': 'call vimrc#plugins#vimbookmarks#PostSourceSetup()'
-                \ })
-
-    call dein#add('Shougo/tabpagebuffer.vim',
-                \ {
-                \ 'name' : 'tabpagebuffer',
-                \ 'on_event' : 'VimEnter',
-                \ 'depends' : ['unite'],
-                \ 'hook_post_source': 'call vimrc#plugins#tabpagebuffer#PostSourceSetup()'
-                \ })
 
 
-    call dein#add('Shougo/vimproc.vim',
-                \ {
-                \ 'name' : 'vimproc',
-                \ 'build' : 'make',
-                \ 'lazy' : 1
-                \ })
-
-
-
-    call dein#add('Shougo/neomru.vim')
     call dein#add('Shougo/neoyank.vim')
 
     call dein#add('Shougo/unite-session',

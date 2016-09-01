@@ -1,0 +1,14 @@
+function! vimrc#plugins#neomru#PostSourceSetup()
+    call s:settings()
+    call s:mappings()
+endfunction
+
+
+function! s:settings()
+    let g:neomru#file_mru_path = vimrc#getLocalCacheDir().'/neomru.txt'
+endfunction
+
+
+function! s:mappings()
+    noremap <leader>sm :Unite file_mru<CR>
+endfunction

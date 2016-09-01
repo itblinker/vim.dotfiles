@@ -92,8 +92,8 @@ function s:mappings()
     nnoremap <leader>c :Unite history/command<CR>
     nnoremap <leader>y :Unite history/yank<CR>
 
-    execute 'nnoremap <leader>sm :call manager#plugin#unite#MruSourcesinCwd()<CR>'
-    execute 'nnoremap <leader>ss :call manager#plugin#unite#FindSimiliarFilesByUnite()<CR>'
-    execute 'nnoremap <leader>sf :call manager#plugin#unite#FindSourceOrHeaderFileByUnite()<CR>'
-    execute 'nnoremap <leader>GW :call manager#plugin#unite#GrepByUnite()<CR>'
+    "execute 'nnoremap <leader>sm :call manager#plugin#unite#MruSourcesinCwd()<CR>'
+    "execute 'nnoremap <leader>ss :call manager#plugin#unite#FindSimiliarFilesByUnite()<CR>'
+    "execute 'nnoremap <leader>sf :call manager#plugin#unite#FindSourceOrHeaderFileByUnite()<CR>'
+    "execute 'nnoremap <leader>GW :call manager#plugin#unite#GrepByUnite()<CR>'
 endfunction

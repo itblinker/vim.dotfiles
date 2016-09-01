@@ -1,10 +1,10 @@
-function vimrc#plugins#qfenter#PostSourceSetup()
+function! vimrc#plugins#qfenter#PostSourceSetup()
     call s:settings()
     call s:mappings()
 endfunction
 
 
-function s:settings()
+function! s:settings()
     let g:qfenter_enable_autoquickfix = 0
 
     let g:qfenter_keep_quickfixfocus = {
@@ -14,13 +14,9 @@ function s:settings()
                 \}
 endfunction
 
-function s:mappings()
+function! s:mappings()
     let g:qfenter_open_map = ['o']
     let g:qfenter_vopen_map = ['S']
     let g:qfenter_hopen_map = ['s']
     let g:qfenter_topen_map = ['t']
 endfunction
-
-
-
-

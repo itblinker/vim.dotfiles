@@ -1,9 +1,9 @@
-function s:mappings()
-    nnoremap <silent> <leader>/ :call NERDComment(0,"toggle")<CR>
-    vnoremap <silent> <leader>/ :call NERDComment(0,"toggle")<CR>
+function! manager#plugin#nerdcomment#Setup()
+    call s:mappings()
 endfunction
 
 
-function manager#plugin#nerdcomment#Setup()
-    call s:mappings()
+function! s:mappings()
+    nnoremap <silent> <leader>/ :call NERDComment(0,"toggle")<CR>
+    vnoremap <silent> <leader>/ :call NERDComment(0,"toggle")<CR>
 endfunction

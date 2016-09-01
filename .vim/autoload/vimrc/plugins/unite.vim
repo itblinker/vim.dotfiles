@@ -5,8 +5,7 @@ endfunction
 
 
 function s:settings()
-    "call s:defaultProfile()
-    call s:matching()
+    call s:setupDefaultProfile()
     call s:paths()
     call s:caching()
     call s:find()
@@ -15,20 +14,26 @@ function s:settings()
 endfunction
 
 
-"function s:defaultProfile()
-	"call unite#custom#profile('default', 'context',
-                "\ {
-				"\ 'start_insert': 0
-				"\ })
+function s:setupDefaultProfile()
 
-"endfunction
+    call unite#custom#profile('default', 'context',
+                \ {
+                \ 'start_insert' : 0,
+                \ 'smart_case' : 1,
+                \ 'prompt' : '>>',
+                \ 'prompt_focus' : 0,
+                \ 'prompt_direction' : 'top',
+                \ 'auto_preview' : 0,
+                \ 'horizontal' : 1,
+                \ 'winheight' : '15',
+                \ 'previewheight' : '15',
+                \ 'truncate' : '0'
+                \ })
 
-function s:matching()
-    call unite#filters#matcher_default#use(['matcher_glob'])
-    call unite#filters#sorter_default#use(['sorter_rank'])
+    call unite#custom#source('file_rec/async,buffer_tab,buffer',
+                \ 'matchers', ['converter_file_directory', 'matcher_regexp'])
+    call unite#custom#source('buffer_tab', 'matchers', ['converter_file_directory', 'matcher_regexp'])
 
-    let g:unite_enable_auto_select = 0
-    let g:unite_prompt = '>> '
 endfunction
 
 
@@ -71,28 +76,23 @@ endfunction
 function s:mappings()
     let g:unite_no_default_keymappings = 1
 
-    nnoremap <leader>u :Unite -smartcase -start-insert -wipe<CR>
     nnoremap <leader>ru :UniteResume -smartcase<CR>
-    nnoremap <leader>rg :UniteResume 'grep'<CR>
-    nnoremap <leader>rf :UniteResume 'find'<CR>
 
-    nnoremap <leader>w :Unite -smartcase -wipe window<CR>
-    nnoremap <leader>t :Unite -smartcase -wipe tab<CR>
+    nnoremap <leader>w :Unite window<CR>
+    nnoremap <leader>t :Unite tab<CR>
 
-    nnoremap <leader>sa :Unite -smartcase -start-insert -wipe file_rec/async:!<CR>
+    nnoremap <leader>sa :Unite file_rec/async:!<CR>
+
+    nnoremap <leader>bf  :Unite buffer:-<CR>
+    nnoremap <leader>ba  :Unite buffer<CR>
+
+    nnoremap <leader>p :Unite jump<CR>
+    nnoremap <leader>e :Unite change<CR>
+
+    nnoremap <leader>c :Unite history/command<CR>
+    nnoremap <leader>y :Unite history/yank<CR>
+
     execute 'nnoremap <leader>sm :call manager#plugin#unite#MruSourcesinCwd()<CR>'
-
-    nnoremap <leader>bb  :Unite -smartcase -start-insert -wipe buffer_tab:-<CR>
-    nnoremap <leader>bf  :Unite -smartcase -start-insert -wipe buffer:-<CR>
-    nnoremap <leader>ba  :Unite -smartcase -start-insert -wipe buffer<CR>
-
-    nnoremap <leader>p :Unite -smartcase -start-insert -wipe jump<CR>
-    nnoremap <leader>e :Unite -smartcase -start-insert -wipe change<CR>
-    nnoremap <leader>m :Unite -smartcase -start-insert -wipe mark vim_bookmarks<CR>
-
-    nnoremap <leader>c :Unite -smartcase -start-insert -wipe history/command<CR>
-    nnoremap <leader>y :Unite -smartcase -start-insert -wipe history/yank<CR>
-
     execute 'nnoremap <leader>ss :call manager#plugin#unite#FindSimiliarFilesByUnite()<CR>'
     execute 'nnoremap <leader>sf :call manager#plugin#unite#FindSourceOrHeaderFileByUnite()<CR>'
     execute 'nnoremap <leader>GW :call manager#plugin#unite#GrepByUnite()<CR>'

@@ -1,4 +1,4 @@
-function s:settings()
+function! s:settings()
     let g:localvimrc_file = "project_settings.vim"
     let g:localvimrc_event = ["VimEnter"]
 
@@ -10,6 +10,6 @@ function s:settings()
 endfunction
 
 
-function manager#plugin#localvimrc#Setup()
+function! manager#plugin#localvimrc#Setup()
     call s:settings()
 endfunction

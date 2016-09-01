@@ -1,4 +1,4 @@
-function vimrc#plugins#airline#Setup()
+function! vimrc#plugins#airline#Setup()
     let g:airline_theme='base16_summerfruit'
 
     let g:airline#extensions#tabline#enabled = 1

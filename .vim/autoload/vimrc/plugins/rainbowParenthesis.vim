@@ -1,4 +1,9 @@
-function s:settings()
+function! manager#plugin#rainbowParenthesis#Setup()
+    call s:settings()
+endfunction
+
+
+function! s:settings()
     let g:rbpt_colorpairs = [
                 \ ['brown',       'RoyalBlue3'],
                 \ ['darkgreen',   'firebrick3'],
@@ -20,9 +25,3 @@ function s:settings()
     au Syntax * RainbowParenthesesLoadSquare
     au Syntax * RainbowParenthesesLoadBraces
 endfunction
-
-
-function manager#plugin#rainbowParenthesis#Setup()
-    call s:settings()
-endfunction
-

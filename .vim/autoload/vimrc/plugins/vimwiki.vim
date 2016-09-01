@@ -1,4 +1,10 @@
-function s:settings()
+function! manager#plugin#vimwiki#Setup()
+    call s:settings()
+    call s:mappings()
+endfunction
+
+
+function! s:settings()
     let l:local_wiki = manager#vim#GeCwdVimStore().'/wiki'
     let g:vimwiki_list = [
                 \ {'path': '~/Dropbox/Notes/vimwiki'},
@@ -11,7 +17,7 @@ function s:settings()
 endfunction
 
 
-function s:bufferMappings()
+function! s:bufferMappings()
     autocmd FileType vimwiki nmap <silent><buffer> <Leader>vgH <Plug>Vimwiki2HTML
 
     autocmd FileType vimwiki nmap <silent><buffer> <Leader>vs <Plug>VimwikiSplitLink
@@ -42,7 +48,4 @@ function s:mappings()
 endfunction
 
 
-function manager#plugin#vimwiki#Setup()
-    call s:settings()
-    call s:mappings()
-endfunction
+

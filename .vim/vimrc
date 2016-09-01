@@ -31,30 +31,39 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ 'hook_post_source' : 'call vimrc#plugins#easymotion#PostSourceSetup()'
                 \ })
 
-    call dein#add('MattesGroeger/vim-bookmarks',
-                \ {
-                \ 'name' : 'bookmarks',
-                \ 'on_event' : 'VimEnter',
-                \ 'hook_post_source': 'call vimrc#plugins#vimbookmarks#PostSourceSetup()'
-                \ })
-
-    call dein#add('vimwiki/vimwiki',
-                \ {
-                \ 'if' : 0
-                \ })
-
-    call dein#add('Shougo/vimproc.vim',
-                \ {
-                \ 'name' : 'vimproc',
-                \ 'build' : 'make'
-                \ })
-
     call dein#add('Shougo/unite.vim',
                 \ {
                 \ 'name' : 'unite',
                 \ 'on_event' : 'VimEnter',
                 \ 'hook_post_source': 'call vimrc#plugins#unite#PostSourceSetup()'
                 \ })
+
+    call dein#add('MattesGroeger/vim-bookmarks',
+                \ {
+                \ 'name' : 'vimbookmarks',
+                \ 'on_event' : 'VimEnter',
+                \ 'on_if' : 'filewritable(getcwd())',
+                \ 'depends' : ['unite'],
+                \ 'hook_post_source': 'call vimrc#plugins#vimbookmarks#PostSourceSetup()'
+                \ })
+
+    call dein#add('Shougo/tabpagebuffer.vim',
+                \ {
+                \ 'name' : 'tabpagebuffer',
+                \ 'on_event' : 'VimEnter',
+                \ 'depends' : ['unite'],
+                \ 'hook_post_source': 'call vimrc#plugins#tabpagebuffer#PostSourceSetup()'
+                \ })
+
+
+    call dein#add('Shougo/vimproc.vim',
+                \ {
+                \ 'name' : 'vimproc',
+                \ 'build' : 'make',
+                \ 'lazy' : 1
+                \ })
+
+
 
     call dein#add('Shougo/neomru.vim')
     call dein#add('Shougo/neoyank.vim')
@@ -94,7 +103,7 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
     call dein#add('kmnk/vim-unite-giti')
     call dein#add('Shougo/unite-help')
 
-    call dein#add('Shougo/tabpagebuffer.vim')
+
 
     "Plug 'Shougo/junkfile.vim'
     "Plug 'Shougo/vimshell.vim'
@@ -193,12 +202,23 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ 'name' : 'vital',
                 \ 'lazy' : 1
                 \ })
-"}}}
 
-    call dein#add('https://github.com/vim-utils/vim-man.git')
-    call dein#add('https://github.com/vim-utils/vim-husk.git')
 
-"{{{ check / try to use
+    call dein#add('vimwiki/vimwiki',
+                \ {
+                \ 'if' : 0
+                \ })
+
+    call dein#add('https://github.com/vim-utils/vim-man.git',
+                \ {
+                \ 'if' : 0
+                \ })
+
+    call dein#add('https://github.com/vim-utils/vim-husk.git',
+                \ {
+                \ 'if' : 0
+                \ })
+
     "Plug 'jceb/vim-editqf'     "rare usable - it's used to laod/save quickfix/location list
     "Plug 'sk1418/QFGrep'
     "Plug 'plasticboy/vim-markdown'
@@ -214,9 +234,9 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
     "Plug 'majutsushi/tagbar'
     "Plug 'terryma/vim-multiple-cursors'
     "Plug 'bbchung/gtags.vim'
-
     "Plug 'tpope/vim-surround'
 "}}}
+
 
 "{{{ dein.vim | end statement
 call dein#end()

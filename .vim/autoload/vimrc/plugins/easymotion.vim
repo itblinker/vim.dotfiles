@@ -1,9 +1,9 @@
-function vimrc#plugins#easymotion#PostSourceSetup()
+function! vimrc#plugins#easymotion#PostSourceSetup()
     call s:mappings()
 endfunction
 
 
-function s:mappings()
+function! s:mappings()
     map <leader>f <Plug>(easymotion-f)
     map <leader>F <Plug>(easymotion-F)
     map <leader>j <Plug>(easymotion-j)

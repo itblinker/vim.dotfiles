@@ -4,3 +4,6 @@ setlocal shiftround      "it'll keep all alignment by tabstop and shiftwidth
 setlocal expandtab       "tab will be replaced by spaces
 
 setlocal nowrap
+
+setlocal number
+setlocal relativenumber

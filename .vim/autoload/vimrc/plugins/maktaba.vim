@@ -1,3 +1,3 @@
-function vimrc#plugins#maktaba#PreSourceSetup()
+function! vimrc#plugins#maktaba#PreSourceSetup()
     call maktaba#json#python#Disable()
 endfunction

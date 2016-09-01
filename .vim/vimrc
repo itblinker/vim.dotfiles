@@ -39,58 +39,45 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ 'hook_post_source': 'call vimrc#plugins#tabpagebuffer#PostSourceSetup()'
                 \ })
 
-    if vimrc#isCwdWritable()
-        call dein#add('MattesGroeger/vim-bookmarks',
-                    \ {
-                    \ 'name' : 'vimbookmarks',
-                    \ 'on_event' : 'VimEnter',
-                    \ 'depends' : ['unite'],
-                    \ 'hook_post_source': 'call vimrc#plugins#vimbookmarks#PostSourceSetup()'
-                    \ })
+    call dein#add('MattesGroeger/vim-bookmarks',
+                \ {
+                \ 'name' : 'vimbookmarks',
+                \ 'on_event' : 'VimEnter',
+                \ 'depends' : ['unite'],
+                \ 'hook_post_source': 'call vimrc#plugins#vimbookmarks#PostSourceSetup()'
+                \ })
 
-        call dein#add('Shougo/neomru.vim',
-                    \ {
-                    \ 'name' : 'neomru',
-                    \ 'on_event' : 'VimEnter',
-                    \ 'depends' : ['unite'],
-                    \ 'hook_post_source': 'call vimrc#plugins#neomru#PostSourceSetup()'
-                    \ })
+    call dein#add('Shougo/neomru.vim',
+                \ {
+                \ 'name' : 'neomru',
+                \ 'on_event' : 'VimEnter',
+                \ 'depends' : ['unite'],
+                \ 'hook_post_source': 'call vimrc#plugins#neomru#PostSourceSetup()'
+                \ })
 
-        call dein#add('Shougo/neoyank.vim',
-                    \ {
-                    \ 'name' : 'neoyank',
-                    \ 'on_event' : 'VimEnter',
-                    \ 'depends' : ['unite'],
-                    \ 'hook_post_source': 'call vimrc#plugins#neoyank#PostSourceSetup()'
-                    \ })
+    call dein#add('Shougo/neoyank.vim',
+                \ {
+                \ 'name' : 'neoyank',
+                \ 'on_event' : 'VimEnter',
+                \ 'depends' : ['unite'],
+                \ 'hook_post_source': 'call vimrc#plugins#neoyank#PostSourceSetup()'
+                \ })
 
+    " configure further
     call dein#add('Shougo/unite-session',
                 \ {
                 \ 'name' : 'unite-session',
                 \ 'on_event' : 'VimEnter',
+                \ 'depends' : ['unite'],
                 \ 'hook_post_source': 'call vimrc#plugins#unitesession#PostSourceSetup()'
                 \ })
-    endif
 
-    call dein#add('scrooloose/nerdtree',
-                \ {
-                \ 'name' : 'nerdtree',
-                \ 'on_event' : 'VimEnter',
-                \ 'hook_post_source' : 'call vimrc#plugins#nerdtree#PostSourceSetup()'
-                \ })
 
-    call dein#add('easymotion/vim-easymotion',
+    call dein#add('osyo-manga/unite-quickfix',
                 \ {
-                \ 'name' : 'easymotion',
+                \ 'name' : 'unite-quickfix',
                 \ 'on_event' : 'VimEnter',
-                \ 'hook_post_source' : 'call vimrc#plugins#easymotion#PostSourceSetup()'
-                \ })
-
-    call dein#add('Shougo/unite-session',
-                \ {
-                \ 'name' : 'unite-session',
-                \ 'on_event' : 'VimEnter',
-                \ 'hook_post_source': 'call vimrc#plugins#unitesession#PostSourceSetup()'
+                \ 'hook_post_source': 'call vimrc#plugins#uniteQuickFix#PostSourceSetup()'
                 \ })
 
     call dein#add('tsukkee/unite-tag',
@@ -107,30 +94,44 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ 'hook_post_source': 'call vimrc#plugins#uniteGtags#PostSourceSetup()'
                 \ })
 
-    call dein#add('osyo-manga/unite-quickfix',
-                \ {
-                \ 'name' : 'unite-quickfix',
-                \ 'on_event' : 'VimEnter',
-                \ 'hook_post_source': 'call vimrc#plugins#uniteQuickFix#PostSourceSetup()'
-                \ })
-
-
     call dein#add('thinca/vim-unite-history')
+
+
     call dein#add('tacroe/unite-mark')
     call dein#add('kmnk/vim-unite-svn')
     call dein#add('kmnk/vim-unite-giti')
     call dein#add('Shougo/unite-help')
-
-
-
-    "Plug 'Shougo/junkfile.vim'
-    "Plug 'Shougo/vimshell.vim'
-    "Plug 'Shougo/vimfiler.vim'
-    "Plug 'Shougo/neopairs.vim'
     "Plug 'Shougo/unite-outline'
     "Plug 'Shougo/unite-build'
     "Plug 'Shougo/neoinclude.vim'
     "Plug 'kopischke/unite-spell-suggest'
+    "Plug 'Shougo/junkfile.vim'
+    "Plug 'Shougo/vimshell.vim'
+    "Plug 'Shougo/vimfiler.vim'
+    "Plug 'Shougo/neopairs.vim'
+
+
+    " --------------- non unite plugins
+    call dein#add('scrooloose/nerdtree',
+                \ {
+                \ 'name' : 'nerdtree',
+                \ 'on_event' : 'VimEnter',
+                \ 'hook_post_source' : 'call vimrc#plugins#nerdtree#PostSourceSetup()'
+                \ })
+
+    call dein#add('easymotion/vim-easymotion',
+                \ {
+                \ 'name' : 'easymotion',
+                \ 'on_event' : 'VimEnter',
+                \ 'hook_post_source' : 'call vimrc#plugins#easymotion#PostSourceSetup()'
+                \ })
+
+
+
+
+
+
+
 
     call dein#add('sjl/gundo.vim',
                 \ {

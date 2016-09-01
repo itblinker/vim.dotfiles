@@ -5,7 +5,7 @@ endfunction
 
 
 function! s:settings()
-    let g:neoyank#file = vimrc#getLocalCacheDir().'/neoyank.txt'
+    "let g:neoyank#file = vimrc#getCacheDir().'/neoyank.txt'
 endfunction
 
 

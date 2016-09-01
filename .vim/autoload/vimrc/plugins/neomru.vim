@@ -5,7 +5,7 @@ endfunction
 
 
 function! s:settings()
-    let g:neomru#file_mru_path = vimrc#getLocalCacheDir().'/neomru.txt'
+    let g:neomru#file_mru_path = vimrc#getCacheDir().'/neomru.txt'
 endfunction
 
 

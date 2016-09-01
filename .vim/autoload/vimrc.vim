@@ -5,12 +5,6 @@ function! vimrc#throw(string) abort
 endfunction
 "}}}
 
-function! vimrc#isCwdWritable() abort
-"{{{
-    return filewritable(getcwd())
-endfunction
-"}}}
-
 function! vimrc#getCacheDir() abort
 "{{{
     try
@@ -19,26 +13,26 @@ function! vimrc#getCacheDir() abort
         try
             return s:fetchGlobalCacheDir()
         catch
-            call vimrc#throw('cannot create cache directory')
+            call vimrc#throw('create '.s:globalCacheDir.' manually to suppress the error')
         endtry
     endtry
 endfunction
 
 
-let s:cacheDirName = '.cache.vim'
-
+let s:localCacheDirName = '.vim.cache.local'
 let s:localParentDir = getcwd()
-let s:localCacheDir = s:localParentDir.'/'.s:cacheDirName
+let s:localCacheDir = s:localParentDir.'/'.s:localCacheDirName
 
+let s:globalCacheDirName = '.vim.cache.global'
 let s:globalParentDir = expand('$HOME')
-let s:globalCacheDir = s:globalParentDir.'/'.s:cacheDirName
+let s:globalCacheDir = s:globalParentDir.'/'.s:globalCacheDirName
 
 function! s:isLocalCacheAvailable() abort
     return isdirectory(s:localCacheDir)
 endfunction
 
 function! s:createLocalCacheDir() abort
-    call mkdir(s:cacheDirName, s:localParentDir)
+    call mkdir(s:localCacheDirName, s:localParentDir)
 endfunction
 
 function! s:isGlobalCacheAvailable() abort
@@ -46,7 +40,7 @@ function! s:isGlobalCacheAvailable() abort
 endfunction
 
 function! s:createGlobalCacheDir() abort
-    call mkdir(s:cacheDirName, s:globalParentDir)
+    call mkdir(s:globalCacheDirName, s:globalParentDir)
 endfunction
 
 
@@ -67,6 +61,10 @@ function! s:fetchGlobalCacheDir() abort
 
        call s:createGlobalCacheDir()
        return s:globalCacheDir
+endfunction
+
+function! CreateGlobalDir()
+    call s:createGlobalCacheDir()
 endfunction
 
 "}}}

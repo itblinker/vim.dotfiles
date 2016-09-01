@@ -20,5 +20,5 @@ function! s:mappings()
     noremap mn :BookmarkAnnotate<CR>
     noremap mca :BookmarkClear<CR>
 
-    nnoremap <leader>m :Unite vim_bookmarks<CR>
+    nnoremap <leader>m :Unite vim_bookmarks mark<CR>
 endfunction

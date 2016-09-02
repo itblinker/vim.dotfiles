@@ -1,4 +1,5 @@
 function! vimrc#plugins#unite#PostSourceSetup()
+"{{{
     call s:settings()
     call s:mappings()
 endfunction
@@ -64,6 +65,8 @@ function! s:grep()
     let g:unite_source_grep_default_opts =
                 \ '-iRHn --exclude-dir=.git --exclude-dir=.svn --exclude-dir=.bzr'
 
+    let g:unite_source_grep_recursive_opt = ''
+
     let g:unite_source_grep_search_word_highlight = 'None'
 
     if executable('ag')
@@ -102,3 +105,32 @@ function! s:mappings()
     "execute 'nnoremap <leader>sf :call manager#plugin#unite#FindSourceOrHeaderFileByUnite()<CR>'
     "execute 'nnoremap <leader>GW :call manager#plugin#unite#GrepByUnite()<CR>'
 endfunction
+"}}}
+
+function! vimrc#plugins#unite#Grep(...)
+"{{{
+    if a:0 == 1
+        execute 'Unite '.s:getGrepSource(escape(a:1, '\[]%'), getcwd())
+    elseif a:0 == 2
+        execute 'Unite '.s:getGrepSource(escape(a:1, '\[]%'), a:2)
+    else
+        echomsg 'vimrc#plugins#unite#Grep expects max 2 arguments | skipped'
+    endif
+endfunction
+
+
+function! s:getGrepSource(string, path)
+    let s:cache = g:unite_source_grep_default_opts
+    let g:unite_source_grep_default_opts = '-rHn --exclude-dir=.*git --exclude-dir=.svn --exclude-dir=.bzr --exclude-dir='.vimrc#getLocalChacheDir()
+
+    try
+        return 'grep:'.a:path.'::'.a:string
+    catch
+        let g:unite_source_grep_default_opts = s:cache
+        throw v:exception
+    finally
+        let g:unite_source_grep_default_opts = s:cache
+    endtry
+endfunction
+
+"}}}

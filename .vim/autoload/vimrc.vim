@@ -69,6 +69,13 @@ endfunction
 
 "}}}
 
+" For exclude from grep/find etc - take's only pottential address (doesn't create)
+function! vimrc#getLocalChacheDir() abort
+"{{{
+    return s:localCacheDirName
+endfunction
+"}}}
+
 function! vimrc#GetStringVisuallySelected()
 "{{{
     try

@@ -1,9 +1,8 @@
-setlocal tabstop=4       "number of spaces equals one tab
-setlocal shiftwidth=4    "when you shift by >> or << it'll shift using this number of spaces
-setlocal shiftround      "it'll keep all alignment by tabstop and shiftwidth
-setlocal expandtab       "tab will be replaced by spaces
+setlocal colorcolumn=120
+
+setlocal tabstop=4
+setlocal shiftwidth=4
+setlocal shiftround
+setlocal expandtab
 
 setlocal nowrap
-
-setlocal number
-setlocal relativenumber

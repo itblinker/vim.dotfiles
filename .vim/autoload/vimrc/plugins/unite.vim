@@ -5,8 +5,8 @@ endfunction
 
 
 function! s:settings()
-    call s:setupDefaultProfile()
     call s:paths()
+    call s:setupDefaultProfile()
     call s:cachingRecursiveFiles()
     call s:asyncCommandsSettings()
     call s:find()
@@ -74,7 +74,6 @@ function! s:grep()
         let g:unite_source_grep_recursive_opt = ''
     endif
 endfunction
-
 
 function! s:mappings()
     let g:unite_no_default_keymappings = 1

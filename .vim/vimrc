@@ -63,10 +63,18 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ 'hook_post_source': 'call vimrc#plugins#neoyank#PostSourceSetup()'
                 \ })
 
+    call dein#add('thinca/vim-unite-history',
+                \ {
+                \ 'name' : 'unitehistory',
+                \ 'on_event' : 'VimEnter',
+                \ 'depends' : ['unite'],
+                \ 'hook_post_source': 'call vimrc#plugins#unitehistory#PostSourceSetup()'
+                \ })
+
     " configure further
     call dein#add('Shougo/unite-session',
                 \ {
-                \ 'name' : 'unite-session',
+                \ 'name' : 'unitesession',
                 \ 'on_event' : 'VimEnter',
                 \ 'depends' : ['unite'],
                 \ 'hook_post_source': 'call vimrc#plugins#unitesession#PostSourceSetup()'
@@ -75,27 +83,24 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
 
     call dein#add('osyo-manga/unite-quickfix',
                 \ {
-                \ 'name' : 'unite-quickfix',
+                \ 'name' : 'unitequickfix',
                 \ 'on_event' : 'VimEnter',
-                \ 'hook_post_source': 'call vimrc#plugins#uniteQuickFix#PostSourceSetup()'
+                \ 'hook_post_source': 'call vimrc#plugins#unitequickix#PostSourceSetup()'
                 \ })
 
     call dein#add('tsukkee/unite-tag',
                 \ {
-                \ 'name' : 'unite-tag',
+                \ 'name' : 'unitetag',
                 \ 'on_event' : 'VimEnter',
-                \ 'hook_post_source': 'call vimrc#plugins#uniteTags#PostSourceSetup()'
+                \ 'hook_post_source': 'call vimrc#plugins#unitetag#PostSourceSetup()'
                 \ })
 
     call dein#add('hewes/unite-gtags',
                 \ {
-                \ 'name' : 'unite-gtags',
+                \ 'name' : 'unitegtags',
                 \ 'on_event' : 'VimEnter',
-                \ 'hook_post_source': 'call vimrc#plugins#uniteGtags#PostSourceSetup()'
+                \ 'hook_post_source': 'call vimrc#plugins#unitegtags#PostSourceSetup()'
                 \ })
-
-    call dein#add('thinca/vim-unite-history')
-
 
     call dein#add('tacroe/unite-mark')
     call dein#add('kmnk/vim-unite-svn')
@@ -197,14 +202,14 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
     "
     call dein#add('octol/vim-cpp-enhanced-highlight',
                 \ {
-                \ 'name' : 'cpp-enhanced-highlight',
+                \ 'name' : 'cppenhancedhighlight',
                 \ 'on_ft' : 'cpp',
                 \ 'hook_post_source': 'call vimrc#plugins#cppenhancedhighlits#PostSourceSetup()'
                 \ })
 
     call dein#add('aklt/plantuml-syntax',
                 \ {
-                \ 'name' : 'plantuml-syntax',
+                \ 'name' : 'plantumlsyntax',
                 \ })
     "
     " libraries
@@ -338,7 +343,8 @@ set foldmethod=marker
 "}}}
 
 "{{{ mappings | global
-execute 'let g:mapleader = '','''
+
+let g:mapleader = ','
 
 inoremap jk <esc>
 nnoremap <leader><space> :nohlsearch<CR>

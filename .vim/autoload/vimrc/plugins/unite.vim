@@ -14,7 +14,6 @@ endfunction
 
 
 function s:setupDefaultProfile()
-
     call unite#custom#profile('default', 'context',
                 \ {
                 \ 'start_insert' : 0,
@@ -37,7 +36,7 @@ endfunction
 
 
 function s:paths()
-    "let g:unite_data_directory = g:vim_manager_home_dir.'/unite'
+    let g:unite_data_directory = vimrc#getCacheDir().'/unite'
 endfunction
 
 
@@ -53,7 +52,7 @@ endfunction
 
 
 function s:grep()
-    let g:unite_source_grep_default_opts = '-inH --exclude-dir=.git --exclude-dir=.svn --exclude-dir=.bzr'
+    let g:unite_source_grep_default_opts = '-iRHn --exclude-dir=.git --exclude-dir=.svn --exclude-dir=.bzr'
     let g:unite_source_grep_search_word_highlight = 'None'
 
     if executable('ag')
@@ -82,7 +81,7 @@ function s:mappings()
     nnoremap <leader>p :Unite jump<CR>
     nnoremap <leader>e :Unite change<CR>
 
-    nnoremap <leader>c :Unite history/command<CR>
+
 
     "execute 'nnoremap <leader>sm :call manager#plugin#unite#MruSourcesinCwd()<CR>'
     "execute 'nnoremap <leader>ss :call manager#plugin#unite#FindSimiliarFilesByUnite()<CR>'

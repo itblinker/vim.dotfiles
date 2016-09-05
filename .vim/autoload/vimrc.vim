@@ -45,12 +45,11 @@ endfunction
 
 
 function! s:fetchLocalCacheDir() abort
-    if s:isLocalCacheAvailable()
-        return s:localCacheDir
+    if !s:isLocalCacheAvailable()
+        call s:createLocalCacheDir()
     endif
 
-       call s:createLocalCacheDir()
-       return s:localCacheDir
+        return s:localCacheDir
 endfunction
 
 
@@ -67,13 +66,6 @@ function! CreateGlobalDir()
     call s:createGlobalCacheDir()
 endfunction
 
-"}}}
-
-" For exclude from grep/find etc - take's only pottential address (doesn't create)
-function! vimrc#getLocalChacheDir() abort
-"{{{
-    return s:localCacheDirName
-endfunction
 "}}}
 
 function! vimrc#GetStringVisuallySelected()

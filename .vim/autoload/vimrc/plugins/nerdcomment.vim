@@ -1,6 +1,13 @@
-function! manager#plugin#nerdcomment#Setup()
+function! vimrc#plugins#nerdcomment#PreSourceSetup()
+    let g:NERDCreateDefaultMappings = 0
+endfunction
+
+
+function! vimrc#plugins#nerdcomment#PostSourceSetup()
     call s:mappings()
 endfunction
+
+
 
 
 function! s:mappings()

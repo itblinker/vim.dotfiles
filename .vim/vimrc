@@ -72,13 +72,13 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ })
 
     " configure further
-    call dein#add('Shougo/unite-session',
-                \ {
-                \ 'name' : 'unitesession',
-                \ 'on_event' : 'VimEnter',
-                \ 'depends' : ['unite'],
-                \ 'hook_post_source': 'call vimrc#plugins#unitesession#PostSourceSetup()'
-                \ })
+    "call dein#add('Shougo/unite-session',
+                "\ {
+                "\ 'name' : 'unitesession',
+                "\ 'on_event' : 'VimEnter',
+                "\ 'depends' : ['unite'],
+                "\ 'hook_post_source': 'call vimrc#plugins#unitesession#PostSourceSetup()'
+                "\ })
 
 
     call dein#add('osyo-manga/unite-quickfix',
@@ -88,12 +88,12 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ 'hook_post_source': 'call vimrc#plugins#unitequickix#PostSourceSetup()'
                 \ })
 
-    call dein#add('tsukkee/unite-tag',
-                \ {
-                \ 'name' : 'unitetag',
-                \ 'on_event' : 'VimEnter',
-                \ 'hook_post_source': 'call vimrc#plugins#unitetag#PostSourceSetup()'
-                \ })
+    "call dein#add('tsukkee/unite-tag',
+                "\ {
+                "\ 'name' : 'unitetag',
+                "\ 'on_event' : 'VimEnter',
+                "\ 'hook_post_source': 'call vimrc#plugins#unitetag#PostSourceSetup()'
+                "\ })
 
     call dein#add('hewes/unite-gtags',
                 \ {
@@ -102,8 +102,8 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ 'hook_post_source': 'call vimrc#plugins#unitegtags#PostSourceSetup()'
                 \ })
 
-    call dein#add('tacroe/unite-mark')
-    call dein#add('kmnk/vim-unite-svn')
+    "call dein#add('tacroe/unite-mark')
+    "call dein#add('kmnk/vim-unite-svn')
     call dein#add('kmnk/vim-unite-giti')
     call dein#add('Shougo/unite-help')
     "Plug 'Shougo/unite-outline'
@@ -124,19 +124,20 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ 'hook_post_source' : 'call vimrc#plugins#nerdtree#PostSourceSetup()'
                 \ })
 
+    call dein#add('scrooloose/nerdcommenter',
+                \ {
+                \ 'name' : 'nerdcommenter',
+                \ 'on_event' : 'VimEnter',
+                \ 'hook_source': 'call vimrc#plugins#nerdcomment#PreSourceSetup()',
+                \ 'hook_post_source' : 'call vimrc#plugins#nerdcomment#PostSourceSetup()'
+                \ })
+
     call dein#add('easymotion/vim-easymotion',
                 \ {
                 \ 'name' : 'easymotion',
                 \ 'on_event' : 'VimEnter',
                 \ 'hook_post_source' : 'call vimrc#plugins#easymotion#PostSourceSetup()'
                 \ })
-
-
-
-
-
-
-
 
     call dein#add('sjl/gundo.vim',
                 \ {
@@ -157,11 +158,6 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ 'name' : 'signaure'
                 \ })
 
-    "call dein#add('itblinker/fgrep.vim')
-    "call dein#add('itblinker/ttcn.vim')
-    "call dein#add('tblinker/cplane.sct')
-    "call dein#add('itblinker/highlighter.vim')
-
     call dein#add('yssl/QFEnter',
                 \ {
                 \ 'name' : 'qfenter',
@@ -169,6 +165,10 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ 'hook_post_source': 'call vimrc#plugins#qfenter#PostSourceSetup()'
                 \ })
 
+    "call dein#add('itblinker/fgrep.vim')
+    "call dein#add('itblinker/ttcn.vim')
+    "call dein#add('tblinker/cplane.sct')
+    "call dein#add('itblinker/highlighter.vim')
 
     call dein#add('tmux-plugins/vim-tmux')
     call dein#add('tmux-plugins/vim-tmux-focus-events')
@@ -176,9 +176,9 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
 
     call dein#add('ntpeters/vim-better-whitespace')
     call dein#add('bronson/vim-trailing-whitespace')
-    "call dein#add('scrooloose/nerdcommenter')
+
     call dein#add('google/vim-searchindex')
-    call dein#add('vim-scripts/VimgrepBuffer')
+    "call dein#add('vim-scripts/VimgrepBuffer')
     call dein#add('tpope/vim-dispatch')
     call dein#add('tpope/vim-eunuch')
     call dein#add('mhinz/vim-signify')
@@ -188,13 +188,11 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
     call dein#add('cohama/lexima.vim')
     call dein#add('bling/vim-bufferline')
     call dein#add('mkitt/tabline.vim')
-    call dein#add('justinmk/gv.vim')
-    call dein#add('tpope/vim-fugitive')
-
+    "call dein#add('justinmk/gv.vim')
+    "call dein#add('tpope/vim-fugitive')
     "call dein#add('google/vim-glaive')
-
-    call dein#add('guns/vim-sexp')
-    call dein#add('junegunn/vim-easy-align')
+    "call dein#add('guns/vim-sexp')
+    "call dein#add('junegunn/vim-easy-align')
     call dein#add('kien/rainbow_parentheses.vim')
 
     "
@@ -227,21 +225,20 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ 'lazy' : 1
                 \ })
 
+    "call dein#add('vimwiki/vimwiki',
+                "\ {
+                "\ 'if' : 0
+                "\ })
 
-    call dein#add('vimwiki/vimwiki',
-                \ {
-                \ 'if' : 0
-                \ })
+    "call dein#add('https://github.com/vim-utils/vim-man.git',
+                "\ {
+                "\ 'if' : 0
+                "\ })
 
-    call dein#add('https://github.com/vim-utils/vim-man.git',
-                \ {
-                \ 'if' : 0
-                \ })
-
-    call dein#add('https://github.com/vim-utils/vim-husk.git',
-                \ {
-                \ 'if' : 0
-                \ })
+    "call dein#add('https://github.com/vim-utils/vim-husk.git',
+                "\ {
+                "\ 'if' : 0
+                "\ })
 
     "Plug 'jceb/vim-editqf'     "rare usable - it's used to laod/save quickfix/location list
     "Plug 'sk1418/QFGrep'
@@ -270,8 +267,8 @@ call dein#end()
 syntax enable
 filetype plugin indent on
 
-set wildignore+=*/.git/*,*/.hg/*,*/.svn/*
-set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\*
+set wildignore=*/.git/*,*/.hg/*,*/.svn/*,*.o,*.obj
+"set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\* "windows
 
 set encoding=utf-8
 set title
@@ -347,6 +344,18 @@ set foldmethod=marker
 let g:mapleader = ','
 
 inoremap jk <esc>
+
+nnoremap q <nop>
+
+vnoremap < <gv
+vnoremap > >gv
+
+vnoremap p pgvy
+vnoremap P Pgvy
+
+nnoremap \| :vsplit<CR>
+nnoremap _ :split<CR>
+
 nnoremap <leader><space> :nohlsearch<CR>
 
 nnoremap <c-k> <c-w>k
@@ -358,15 +367,6 @@ noremap <silent> <left> :3wincmd <<cr>
 noremap <silent> <right> :3wincmd ><cr>
 noremap <silent> <down> :3wincmd +<cr>
 noremap <silent> <up> :3wincmd -<cr>
-
-vnoremap < <gv
-vnoremap > >gv
-
-vnoremap p pgvy
-vnoremap P Pgvy
-
-nnoremap <leader>\| :vsplit<CR>
-nnoremap <leader>_ :split<CR>
 
 "vnoremap <leader>G :call manager#utils#GrepFromPath(manager#utils#GetFromVisualSelection(), getcwd())<CR>
 "vnoremap <leader>o :call manager#plugin#unite#FindFile(manager#utils#GetFromVisualSelection())<CR>

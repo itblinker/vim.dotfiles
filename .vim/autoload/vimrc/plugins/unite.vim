@@ -21,7 +21,7 @@ function! s:setupDefaultProfile()
                 \ 'start_insert' : 0,
                 \ 'smart_case' : 1,
                 \ 'prompt' : '>>',
-                \ 'prompt_focus' : 0,
+                \ 'prompt_focus' : 1,
                 \ 'prompt_direction' : 'top',
                 \ 'auto_preview' : 0,
                 \ 'horizontal' : 1,
@@ -29,6 +29,7 @@ function! s:setupDefaultProfile()
                 \ 'previewheight' : '15',
                 \ 'truncate' : '0'
                 \ })
+    call unite#filters#matcher_default#use(['matcher_regexp'])
 endfunction
 
 
@@ -86,17 +87,16 @@ function! s:mappings()
     nnoremap <leader>w :Unite window<CR>
     nnoremap <leader>t :Unite tab<CR>
 
-
     nnoremap <leader>sa :Unite file_rec/async:!<CR>
-    call unite#custom#source('file_rec/async',
-                \ 'matchers', ['converter_relative_word', 'matcher_regexp'])
 
+    call unite#custom#source('file_rec/async',
+                \ 'matchers', ['converter_file_directory', 'matcher_regexp'])
 
     nnoremap <leader>bf  :Unite buffer:-<CR>
     nnoremap <leader>ba  :Unite buffer<CR>
+
     call unite#custom#source('buffer_tab,buffer',
                 \ 'matchers', ['converter_file_directory', 'matcher_regexp'])
-
 
     nnoremap <leader>p :Unite jump<CR>
     nnoremap <leader>e :Unite change<CR>
@@ -121,7 +121,8 @@ endfunction
 
 function! s:getGrepSource(string, path)
     let s:cache = g:unite_source_grep_default_opts
-    let g:unite_source_grep_default_opts = '-rHn --exclude-dir=.*git --exclude-dir=.svn --exclude-dir=.bzr --exclude-dir='.vimrc#getLocalChacheDir()
+    let g:unite_source_grep_default_opts =
+                \ '-rHn --exclude-dir=.*git --exclude-dir=.svn --exclude-dir=.bzr --exclude-dir='
 
     try
         return 'grep:'.a:path.'::'.a:string

@@ -1,10 +1,10 @@
-function vimrc#plugins#unitequickix#PostSourceSetup()
+function! vimrc#plugins#unitequickix#PostSourceSetup()
     call s:mappings()
 endfunction
 
 
-function s:mappings()
-    "execute 'nnoremap <leader>q :Unite -smartcase '.manager#plugin#unite#GetPreviewCommonSubSettings().' quickfix<CR>'
-    "execute 'nnoremap <leader>l :Unite -smartcase '.manager#plugin#unite#GetPreviewCommonSubSettings().' location_list<CR>'
+function! s:mappings()
+   nnoremap <leader>q :Unite quickfix<CR>
+   nnoremap <leader>l :Unite location_list<CR>
 endfunction
 

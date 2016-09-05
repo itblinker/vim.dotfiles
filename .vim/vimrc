@@ -80,7 +80,6 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 "\ 'hook_post_source': 'call vimrc#plugins#unitesession#PostSourceSetup()'
                 "\ })
 
-
     call dein#add('osyo-manga/unite-quickfix',
                 \ {
                 \ 'name' : 'unitequickfix',
@@ -103,7 +102,6 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                     \ 'hook_post_source': 'call vimrc#plugins#unitegtags#PostSourceSetup()'
                     \ })
     endif
-
 
     "call dein#add('tacroe/unite-mark')
     "call dein#add('kmnk/vim-unite-svn')
@@ -168,11 +166,14 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ 'hook_post_source': 'call vimrc#plugins#qfenter#PostSourceSetup()'
                 \ })
 
+    call dein#add('itblinker/highlighter.vim',
+                \ {
+                \ 'name' : 'highlighter'
+                \ })
+
     "call dein#add('itblinker/fgrep.vim')
     "call dein#add('itblinker/ttcn.vim')
     "call dein#add('tblinker/cplane.sct')
-    "call dein#add('itblinker/highlighter.vim')
-
     call dein#add('tmux-plugins/vim-tmux')
     call dein#add('tmux-plugins/vim-tmux-focus-events')
     call dein#add('christoomey/vim-tmux-navigator')
@@ -349,6 +350,7 @@ let g:mapleader = ','
 inoremap jk <esc>
 
 nnoremap q <nop>
+nnoremap Q :bd!<CR>
 
 vnoremap < <gv
 vnoremap > >gv

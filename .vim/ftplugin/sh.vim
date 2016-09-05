@@ -4,4 +4,3 @@ setlocal shiftround
 setlocal expandtab
 
 setlocal nowrap
-

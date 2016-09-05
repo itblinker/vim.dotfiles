@@ -95,12 +95,15 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 "\ 'hook_post_source': 'call vimrc#plugins#unitetag#PostSourceSetup()'
                 "\ })
 
-    call dein#add('hewes/unite-gtags',
-                \ {
-                \ 'name' : 'unitegtags',
-                \ 'on_ft' : ['cpp', 'c'],
-                \ 'hook_post_source': 'call vimrc#plugins#unitegtags#PostSourceSetup()'
-                \ })
+    if vimrc#IsGtagsAvailable()
+        call dein#add('hewes/unite-gtags',
+                    \ {
+                    \ 'name' : 'unitegtags',
+                    \ 'on_ft' : ['cpp', 'c'],
+                    \ 'hook_post_source': 'call vimrc#plugins#unitegtags#PostSourceSetup()'
+                    \ })
+    endif
+
 
     "call dein#add('tacroe/unite-mark')
     "call dein#add('kmnk/vim-unite-svn')

@@ -84,3 +84,9 @@ function! vimrc#GetStringVisuallySelected()
     endtry
 endfunction
 "}}}
+
+function! vimrc#IsGtagsAvailable()
+"{{{
+    return executable('gtags')
+endfunction
+"}}}

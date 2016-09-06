@@ -1,4 +1,4 @@
-function! manager#plugin#vifm#Setup()
+function! vimrc#plugins#vifm#PostSourceSetup()
     call s:mappings()
 endfunction
 

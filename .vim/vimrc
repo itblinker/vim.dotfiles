@@ -28,7 +28,7 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ {
                 \ 'name' : 'unite',
                 \ 'on_event' : 'VimEnter',
-                \ 'hook_post_source': 'call vimrc#plugins#unite#PostSourceSetup()'
+                \ 'hook_post_source': 'call vimrc#unite#PostSourceSetup()'
                 \ })
 
     call dein#add('Shougo/tabpagebuffer.vim',
@@ -36,7 +36,7 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ 'name' : 'tabpagebuffer',
                 \ 'on_event' : 'VimEnter',
                 \ 'depends' : ['unite'],
-                \ 'hook_post_source': 'call vimrc#plugins#tabpagebuffer#PostSourceSetup()'
+                \ 'hook_post_source': 'call vimrc#tabpagebuffer#PostSourceSetup()'
                 \ })
 
     call dein#add('MattesGroeger/vim-bookmarks',
@@ -44,7 +44,7 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ 'name' : 'vimbookmarks',
                 \ 'on_event' : 'VimEnter',
                 \ 'depends' : ['unite'],
-                \ 'hook_post_source': 'call vimrc#plugins#vimbookmarks#PostSourceSetup()'
+                \ 'hook_post_source': 'call vimrc#vimbookmarks#PostSourceSetup()'
                 \ })
 
     call dein#add('Shougo/neomru.vim',
@@ -52,7 +52,7 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ 'name' : 'neomru',
                 \ 'on_event' : 'VimEnter',
                 \ 'depends' : ['unite'],
-                \ 'hook_post_source': 'call vimrc#plugins#neomru#PostSourceSetup()'
+                \ 'hook_post_source': 'call vimrc#neomru#PostSourceSetup()'
                 \ })
 
     call dein#add('Shougo/neoyank.vim',
@@ -60,7 +60,7 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ 'name' : 'neoyank',
                 \ 'on_event' : 'VimEnter',
                 \ 'depends' : ['unite'],
-                \ 'hook_post_source': 'call vimrc#plugins#neoyank#PostSourceSetup()'
+                \ 'hook_post_source': 'call vimrc#neoyank#PostSourceSetup()'
                 \ })
 
     call dein#add('thinca/vim-unite-history',
@@ -68,7 +68,7 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ 'name' : 'unitehistory',
                 \ 'on_event' : 'VimEnter',
                 \ 'depends' : ['unite'],
-                \ 'hook_post_source': 'call vimrc#plugins#unitehistory#PostSourceSetup()'
+                \ 'hook_post_source': 'call vimrc#unitehistory#PostSourceSetup()'
                 \ })
 
     " configure further
@@ -77,21 +77,21 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 "\ 'name' : 'unitesession',
                 "\ 'on_event' : 'VimEnter',
                 "\ 'depends' : ['unite'],
-                "\ 'hook_post_source': 'call vimrc#plugins#unitesession#PostSourceSetup()'
+                "\ 'hook_post_source': 'call vimrc#unitesession#PostSourceSetup()'
                 "\ })
 
     call dein#add('osyo-manga/unite-quickfix',
                 \ {
                 \ 'name' : 'unitequickfix',
                 \ 'on_event' : 'VimEnter',
-                \ 'hook_post_source': 'call vimrc#plugins#unitequickix#PostSourceSetup()'
+                \ 'hook_post_source': 'call vimrc#unitequickix#PostSourceSetup()'
                 \ })
 
     "call dein#add('tsukkee/unite-tag',
                 "\ {
                 "\ 'name' : 'unitetag',
                 "\ 'on_event' : 'VimEnter',
-                "\ 'hook_post_source': 'call vimrc#plugins#unitetag#PostSourceSetup()'
+                "\ 'hook_post_source': 'call vimrc#unitetag#PostSourceSetup()'
                 "\ })
 
     if vimrc#IsGtagsAvailable()
@@ -99,7 +99,7 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                     \ {
                     \ 'name' : 'unitegtags',
                     \ 'on_ft' : ['cpp', 'c'],
-                    \ 'hook_post_source': 'call vimrc#plugins#unitegtags#PostSourceSetup()'
+                    \ 'hook_post_source': 'call vimrc#unitegtags#PostSourceSetup()'
                     \ })
     endif
 
@@ -123,36 +123,36 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ {
                 \ 'name' : 'nerdtree',
                 \ 'on_event' : 'VimEnter',
-                \ 'hook_post_source' : 'call vimrc#plugins#nerdtree#PostSourceSetup()'
+                \ 'hook_post_source' : 'call vimrc#nerdtree#PostSourceSetup()'
                 \ })
 
     call dein#add('scrooloose/nerdcommenter',
                 \ {
                 \ 'name' : 'nerdcommenter',
                 \ 'on_event' : 'VimEnter',
-                \ 'hook_source': 'call vimrc#plugins#nerdcomment#PreSourceSetup()',
-                \ 'hook_post_source' : 'call vimrc#plugins#nerdcomment#PostSourceSetup()'
+                \ 'hook_source': 'call vimrc#nerdcomment#PreSourceSetup()',
+                \ 'hook_post_source' : 'call vimrc#nerdcomment#PostSourceSetup()'
                 \ })
 
     call dein#add('easymotion/vim-easymotion',
                 \ {
                 \ 'name' : 'easymotion',
                 \ 'on_event' : 'VimEnter',
-                \ 'hook_post_source' : 'call vimrc#plugins#easymotion#PostSourceSetup()'
+                \ 'hook_post_source' : 'call vimrc#easymotion#PostSourceSetup()'
                 \ })
 
     call dein#add('sjl/gundo.vim',
                 \ {
                 \ 'name' : 'gundo',
                 \ 'on_event' : 'VimEnter',
-                \ 'hook_post_source': 'call vimrc#plugins#gundo#PostSourceSetup()'
+                \ 'hook_post_source': 'call vimrc#gundo#PostSourceSetup()'
                 \ })
 
     call dein#add('ton/vim-bufsurf',
                 \ {
                 \ 'name' : 'bufsurf',
                 \ 'on_event' : 'VimEnter',
-                \ 'hook_post_source': 'call vimrc#plugins#bufsurf#PostSourceSetup()'
+                \ 'hook_post_source': 'call vimrc#bufsurf#PostSourceSetup()'
                 \ })
 
     call dein#add('kshenoy/vim-signature',
@@ -164,7 +164,7 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ {
                 \ 'name' : 'qfenter',
                 \ 'on_event' : 'VimEnter',
-                \ 'hook_post_source': 'call vimrc#plugins#qfenter#PostSourceSetup()'
+                \ 'hook_post_source': 'call vimrc#qfenter#PostSourceSetup()'
                 \ })
 
     call dein#add('itblinker/highlighter.vim',
@@ -176,8 +176,26 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ {
                 \ 'name' : 'vifm',
                 \ 'on_event' : 'VimEnter',
-                \ 'hook_post_source': 'call vimrc#plugins#vifm#PostSourceSetup()'
+                \ 'hook_post_source': 'call vimrc#vifm#PostSourceSetup()'
                 \ })
+
+    if vimrc#IsCMakeListFileAvailable()
+        call dein#add('rdnetto/YCM-Generator',
+                    \ {
+                    \ 'name' : 'ycmgenerator',
+                    \ 'rev': 'stable',
+                    \ 'on_event' : 'VimEnter',
+                    \ })
+    endif
+
+    if vimrc#IsYcmProjectConfigFileAvailable()
+        call dein#add('Valloric/YouCompleteMe',
+                    \ {
+                    \ 'name' : 'youcompleteme',
+                    \ 'timeout' : 180,
+                    \ 'build': './install.py --clang-completer'
+                    \ })
+    endif
 
     "call dein#add('itblinker/fgrep.vim')
     "call dein#add('itblinker/ttcn.vim')
@@ -214,7 +232,7 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ {
                 \ 'name' : 'cppenhancedhighlight',
                 \ 'on_ft' : 'cpp',
-                \ 'hook_post_source': 'call vimrc#plugins#cppenhancedhighlits#PostSourceSetup()'
+                \ 'hook_post_source': 'call vimrc#cppenhancedhighlits#PostSourceSetup()'
                 \ })
 
     call dein#add('aklt/plantuml-syntax',
@@ -228,7 +246,7 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ {
                 \ 'name' : 'maktaba',
                 \ 'lazy' : 1,
-                \ 'hook_source': 'call vimrc#plugins#maktaba#PreSourceSetup()'
+                \ 'hook_source': 'call vimrc#maktaba#PreSourceSetup()'
                 \ })
 
     call dein#add('vim-jp/vital.vim',
@@ -280,7 +298,6 @@ syntax enable
 filetype plugin indent on
 
 set wildignore=*/.git/*,*/.hg/*,*/.svn/*,*.o,*.obj
-"set wildignore+=*\\.git\\*,*\\.hg\\*,*\\.svn\\* "windows
 
 set encoding=utf-8
 set title

@@ -6,3 +6,5 @@ setlocal shiftround
 setlocal expandtab
 
 setloca nowrap
+
+setlocal switchbuf=useopen

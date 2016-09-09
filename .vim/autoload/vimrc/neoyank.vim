@@ -1,0 +1,14 @@
+function! vimrc#neoyank#PostSourceSetup()
+    call s:settings()
+    call s:mappings()
+endfunction
+
+
+function! s:settings()
+    let g:neoyank#file = vimrc#getCacheDir().'/neoyank.txt'
+endfunction
+
+
+function! s:mappings()
+   nnoremap <leader>y :Unite history/yank<CR>
+endfunction

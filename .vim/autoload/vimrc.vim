@@ -5,6 +5,18 @@ function! vimrc#throw(string) abort
 endfunction
 "}}}
 
+function! vimrc#getLocalCacheDirName()
+"{{{
+    return '.vim.cache.local'
+endfunction
+"}}}
+
+function! vimrc#getGlobalCacheDirName()
+"{{{
+    return '.vim.cache.global'
+endfunction
+"}}}
+
 function! vimrc#getCacheDir() abort
 "{{{
     try
@@ -19,20 +31,18 @@ function! vimrc#getCacheDir() abort
 endfunction
 
 
-let s:localCacheDirName = '.vim.cache.local'
-let s:localParentDir = getcwd()
-let s:localCacheDir = s:localParentDir.'/'.s:localCacheDirName
+let s:localCacheParentDir = getcwd()
+let s:localCacheDir = s:localCacheParentDir.'/'.vimrc#getLocalCacheDirName()
 
-let s:globalCacheDirName = '.vim.cache.global'
-let s:globalParentDir = expand('$HOME')
-let s:globalCacheDir = s:globalParentDir.'/'.s:globalCacheDirName
+let s:globalCacheParentDir = expand('$HOME')
+let s:globalCacheDir = s:globalCacheParentDir.'/'.vimrc#getGlobalCacheDirName()
 
 function! s:isLocalCacheAvailable() abort
     return isdirectory(s:localCacheDir)
 endfunction
 
 function! s:createLocalCacheDir() abort
-    call mkdir(s:localCacheDirName, s:localParentDir)
+    call mkdir(vimrc#getLocalCacheDirName(), s:localCacheParentDir)
 endfunction
 
 function! s:isGlobalCacheAvailable() abort
@@ -40,7 +50,7 @@ function! s:isGlobalCacheAvailable() abort
 endfunction
 
 function! s:createGlobalCacheDir() abort
-    call mkdir(s:globalCacheDirName, s:globalParentDir)
+    call mkdir(vimrc#getGlobalCacheDirName(), s:globalCacheParentDir)
 endfunction
 
 
@@ -103,7 +113,7 @@ function! vimrc#IsYcmProjectConfigFileAvailable()
 endfunction
 "}}}
 
-function vimrc#OpenOlderLlorQfList()
+function! vimrc#OpenOlderLlorQfList()
 "{{{
     if s:isThisLocationListBuffer()
         lolder
@@ -113,7 +123,7 @@ function vimrc#OpenOlderLlorQfList()
 endfunction
 "}}}
 
-function vimrc#OpenNewerLlOrQfList()
+function! vimrc#OpenNewerLlOrQfList()
 "{{{
     if s:isThisLocationListBuffer()
         lnewer
@@ -138,5 +148,11 @@ function s:getBufferList()
     silent! ls
     redir END
     return buflist
+endfunction
+"}}}
+
+function! vimrc#Escape(string)
+"{{{
+    return escape(a:string, "*?[{`$\\%#'\"|!<")
 endfunction
 "}}}

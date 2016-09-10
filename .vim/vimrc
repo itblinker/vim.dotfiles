@@ -297,7 +297,7 @@ call dein#end()
 syntax enable
 filetype plugin indent on
 
-set wildignore=*/.git/*,*/.hg/*,*/.svn/*,*.o,*.obj
+set wildignore=*/.git/*,*/.hg/*,*/.svn/*,*/.bzr/*,*.o,*.obj
 
 set encoding=utf-8
 set title

@@ -94,7 +94,7 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 "\ 'hook_post_source': 'call vimrc#unitetag#PostSourceSetup()'
                 "\ })
 
-    if vimrc#IsGtagsAvailable()
+    if vimrc#isGtagsAvailable()
         call dein#add('hewes/unite-gtags',
                     \ {
                     \ 'name' : 'unitegtags',
@@ -179,7 +179,7 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ 'hook_post_source': 'call vimrc#vifm#PostSourceSetup()'
                 \ })
 
-    if vimrc#IsCMakeListFileAvailable()
+    if vimrc#isCMakeListFileAvailable()
         call dein#add('rdnetto/YCM-Generator',
                     \ {
                     \ 'name' : 'ycmgenerator',
@@ -188,7 +188,7 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                     \ })
     endif
 
-    if vimrc#IsYcmProjectConfigFileAvailable()
+    if vimrc#isYcmProjectConfigFileAvailable()
         call dein#add('Valloric/YouCompleteMe',
                     \ {
                     \ 'name' : 'youcompleteme',
@@ -398,9 +398,8 @@ noremap <silent> <right> :3wincmd ><cr>
 noremap <silent> <down> :3wincmd +<cr>
 noremap <silent> <up> :3wincmd -<cr>
 
-"vnoremap <leader>G :call manager#utils#GrepFromPath(manager#utils#GetFromVisualSelection(), getcwd())<CR>
-"vnoremap <leader>o :call manager#plugin#unite#FindFile(manager#utils#GetFromVisualSelection())<CR>
-
 set pastetoggle=<F2>
+
+vnoremap <leader>G :call vimrc#grep#fixed#execute(vimrc#getStringVisuallySelected())<CR>
 
 "}}}

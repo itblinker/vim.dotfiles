@@ -5,6 +5,12 @@ function! vimrc#throw(string) abort
 endfunction
 "}}}
 
+function! vimrc#echoExceptionDetails()
+"{{{
+    echomsg v:errmsg
+endfunction
+"}}}
+
 function! vimrc#getLocalCacheDirName()
 "{{{
     return '.vim.cache.local'
@@ -78,9 +84,9 @@ endfunction
 
 "}}}
 
-function! vimrc#GetStringVisuallySelected()
+function! vimrc#getStringVisuallySelected()
 "{{{
-    try
+    "try
         let [lnum1, col1] = getpos("'<")[1:2]
         let [lnum2, col2] = getpos("'>")[1:2]
         let lines = getline(lnum1, lnum2)
@@ -89,31 +95,31 @@ function! vimrc#GetStringVisuallySelected()
 
         return join(lines, "\n")
 
-    catch
-        call vimrc#throw('problem with visual selection')
-    endtry
+    "catch
+        "call vimrc#throw('problem with visual selection')
+    "endtry
 endfunction
 "}}}
 
-function! vimrc#IsGtagsAvailable()
+function! vimrc#isGtagsAvailable()
 "{{{
     return executable('gtags')
 endfunction
 "}}}
 
-function! vimrc#IsCMakeListFileAvailable()
+function! vimrc#isCMakeListFileAvailable()
 "{{{
    return filereadable(getcwd().'/CMakeLists.txt')
 endfunction
 "}}}
 
-function! vimrc#IsYcmProjectConfigFileAvailable()
+function! vimrc#isYcmProjectConfigFileAvailable()
 "{{{
    return filereadable(getcwd().'/.ycm_extra_conf.py')
 endfunction
 "}}}
 
-function! vimrc#OpenOlderLlorQfList()
+function! vimrc#openOlderLlorQfList()
 "{{{
     if s:isThisLocationListBuffer()
         lolder
@@ -123,7 +129,7 @@ function! vimrc#OpenOlderLlorQfList()
 endfunction
 "}}}
 
-function! vimrc#OpenNewerLlOrQfList()
+function! vimrc#openNewerLlOrQfList()
 "{{{
     if s:isThisLocationListBuffer()
         lnewer
@@ -151,7 +157,7 @@ function s:getBufferList()
 endfunction
 "}}}
 
-function! vimrc#Escape(string)
+function! vimrc#escape(string)
 "{{{
     return escape(a:string, "*?[{`$\\%#'\"|!<")
 endfunction

@@ -47,6 +47,8 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ 'hook_post_source': 'call vimrc#vimbookmarks#PostSourceSetup()'
                 \ })
 
+    call dein#add('tacroe/unite-mark')
+
     call dein#add('Shougo/neomru.vim',
                 \ {
                 \ 'name' : 'neomru',
@@ -71,6 +73,38 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ 'hook_post_source': 'call vimrc#unitehistory#PostSourceSetup()'
                 \ })
 
+    call dein#add('osyo-manga/unite-quickfix',
+                \ {
+                \ 'name' : 'unitequickfix',
+                \ 'on_event' : 'VimEnter',
+                \ 'depends' : ['unite'],
+                \ 'hook_post_source': 'call vimrc#unitequickix#PostSourceSetup()'
+                \ })
+
+    call dein#add('Shougo/unite-help',
+                \ {
+                \ 'name' : 'unite-help',
+                \ 'depends' : ['unite']
+                \ })
+
+    if vimrc#isSvnRepository()
+        call dein#add('kmnk/vim-unite-svn',
+                    \ {
+                    \ 'name' : 'unitesvn',
+                    \ 'on_event' : 'VimEnter',
+                    \ 'depends' : ['unite']
+                    \ })
+    endif
+
+    if vimrc#isGitRepository()
+        call dein#add('kmnk/vim-unite-giti',
+                    \ {
+                    \ 'name' : 'unitegiti',
+                    \ 'on_event' : 'VimEnter',
+                    \ 'depends' : ['unite']
+                    \ })
+    endif
+
     " configure further
     "call dein#add('Shougo/unite-session',
                 "\ {
@@ -79,13 +113,6 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 "\ 'depends' : ['unite'],
                 "\ 'hook_post_source': 'call vimrc#unitesession#PostSourceSetup()'
                 "\ })
-
-    call dein#add('osyo-manga/unite-quickfix',
-                \ {
-                \ 'name' : 'unitequickfix',
-                \ 'on_event' : 'VimEnter',
-                \ 'hook_post_source': 'call vimrc#unitequickix#PostSourceSetup()'
-                \ })
 
     "call dein#add('tsukkee/unite-tag',
                 "\ {
@@ -103,11 +130,8 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                     \ })
     endif
 
-    call dein#add('tacroe/unite-mark')
 
-    "call dein#add('kmnk/vim-unite-svn')
-    call dein#add('kmnk/vim-unite-giti')
-    call dein#add('Shougo/unite-help')
+    
     "Plug 'Shougo/unite-outline'
     "Plug 'Shougo/unite-build'
     "Plug 'Shougo/neoinclude.vim'
@@ -385,6 +409,9 @@ vnoremap P Pgvy
 
 nnoremap \| :vsplit<CR>
 nnoremap _ :split<CR>
+
+nnoremap / /\v
+nnoremap ? ?\v
 
 nnoremap <leader><space> :nohlsearch<CR>
 

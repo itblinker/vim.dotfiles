@@ -162,3 +162,15 @@ function! vimrc#escape(string)
     return escape(a:string, "*?[{`$\\%#'\"|!<")
 endfunction
 "}}}
+
+function! vimrc#isSvnRepository()
+"{{{
+   return isdirectory(getcwd().'/.svn')
+endfunction
+"}}}
+"
+function! vimrc#isGitRepository()
+"{{{
+   return isdirectory(getcwd().'/.git')
+endfunction
+"}}}

@@ -7,6 +7,9 @@ endif
 " {dein plugin sources}
 execute 'set rtp+='.expand('$HOME/DEV/git.softwares/dein.vim')
 
+
+
+
 " {where plugins are stored}
 call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
 
@@ -164,23 +167,22 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ 'hook_post_source': 'call vimrc#vifm#PostSourceSetup()'
                 \ })
 
-    if vimrc#isCMakeListFileAvailable()
-        call dein#add('rdnetto/YCM-Generator',
-                    \ {
-                    \ 'name' : 'ycmgenerator',
-                    \ 'rev': 'stable',
-                    \ 'on_event' : 'VimEnter',
-                    \ })
-    endif
+    call dein#add('rdnetto/YCM-Generator',
+                \ {
+                \ 'name' : 'ycmgenerator',
+                \ 'rev': 'stable',
+                \ 'lazy' : 1,
+                \ 'on_cmd' : 'YcmGenerateConfig'
+                \ })
 
-    if vimrc#isYcmProjectConfigFileAvailable()
-        call dein#add('Valloric/YouCompleteMe',
-                    \ {
-                    \ 'name' : 'youcompleteme',
-                    \ 'timeout' : 180,
-                    \ 'build': './install.py --clang-completer'
-                    \ })
-    endif
+    call dein#add('Valloric/YouCompleteMe',
+                \ {
+                \ 'name' : 'YouCompleteMe',
+                \ 'timeout' : 180,
+                \ 'build': './install.py --clang-completer',
+                \ 'lazy' : 1,
+                \ 'on_source' : 'ycmgenerator'
+                \ })
 
     call dein#add('kien/rainbow_parentheses.vim',
                 \ {

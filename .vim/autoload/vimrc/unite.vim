@@ -132,8 +132,7 @@ function! s:uniteBufferMappings()
     nmap <buffer> <Tab> <Plug>(unite_choose_action)
     imap <buffer> <Tab> <Plug>(unite_choose_action)
 
-    nmap <buffer> <CR> <Plug>(unite_do_default_action)
-    imap <buffer> <CR> <Plug>(unite_do_default_action)
+    nmap <buffer> o <Plug>(unite_do_default_action)
 
     nmap <buffer> R <Plug>(unite_redraw)
 
@@ -149,8 +148,7 @@ function! s:uniteBufferMappings()
     imap <buffer> <C-f> <Plug>(unite_select_next_page)
     imap <buffer> <C-b> <Plug>(unite_select_previous_page)
 
-    nnoremap <silent><buffer><expr> o unite#smart_map('o', unite#do_action('open'))
-    nnoremap <silent><buffer><expr> d unite#smart_map('d', unite#do_action('delete'))
+    nnoremap <silent><buffer><expr> dd unite#smart_map('d', unite#do_action('delete'))
     nnoremap <silent><buffer><expr> t unite#smart_map('t', unite#do_action('tabopen'))
     nnoremap <silent><buffer><expr> s unite#smart_map('s', unite#do_action('split'))
     nnoremap <silent><buffer><expr> S unite#smart_map('S', unite#do_action('vsplit'))

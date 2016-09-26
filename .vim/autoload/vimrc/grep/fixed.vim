@@ -4,7 +4,7 @@ let g:vimrc#grep#fixed#default_include_dir = ''
 
 
 function! s:getGrepCmdForFixedString(pattern, flags, path)
-    return 'grep! -F '''.a:pattern.''' '.a:flags.' '.a:path
+    return 'grep! -F '''.escape(a:pattern, '*#$\\').''' '.a:flags.' '.a:path
 endfunction
 
 

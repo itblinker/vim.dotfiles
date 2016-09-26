@@ -174,8 +174,6 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ 'hook_post_source': 'call vimrc#gundo#PostSourceSetup()'
                 \ })
 
-
-
     call dein#add('kshenoy/vim-signature',
                 \ {
                 \ 'name' : 'signaure'

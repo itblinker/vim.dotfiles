@@ -138,7 +138,6 @@ function! vimrc#openNewerLlOrQfList()
     endif
 endfunction
 
-
 function s:isThisLocationListBuffer()
     let curbufnr = winbufnr(0)
     for bufnum in map(filter(split(s:getBufferList(), '\n'), 'v:val =~ "Location List"'), 'str2nr(matchstr(v:val, "\\d\\+"))')

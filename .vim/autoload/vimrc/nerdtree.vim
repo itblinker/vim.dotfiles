@@ -6,16 +6,19 @@ endfunction
 
 function! s:settings()
     let g:NERDTreeHighlightCursorline = 1
-    let g:NERDTreeBookmarksFile = "./.cache/nerdtree-bookmarks.vim"
+    let g:NERDTreeChDirMode = 0
+    let g:NERDTreeWinPos = 'left'
+
+    let g:NERDTreeBookmarksFile = vimrc#getCacheDir().'/nerdtree-bookmarks.vim'
+
     let g:NERDTreeShowBookmarks = 1
     let g:NERDTreeQuitOnOpen = 1
 endfunction
 
 
 function! s:mappings()
+    let g:NERDTreeCustomReuseWindows = '1'
+
     nnoremap <leader>N :NERDTreeCWD<CR>
     nnoremap <leader>T :NERDTreeFind<CR>
-
-    let g:NERDTreeMapOpenSplit='s'
-    let g:NERDTreeMapOpenVSplit='S'
 endfunction

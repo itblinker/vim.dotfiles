@@ -4,5 +4,3 @@ setlocal shiftround
 setlocal expandtab
 
 setlocal textwidth=79
-
-setlocal switchbuf=useopen

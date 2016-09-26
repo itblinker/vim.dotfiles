@@ -1,4 +1,4 @@
-function! manager#rainbowParenthesis#Setup()
+function! vimrc#rainbowParenthesis#PostSourceSetup()
     call s:settings()
 endfunction
 

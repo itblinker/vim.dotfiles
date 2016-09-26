@@ -167,6 +167,7 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ 'hook_post_source': 'call vimrc#vifm#PostSourceSetup()'
                 \ })
 
+    command! GenerateYcmConfigurationBasedOnCMakeList :YcmGenerateConfig -f
     call dein#add('rdnetto/YCM-Generator',
                 \ {
                 \ 'name' : 'ycmgenerator',

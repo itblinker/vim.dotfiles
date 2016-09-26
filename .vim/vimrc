@@ -3,19 +3,16 @@ if &compatible
 endif
 
 "{{{ plugins | configuration
-"{{{ dein.vim | paths configuration
 
-" adding folder for dein autoloads functions
-" original folder pointed for instaler.sh
-"execute 'set rtp+='.expand('${HOME}/DEV/git.softwares/dein.vim')
-execute 'set rtp+='.expand('$HOME/DEV/git.softwares/dein.vim')
+    "{{{ dein.vim | paths configuration
+        " {dein plugin sources}
+        execute 'set rtp+='.expand('$HOME/DEV/git.softwares/dein.vim')
 
-" path where downloaded plugins will be stored
-call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
-"{{{
+        " {where plugins are stored}
+        call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
+    "}}}
+
     call dein#add('Shougo/dein.vim')
-"}}}
-"}}}
 
     call dein#add('Shougo/vimproc.vim',
                 \ {

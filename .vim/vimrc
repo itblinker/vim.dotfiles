@@ -4,13 +4,11 @@ endif
 
 "{{{ plugins | configuration
 
-    "{{{ dein.vim | paths configuration
-        " {dein plugin sources}
-        execute 'set rtp+='.expand('$HOME/DEV/git.softwares/dein.vim')
+" {dein plugin sources}
+execute 'set rtp+='.expand('$HOME/DEV/git.softwares/dein.vim')
 
-        " {where plugins are stored}
-        call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
-    "}}}
+" {where plugins are stored}
+call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
 
     call dein#add('Shougo/dein.vim')
 
@@ -120,35 +118,6 @@ endif
                     \ })
     endif
 
-    " configure further
-    "call dein#add('Shougo/unite-session',
-                "\ {
-                "\ 'name' : 'unitesession',
-                "\ 'on_event' : 'VimEnter',
-                "\ 'depends' : ['unite'],
-                "\ 'hook_post_source': 'call vimrc#unitesession#PostSourceSetup()'
-                "\ })
-
-    "call dein#add('tsukkee/unite-tag',
-                "\ {
-                "\ 'name' : 'unitetag',
-                "\ 'on_event' : 'VimEnter',
-                "\ 'hook_post_source': 'call vimrc#unitetag#PostSourceSetup()'
-                "\ })
-
-    "Plug 'Shougo/unite-outline'
-    "Plug 'Shougo/unite-build'
-    "Plug 'Shougo/neoinclude.vim'
-    "Plug 'kopischke/unite-spell-suggest'
-    "Plug 'Shougo/junkfile.vim'
-    "Plug 'Shougo/vimshell.vim'
-    "Plug 'Shougo/vimfiler.vim'
-    "Plug 'Shougo/neopairs.vim'
-
-
-    " --------------- non unite plugins
-
-
     call dein#add('scrooloose/nerdcommenter',
                 \ {
                 \ 'name' : 'nerdcommenter',
@@ -219,38 +188,6 @@ endif
                 \ 'hook_post_source': 'call vimrc#rainbowParenthesis#PostSourceSetup()'
                 \ })
 
-    "call dein#add('itblinker/fgrep.vim')
-    "call dein#add('itblinker/ttcn.vim')
-    "call dein#add('tblinker/cplane.sct')
-    call dein#add('tmux-plugins/vim-tmux')
-    call dein#add('tmux-plugins/vim-tmux-focus-events')
-    call dein#add('christoomey/vim-tmux-navigator')
-
-    call dein#add('ntpeters/vim-better-whitespace')
-    call dein#add('bronson/vim-trailing-whitespace')
-
-    call dein#add('google/vim-searchindex')
-    "call dein#add('vim-scripts/VimgrepBuffer')
-    call dein#add('tpope/vim-dispatch')
-    call dein#add('tpope/vim-eunuch')
-    call dein#add('mhinz/vim-signify')
-
-    call dein#add('szw/vim-maximizer')
-
-    call dein#add('cohama/lexima.vim')
-    call dein#add('bling/vim-bufferline')
-    call dein#add('mkitt/tabline.vim')
-    "call dein#add('justinmk/gv.vim')
-    "call dein#add('tpope/vim-fugitive')
-    "call dein#add('google/vim-glaive')
-    "call dein#add('guns/vim-sexp')
-    "call dein#add('junegunn/vim-easy-align')
-
-
-
-    "
-    " filetypes
-    "
     call dein#add('octol/vim-cpp-enhanced-highlight',
                 \ {
                 \ 'name' : 'cppenhancedhighlight',
@@ -262,9 +199,24 @@ endif
                 \ {
                 \ 'name' : 'plantumlsyntax',
                 \ })
-    "
-    " libraries
-    "
+
+    "call dein#add('itblinker/fgrep.vim')
+    "call dein#add('itblinker/ttcn.vim')
+    "call dein#add('tblinker/cplane.sct')
+    call dein#add('tmux-plugins/vim-tmux')
+    call dein#add('tmux-plugins/vim-tmux-focus-events')
+    call dein#add('christoomey/vim-tmux-navigator')
+    call dein#add('ntpeters/vim-better-whitespace')
+    call dein#add('bronson/vim-trailing-whitespace')
+    call dein#add('google/vim-searchindex')
+    call dein#add('tpope/vim-dispatch')
+    call dein#add('tpope/vim-eunuch')
+    call dein#add('mhinz/vim-signify')
+    call dein#add('szw/vim-maximizer')
+    call dein#add('cohama/lexima.vim')
+    call dein#add('bling/vim-bufferline')
+    call dein#add('mkitt/tabline.vim')
+
     call dein#add('google/vim-maktaba',
                 \ {
                 \ 'name' : 'maktaba',
@@ -277,6 +229,31 @@ endif
                 \ 'name' : 'vital',
                 \ 'lazy' : 1
                 \ })
+
+    "{{{ plugins to configure
+
+    "call dein#add('Shougo/unite-session',
+                "\ {
+                "\ 'name' : 'unitesession',
+                "\ 'on_event' : 'VimEnter',
+                "\ 'depends' : ['unite'],
+                "\ 'hook_post_source': 'call vimrc#unitesession#PostSourceSetup()'
+                "\ })
+
+    "call dein#add('tsukkee/unite-tag',
+                "\ {
+                "\ 'name' : 'unitetag',
+                "\ 'on_event' : 'VimEnter',
+                "\ 'hook_post_source': 'call vimrc#unitetag#PostSourceSetup()'
+                "\ })
+
+    "Plug 'Shougo/unite-outline'
+    "Plug 'Shougo/unite-build'
+    "Plug 'Shougo/neoinclude.vim'
+    "Plug 'kopischke/unite-spell-suggest'
+    "Plug 'Shougo/junkfile.vim'
+    "Plug 'Shougo/vimshell.vim'
+    "Plug 'Shougo/neopairs.vim'
 
     "call dein#add('vimwiki/vimwiki',
                 "\ {
@@ -323,9 +300,17 @@ endif
                 "\ 'on_event' : 'VimEnter',
                 "\ 'hook_post_source' : 'call vimrc#nerdtree#PostSourceSetup()'
                 "\ })
-"}}}
 
-"{{{ dein.vim | end statement
+    "call dein#add('vim-scripts/VimgrepBuffer')
+   "
+    "call dein#add('justinmk/gv.vim')
+    "call dein#add('tpope/vim-fugitive')
+    "call dein#add('google/vim-glaive')
+    "call dein#add('guns/vim-sexp')
+    "call dein#add('junegunn/vim-easy-align')
+
+    "}}}
+
 call dein#end()
 "}}}
 

@@ -8,8 +8,6 @@ endif
 execute 'set rtp+='.expand('$HOME/DEV/git.softwares/dein.vim')
 
 
-
-
 " {where plugins are stored}
 call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
 
@@ -203,6 +201,13 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ 'name' : 'plantumlsyntax',
                 \ })
 
+    call dein#add('szw/vim-maximizer',
+                \ {
+                \ 'on_event' : 'VimEnter',
+                \ 'name' : 'maximizer',
+                \ 'hook_source': 'call plugins#maximizer#PreSourceSetup()'
+                \ })
+
     "call dein#add('itblinker/fgrep.vim')
     "call dein#add('itblinker/ttcn.vim')
     "call dein#add('tblinker/cplane.sct')
@@ -215,7 +220,7 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
     call dein#add('tpope/vim-dispatch')
     call dein#add('tpope/vim-eunuch')
     call dein#add('mhinz/vim-signify')
-    call dein#add('szw/vim-maximizer')
+
     call dein#add('cohama/lexima.vim')
     call dein#add('bling/vim-bufferline')
     call dein#add('mkitt/tabline.vim')

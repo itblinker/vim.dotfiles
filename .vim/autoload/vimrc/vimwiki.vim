@@ -31,7 +31,7 @@ function! s:bufferMappings()
     autocmd FileType vimwiki nmap <silent><buffer> <Leader>vD <Plug>VimwikiDeleteLink
     autocmd FileType vimwiki nmap <silent><buffer> <Leader>vR <Plug>VimwikiRenameLink
 
-    autocmd FileType vimwiki nmap <silent><buffer> <leader>vO :VimwikiGoto 
+    autocmd FileType vimwiki nmap <silent><buffer> <leader>vO :VimwikiGoto
     autocmd FileType vimwiki nmap <silent><buffer> <leader>vF :VimwikiSearch /
     autocmd FileType vimwiki nmap <silent><buffer> <leader>vB :VimwikiBacklinks<CR>
 endfunction

@@ -92,6 +92,7 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                     \ 'name' : 'vimFiler',
                     \ 'on_event' : 'VimEnter',
                     \ 'depends' : ['unite'],
+                    \ 'hook_source': 'call vimrc#vimFiler#PreSourceSetup()',
                     \ 'hook_post_source': 'call vimrc#vimFiler#PostSourceSetup()'
                     \ })
 

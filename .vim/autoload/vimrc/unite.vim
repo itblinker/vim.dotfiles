@@ -135,7 +135,7 @@ function! s:uniteBufferMappings()
     nmap <buffer> <CR> <Plug>(unite_do_default_action)
     imap <buffer> <CR> <Plug>(unite_do_default_action)
 
-    nmap <buffer> r <Plug>(unite_redraw)
+    nmap <buffer> R <Plug>(unite_redraw)
 
     nmap <buffer> i <Plug>(unite_insert_enter)
     nmap <buffer> I <Plug>(unite_insert_head)

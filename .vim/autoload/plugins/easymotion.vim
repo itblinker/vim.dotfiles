@@ -1,4 +1,4 @@
-function! vimrc#easymotion#PostSourceSetup()
+function! plugins#easymotion#PostSourceSetup()
     call s:mappings()
 endfunction
 

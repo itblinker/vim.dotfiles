@@ -1,4 +1,4 @@
-function! vimrc#gundo#PostSourceSetup()
+function! plugins#gundo#PostSourceSetup()
     call s:settings()
     call s:mappings()
 endfunction

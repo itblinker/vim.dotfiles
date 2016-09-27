@@ -1,4 +1,4 @@
-function! vimrc#qfenter#PostSourceSetup()
+function! plugins#qfenter#PostSourceSetup()
     call s:settings()
     call s:mappings()
 endfunction

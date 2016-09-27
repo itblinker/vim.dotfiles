@@ -24,7 +24,7 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ {
                 \ 'name' : 'unite',
                 \ 'on_event' : 'VimEnter',
-                \ 'hook_post_source': 'call vimrc#unite#PostSourceSetup()'
+                \ 'hook_post_source': 'call plugins#unite#PostSourceSetup()'
                 \ })
 
     call dein#add('Shougo/tabpagebuffer.vim',
@@ -32,7 +32,7 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ 'name' : 'tabpagebuffer',
                 \ 'on_event' : 'VimEnter',
                 \ 'depends' : ['unite'],
-                \ 'hook_post_source': 'call vimrc#tabpagebuffer#PostSourceSetup()'
+                \ 'hook_post_source': 'call plugins#tabpagebuffer#PostSourceSetup()'
                 \ })
 
     call dein#add('MattesGroeger/vim-bookmarks',
@@ -40,7 +40,7 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ 'name' : 'vimbookmarks',
                 \ 'on_event' : 'VimEnter',
                 \ 'depends' : ['unite'],
-                \ 'hook_post_source': 'call vimrc#vimbookmarks#PostSourceSetup()'
+                \ 'hook_post_source': 'call plugins#vimbookmarks#PostSourceSetup()'
                 \ })
 
     call dein#add('tacroe/unite-mark')
@@ -50,7 +50,7 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ 'name' : 'neomru',
                 \ 'on_event' : 'VimEnter',
                 \ 'depends' : ['unite'],
-                \ 'hook_post_source': 'call vimrc#neomru#PostSourceSetup()'
+                \ 'hook_post_source': 'call plugins#neomru#PostSourceSetup()'
                 \ })
 
     call dein#add('Shougo/neoyank.vim',
@@ -58,7 +58,7 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ 'name' : 'neoyank',
                 \ 'on_event' : 'VimEnter',
                 \ 'depends' : ['unite'],
-                \ 'hook_post_source': 'call vimrc#neoyank#PostSourceSetup()'
+                \ 'hook_post_source': 'call plugins#neoyank#PostSourceSetup()'
                 \ })
 
     call dein#add('thinca/vim-unite-history',
@@ -66,7 +66,7 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ 'name' : 'unitehistory',
                 \ 'on_event' : 'VimEnter',
                 \ 'depends' : ['unite'],
-                \ 'hook_post_source': 'call vimrc#unitehistory#PostSourceSetup()'
+                \ 'hook_post_source': 'call plugins#unitehistory#PostSourceSetup()'
                 \ })
 
     call dein#add('osyo-manga/unite-quickfix',
@@ -74,7 +74,7 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ 'name' : 'unitequickfix',
                 \ 'on_event' : 'VimEnter',
                 \ 'depends' : ['unite'],
-                \ 'hook_post_source': 'call vimrc#unitequickix#PostSourceSetup()'
+                \ 'hook_post_source': 'call plugins#unitequickix#PostSourceSetup()'
                 \ })
 
     call dein#add('Shougo/unite-help',
@@ -88,8 +88,8 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                     \ 'name' : 'vimFiler',
                     \ 'on_event' : 'VimEnter',
                     \ 'depends' : ['unite'],
-                    \ 'hook_source': 'call vimrc#vimFiler#PreSourceSetup()',
-                    \ 'hook_post_source': 'call vimrc#vimFiler#PostSourceSetup()'
+                    \ 'hook_source': 'call plugins#vimFiler#PreSourceSetup()',
+                    \ 'hook_post_source': 'call plugins#vimFiler#PostSourceSetup()'
                     \ })
 
     if vimrc#isSvnRepository()
@@ -115,7 +115,7 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                     \ {
                     \ 'name' : 'unitegtags',
                     \ 'on_ft' : ['cpp', 'c'],
-                    \ 'hook_post_source': 'call vimrc#unitegtags#PostSourceSetup()'
+                    \ 'hook_post_source': 'call plugins#unitegtags#PostSourceSetup()'
                     \ })
     endif
 
@@ -123,22 +123,22 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ {
                 \ 'name' : 'nerdcommenter',
                 \ 'on_event' : 'VimEnter',
-                \ 'hook_source': 'call vimrc#nerdcomment#PreSourceSetup()',
-                \ 'hook_post_source' : 'call vimrc#nerdcomment#PostSourceSetup()'
+                \ 'hook_source': 'call plugins#nerdcomment#PreSourceSetup()',
+                \ 'hook_post_source' : 'call plugins#nerdcomment#PostSourceSetup()'
                 \ })
 
     call dein#add('easymotion/vim-easymotion',
                 \ {
                 \ 'name' : 'easymotion',
                 \ 'on_event' : 'VimEnter',
-                \ 'hook_post_source' : 'call vimrc#easymotion#PostSourceSetup()'
+                \ 'hook_post_source' : 'call plugins#easymotion#PostSourceSetup()'
                 \ })
 
     call dein#add('sjl/gundo.vim',
                 \ {
                 \ 'name' : 'gundo',
                 \ 'on_event' : 'VimEnter',
-                \ 'hook_post_source': 'call vimrc#gundo#PostSourceSetup()'
+                \ 'hook_post_source': 'call plugins#gundo#PostSourceSetup()'
                 \ })
 
     call dein#add('kshenoy/vim-signature',
@@ -150,7 +150,7 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ {
                 \ 'name' : 'qfenter',
                 \ 'on_event' : 'VimEnter',
-                \ 'hook_post_source': 'call vimrc#qfenter#PostSourceSetup()'
+                \ 'hook_post_source': 'call plugins#qfenter#PostSourceSetup()'
                 \ })
 
     call dein#add('itblinker/highlighter.vim',
@@ -162,7 +162,7 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ {
                 \ 'name' : 'vifm',
                 \ 'on_event' : 'VimEnter',
-                \ 'hook_post_source': 'call vimrc#vifm#PostSourceSetup()'
+                \ 'hook_post_source': 'call plugins#vifm#PostSourceSetup()'
                 \ })
 
     command! GenerateYcmConfigurationBasedOnCMakeList :YcmGenerateConfig -f
@@ -186,14 +186,14 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
     call dein#add('kien/rainbow_parentheses.vim',
                 \ {
                 \ 'name' : 'rainbowParenthesis',
-                \ 'hook_post_source': 'call vimrc#rainbowParenthesis#PostSourceSetup()'
+                \ 'hook_post_source': 'call plugins#rainbowParenthesis#PostSourceSetup()'
                 \ })
 
     call dein#add('octol/vim-cpp-enhanced-highlight',
                 \ {
                 \ 'name' : 'cppenhancedhighlight',
                 \ 'on_ft' : 'cpp',
-                \ 'hook_post_source': 'call vimrc#cppenhancedhighlits#PostSourceSetup()'
+                \ 'hook_post_source': 'call plugins#cppenhancedhighlits#PostSourceSetup()'
                 \ })
 
     call dein#add('aklt/plantuml-syntax',
@@ -229,7 +229,7 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ {
                 \ 'name' : 'maktaba',
                 \ 'lazy' : 1,
-                \ 'hook_source': 'call vimrc#maktaba#PreSourceSetup()'
+                \ 'hook_source': 'call plugins#maktaba#PreSourceSetup()'
                 \ })
 
     call dein#add('vim-jp/vital.vim',
@@ -245,14 +245,14 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 "\ 'name' : 'unitesession',
                 "\ 'on_event' : 'VimEnter',
                 "\ 'depends' : ['unite'],
-                "\ 'hook_post_source': 'call vimrc#unitesession#PostSourceSetup()'
+                "\ 'hook_post_source': 'call plugins#unitesession#PostSourceSetup()'
                 "\ })
 
     "call dein#add('tsukkee/unite-tag',
                 "\ {
                 "\ 'name' : 'unitetag',
                 "\ 'on_event' : 'VimEnter',
-                "\ 'hook_post_source': 'call vimrc#unitetag#PostSourceSetup()'
+                "\ 'hook_post_source': 'call plugins#unitetag#PostSourceSetup()'
                 "\ })
 
     "Plug 'Shougo/unite-outline'
@@ -299,14 +299,14 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 "\ {
                 "\ 'name' : 'bufsurf',
                 "\ 'on_event' : 'VimEnter',
-                "\ 'hook_post_source': 'call vimrc#bufsurf#PostSourceSetup()'
+                "\ 'hook_post_source': 'call plugins#bufsurf#PostSourceSetup()'
                 "\ })
 
     "call dein#add('scrooloose/nerdtree',
                 "\ {
                 "\ 'name' : 'nerdtree',
                 "\ 'on_event' : 'VimEnter',
-                "\ 'hook_post_source' : 'call vimrc#nerdtree#PostSourceSetup()'
+                "\ 'hook_post_source' : 'call plugins#nerdtree#PostSourceSetup()'
                 "\ })
 
     "call dein#add('vim-scripts/VimgrepBuffer')

@@ -1,4 +1,4 @@
-function! vimrc#unitequickix#PostSourceSetup()
+function! plugins#unitequickix#PostSourceSetup()
     call s:mappings()
 endfunction
 

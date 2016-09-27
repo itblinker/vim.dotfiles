@@ -1,4 +1,4 @@
-function vimrc#unitegtags#PostSourceSetup()
+function plugins#unitegtags#PostSourceSetup()
     call s:settings()
     call s:mappings()
 endfunction

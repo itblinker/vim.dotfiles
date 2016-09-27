@@ -1,4 +1,4 @@
-function! vimrc#neomru#PostSourceSetup()
+function! plugins#neomru#PostSourceSetup()
     call s:settings()
     call s:mappings()
 endfunction

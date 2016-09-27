@@ -1,4 +1,4 @@
-function! vimrc#unite#PostSourceSetup()
+function! plugins#unite#PostSourceSetup()
 "{{{
     call s:settings()
     call s:mappings()
@@ -158,7 +158,7 @@ endfunction
 "}}}
 
 
-function! vimrc#unite#Grep(...)
+function! plugins#unite#Grep(...)
 "{{{
     if a:0 == 1
         execute 'Unite '.s:getGrepSource(escape(a:1, '\[]%'), getcwd())

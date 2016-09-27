@@ -1,4 +1,4 @@
-function! vimrc#rainbowParenthesis#PostSourceSetup()
+function! plugins#rainbowParenthesis#PostSourceSetup()
     call s:settings()
 endfunction
 

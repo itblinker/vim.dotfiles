@@ -1,4 +1,4 @@
-function! manager#localvimrc#Setup()
+function! plugins#localvimrc#PostSourceSetup()
     call s:settings()
 endfunction
 

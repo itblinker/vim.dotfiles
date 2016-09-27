@@ -1,4 +1,4 @@
-function! manager#vimwiki#Setup()
+function! plugins#vimwiki#Setup()
     call s:settings()
     call s:mappings()
 endfunction

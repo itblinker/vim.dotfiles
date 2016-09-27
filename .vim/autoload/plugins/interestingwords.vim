@@ -1,4 +1,4 @@
-function! manager#in#interestingwords#Settings()
+function! plugins#interestingwords#PostHookSetup()
     let g:interestingWordsDefaultMappings = 0
     let g:interestingWordsGUIColors = ['#8CCBEA', '#A4E57E', '#FFDB72', '#FF7272', '#FFB3FF', '#9999FF']
     let g:interestingWordsTermColors = ['154', '121', '211', '137', '214', '222']

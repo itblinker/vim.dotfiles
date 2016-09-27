@@ -1,4 +1,4 @@
-function vimrc#unitetag#PostSourceSetup()
+function plugins#unitetag#PostSourceSetup()
     call s:settings()
 endfunction
 

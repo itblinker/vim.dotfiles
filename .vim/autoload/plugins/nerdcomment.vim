@@ -1,13 +1,11 @@
-function! vimrc#nerdcomment#PreSourceSetup()
+function! plugins#nerdcomment#PreSourceSetup()
     let g:NERDCreateDefaultMappings = 0
 endfunction
 
 
-function! vimrc#nerdcomment#PostSourceSetup()
+function! plugins#nerdcomment#PostSourceSetup()
     call s:mappings()
 endfunction
-
-
 
 
 function! s:mappings()

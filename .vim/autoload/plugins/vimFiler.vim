@@ -1,9 +1,9 @@
-function! vimrc#vimFiler#PreSourceSetup()
+function! plugins#vimFiler#PreSourceSetup()
     let g:vimfiler_no_default_key_mappings = 1
 endfunction
 
 
-function! vimrc#vimFiler#PostSourceSetup()
+function! plugins#vimFiler#PostSourceSetup()
     call s:settings()
     call s:mappings()
 endfunction

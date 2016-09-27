@@ -1,4 +1,4 @@
-function! vimrc#tabpagebuffer#PostSourceSetup()
+function! plugins#tabpagebuffer#PostSourceSetup()
     call s:mappings()
 endfunction
 

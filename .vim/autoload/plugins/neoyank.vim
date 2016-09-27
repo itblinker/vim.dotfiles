@@ -1,4 +1,4 @@
-function! vimrc#neoyank#PostSourceSetup()
+function! plugins#neoyank#PostSourceSetup()
     call s:settings()
     call s:mappings()
 endfunction

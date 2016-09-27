@@ -1,4 +1,4 @@
-function! vimrc#unitehistory#PostSourceSetup()
+function! plugins#unitehistory#PostSourceSetup()
     call s:mappings()
 endfunction
 

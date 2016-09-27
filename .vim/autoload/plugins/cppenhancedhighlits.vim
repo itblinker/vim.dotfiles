@@ -1,4 +1,4 @@
-function! vimrc#cppenhancedhighlits#PostSourceSetup()
+function! plugins#cppenhancedhighlits#PostSourceSetup()
    call s:settings()
 endfunction
 

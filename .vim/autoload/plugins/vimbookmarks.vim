@@ -1,4 +1,4 @@
-function! vimrc#vimbookmarks#PostSourceSetup()
+function! plugins#vimbookmarks#PostSourceSetup()
     call s:settings()
     call s:mappings()
 endfunction

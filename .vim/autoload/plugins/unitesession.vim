@@ -1,4 +1,4 @@
-function vimrc#unitesession#PostSourceSetup()
+function plugins#unitesession#PostSourceSetup()
     call s:settings()
 endfunction
 

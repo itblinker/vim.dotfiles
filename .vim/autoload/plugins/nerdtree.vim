@@ -1,4 +1,4 @@
-function! vimrc#nerdtree#PostSourceSetup()
+function! plugins#nerdtree#PostSourceSetup()
     call s:settings()
     call s:mappings()
 endfunction

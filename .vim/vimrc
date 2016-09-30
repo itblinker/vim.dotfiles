@@ -92,6 +92,15 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                     \ 'hook_post_source': 'call plugins#vimFiler#PostSourceSetup()'
                     \ })
 
+    call dein#add('majkinetor/unite-cmdmatch',
+                    \ {
+                    \ 'name' : 'uniteCmdmatch',
+                    \ 'on_event' : 'VimEnter',
+                    \ 'depends' : ['unite'],
+                    \ 'hook_post_source': 'call plugins#uniteCmdmatch#PostSourceSetup()'
+                    \ })
+
+
     if vimrc#isSvnRepository()
         call dein#add('kmnk/vim-unite-svn',
                     \ {
@@ -183,7 +192,6 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ 'on_source' : 'ycmgenerator'
                 \ })
 
-    "TODO: fix, it's not working - read manual
     call dein#add('kien/rainbow_parentheses.vim',
                 \ {
                 \ 'name' : 'rainbowParenthesis',

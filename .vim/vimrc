@@ -183,9 +183,11 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ 'on_source' : 'ycmgenerator'
                 \ })
 
+    "TODO: fix, it's not working - read manual
     call dein#add('kien/rainbow_parentheses.vim',
                 \ {
                 \ 'name' : 'rainbowParenthesis',
+                \ 'on_event' : 'VimEnter',
                 \ 'hook_post_source': 'call plugins#rainbowParenthesis#PostSourceSetup()'
                 \ })
 
@@ -196,6 +198,7 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ 'hook_post_source': 'call plugins#cppenhancedhighlits#PostSourceSetup()'
                 \ })
 
+    "TODO plant_uml should have on_ft plantuml
     call dein#add('aklt/plantuml-syntax',
                 \ {
                 \ 'name' : 'plantumlsyntax',
@@ -208,12 +211,23 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ 'hook_source': 'call plugins#maximizer#PreSourceSetup()'
                 \ })
 
+    "TODO add if( work_under_tmux )
+    let s:is_working_under_tmux = 1
+    if s:is_working_under_tmux
+        call dein#add('tmux-plugins/vim-tmux',
+                    \ {
+                    \ 'name' : 'tmux_filetype',
+                    \ 'on_ft' : 'tmux',
+                    \ })
+
+        call dein#add('tmux-plugins/vim-tmux-focus-events')
+        call dein#add('christoomey/vim-tmux-navigator')
+    endif
+
     "call dein#add('itblinker/fgrep.vim')
     "call dein#add('itblinker/ttcn.vim')
     "call dein#add('tblinker/cplane.sct')
-    call dein#add('tmux-plugins/vim-tmux')
-    call dein#add('tmux-plugins/vim-tmux-focus-events')
-    call dein#add('christoomey/vim-tmux-navigator')
+
     call dein#add('ntpeters/vim-better-whitespace')
     call dein#add('bronson/vim-trailing-whitespace')
     call dein#add('google/vim-searchindex')

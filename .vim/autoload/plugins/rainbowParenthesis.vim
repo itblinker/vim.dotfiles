@@ -1,5 +1,6 @@
 function! plugins#rainbowParenthesis#PostSourceSetup()
     call s:settings()
+    call s:turn_on_c_and_cpp()
 endfunction
 
 
@@ -19,9 +20,22 @@ function! s:settings()
 
     let g:rbpt_max = 16
     let g:rbpt_loadcmd_toggle = 0
+endfunction
 
-    au VimEnter * RainbowParenthesesToggle
-    au Syntax * RainbowParenthesesLoadRound
-    au Syntax * RainbowParenthesesLoadSquare
-    au Syntax * RainbowParenthesesLoadBraces
+
+function! s:turn_on_c_and_cpp()
+    augroup aucmd_rainbow_parenthesis_c_and_cpp
+        autocmd!
+        autocmd Syntax cpp call s:settings_c_languages()
+        autocmd Syntax c call s:settings_c_languages()
+    augroup END
+endfunction
+
+
+function! s:settings_c_languages()
+    execute "RainbowParenthesesActivate"
+
+    execute "RainbowParenthesesLoadRound"
+    execute "RainbowParenthesesLoadSquare"
+    execute "RainbowParenthesesLoadBraces"
 endfunction

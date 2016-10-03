@@ -107,6 +107,22 @@ function! vimrc#isGtagsAvailable()
 endfunction
 "}}}
 
+function! vimrc#isWorkingUnderTmux()
+"{{{
+    let session = get(g:, 'tmux_session', '')
+
+    if empty($TMUX) && empty(''.session) || !executable('tmux')
+        return 0
+    endif
+
+    if !empty(system('tmux has-session -t '.shellescape(session))[0:-2])
+        return 0
+    else
+        return 1
+    endif
+endfunction
+"}}}
+
 function! vimrc#isCMakeListFileAvailable()
 "{{{
    return filereadable(getcwd().'/CMakeLists.txt')

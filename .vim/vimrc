@@ -84,48 +84,48 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ })
 
     call dein#add('Shougo/vimfiler.vim',
-                    \ {
-                    \ 'name' : 'vimFiler',
-                    \ 'on_event' : 'VimEnter',
-                    \ 'depends' : ['unite'],
-                    \ 'hook_source': 'call plugins#vimFiler#PreSourceSetup()',
-                    \ 'hook_post_source': 'call plugins#vimFiler#PostSourceSetup()'
-                    \ })
+                \ {
+                \ 'name' : 'vimFiler',
+                \ 'on_event' : 'VimEnter',
+                \ 'depends' : ['unite'],
+                \ 'hook_source': 'call plugins#vimFiler#PreSourceSetup()',
+                \ 'hook_post_source': 'call plugins#vimFiler#PostSourceSetup()'
+                \ })
 
     call dein#add('majkinetor/unite-cmdmatch',
-                    \ {
-                    \ 'name' : 'uniteCmdmatch',
-                    \ 'on_event' : 'VimEnter',
-                    \ 'depends' : ['unite'],
-                    \ 'hook_post_source': 'call plugins#uniteCmdmatch#PostSourceSetup()'
-                    \ })
+                \ {
+                \ 'name' : 'uniteCmdmatch',
+                \ 'on_event' : 'VimEnter',
+                \ 'depends' : ['unite'],
+                \ 'hook_post_source': 'call plugins#uniteCmdmatch#PostSourceSetup()'
+                \ })
 
 
     if vimrc#isSvnRepository()
         call dein#add('kmnk/vim-unite-svn',
-                    \ {
-                    \ 'name' : 'unitesvn',
-                    \ 'on_event' : 'VimEnter',
-                    \ 'depends' : ['unite']
-                    \ })
+                \ {
+                \ 'name' : 'unitesvn',
+                \ 'on_event' : 'VimEnter',
+                \ 'depends' : ['unite']
+                \ })
     endif
 
     if vimrc#isGitRepository()
         call dein#add('kmnk/vim-unite-giti',
-                    \ {
-                    \ 'name' : 'unitegiti',
-                    \ 'on_event' : 'VimEnter',
-                    \ 'depends' : ['unite']
-                    \ })
+                \ {
+                \ 'name' : 'unitegiti',
+                \ 'on_event' : 'VimEnter',
+                \ 'depends' : ['unite']
+                \ })
     endif
 
     if vimrc#isGtagsAvailable()
         call dein#add('hewes/unite-gtags',
-                    \ {
-                    \ 'name' : 'unitegtags',
-                    \ 'on_ft' : ['cpp', 'c'],
-                    \ 'hook_post_source': 'call plugins#unitegtags#PostSourceSetup()'
-                    \ })
+                \ {
+                \ 'name' : 'unitegtags',
+                \ 'on_ft' : ['cpp', 'c'],
+                \ 'hook_post_source': 'call plugins#unitegtags#PostSourceSetup()'
+                \ })
     endif
 
     call dein#add('scrooloose/nerdcommenter',
@@ -201,14 +201,14 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
 
     call dein#add('octol/vim-cpp-enhanced-highlight',
                 \ {
-                \ 'name' : 'cppenhancedhighlight',
+                \ 'name' : 'cppenhancedhighlight_syntax',
                 \ 'on_ft' : 'cpp',
                 \ 'hook_post_source': 'call plugins#cppenhancedhighlits#PostSourceSetup()'
                 \ })
 
     call dein#add('aklt/plantuml-syntax',
                 \ {
-                \ 'name' : 'plantumlsyntax',
+                \ 'name' : 'plantuml_syntax',
                 \ 'on_ft' : 'plantuml',
                 \ })
 
@@ -225,15 +225,13 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ 'hook_source': 'call plugins#maximizer#PreSourceSetup()'
                 \ })
 
-    "TODO add if( work_under_tmux )
-    let s:is_working_under_tmux = 1
-    if s:is_working_under_tmux
-        call dein#add('tmux-plugins/vim-tmux',
-                    \ {
-                    \ 'name' : 'tmux_filetype',
-                    \ 'on_ft' : 'tmux',
-                    \ })
+    call dein#add('tmux-plugins/vim-tmux',
+                \ {
+                \ 'name' : 'tmux_syntax',
+                \ 'on_ft' : 'tmux',
+                \ })
 
+    if vimrc#isWorkingUnderTmux()
         call dein#add('tmux-plugins/vim-tmux-focus-events')
         call dein#add('christoomey/vim-tmux-navigator')
     endif
@@ -254,17 +252,17 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
     call dein#add('mkitt/tabline.vim')
 
     call dein#add('google/vim-maktaba',
-                \ {
-                \ 'name' : 'maktaba',
-                \ 'lazy' : 1,
-                \ 'hook_source': 'call plugins#maktaba#PreSourceSetup()'
-                \ })
+            \ {
+            \ 'name' : 'maktaba',
+            \ 'lazy' : 1,
+            \ 'hook_source': 'call plugins#maktaba#PreSourceSetup()'
+            \ })
 
     call dein#add('vim-jp/vital.vim',
-                \ {
-                \ 'name' : 'vital',
-                \ 'lazy' : 1
-                \ })
+            \ {
+            \ 'name' : 'vital',
+            \ 'lazy' : 1
+            \ })
 
     "{{{ plugins to configure
 
@@ -448,10 +446,13 @@ nnoremap ? ?\v
 
 nnoremap <leader><space> :nohlsearch<CR>
 
-nnoremap <c-k> <c-w>k
-nnoremap <c-l> <c-w>l
-nnoremap <c-h> <c-w>h
-nnoremap <c-x> <c-w>x
+if !vimrc#isWorkingUnderTmux()
+    nnoremap <c-k> <c-w>k
+    nnoremap <c-j> <c-w>j
+    nnoremap <c-l> <c-w>l
+    nnoremap <c-h> <c-w>h
+    nnoremap <c-x> <c-w>x
+endif
 
 set pastetoggle=<F2>
 

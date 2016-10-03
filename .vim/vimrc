@@ -206,10 +206,16 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ 'hook_post_source': 'call plugins#cppenhancedhighlits#PostSourceSetup()'
                 \ })
 
-    "TODO plant_uml should have on_ft plantuml
     call dein#add('aklt/plantuml-syntax',
                 \ {
                 \ 'name' : 'plantumlsyntax',
+                \ 'on_ft' : 'plantuml',
+                \ })
+
+    call dein#add('scrooloose/vim-slumlord',
+                \ {
+                \ 'name' : 'slumlord',
+                \ 'on_ft' : 'plantuml',
                 \ })
 
     call dein#add('szw/vim-maximizer',

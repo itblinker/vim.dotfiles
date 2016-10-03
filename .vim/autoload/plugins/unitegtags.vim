@@ -11,22 +11,17 @@ function s:settings()
 endfunction
 
 
-function s:mappings()
-
-    augroup filetypeSpecific
+function! s:mappings()
+    augroup unitegtags_autocmds
         autocmd!
-        autocmd FileType cpp,c call s:mappingsCAndCpp()
+        autocmd FileType cpp,c call s:mappings_c_cpp()
     augroup END
-
 endfunction
 
 
-function! s:mappingsCAndCpp()
+function! s:mappings_c_cpp()
     nnoremap <buffer> <C-]> :Unite -immediately gtags/def<CR>
     nnoremap <buffer> <leader>gr :Unite gtags/ref<CR>
     nnoremap <buffer> <leader>gc :Unite gtags/context<CR>
-
-    "nnoremap <buffer> <leader>gr :Unite gtags/ref<CR>
-    "nnoremap <buffer> <leader>gi :Unite gtags/ref<CR>
 endfunction
 

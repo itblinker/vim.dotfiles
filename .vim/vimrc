@@ -393,6 +393,7 @@ set copyindent
 set nostartofline
 set nowrap
 set backspace=indent,eol,start
+set foldmethod=marker
 
 set mouse=
 
@@ -418,8 +419,6 @@ set smartcase
 execute 'set viminfo+=n'.vimrc#getCacheDir().'/.viminfo'
 set history=2000
 set undolevels=2000
-
-set foldmethod=marker
 
 "}}}
 

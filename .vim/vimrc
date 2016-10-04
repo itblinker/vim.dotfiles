@@ -445,13 +445,11 @@ nnoremap ? ?\v
 
 nnoremap <leader><space> :nohlsearch<CR>
 
-if !vimrc#isWorkingUnderTmux()
-    nnoremap <c-k> <c-w>k
-    nnoremap <c-j> <c-w>j
-    nnoremap <c-l> <c-w>l
-    nnoremap <c-h> <c-w>h
-    nnoremap <c-x> <c-w>x
-endif
+nnoremap <c-k> <c-w>k
+nnoremap <c-j> <c-w>j
+nnoremap <c-l> <c-w>l
+nnoremap <c-h> <c-w>h
+nnoremap <c-x> <c-w>x
 
 set pastetoggle=<F2>
 

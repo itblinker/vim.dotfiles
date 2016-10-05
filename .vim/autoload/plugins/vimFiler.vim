@@ -66,6 +66,8 @@ function! s:vimfilerBufferMappings()
     nmap <buffer> <C-g> <Plug>(vimfiler_print_filename)
 
     nmap <buffer> q <Plug>(vimfiler_close)
+
+    nmap <buffer> H <Plug>(vimfiler_toggle_visible_ignore_files)
 endfunction
 
 
@@ -96,6 +98,7 @@ endfunction
 
 function! s:startup()
     let g:vimfiler_as_default_explorer = 1
+    let g:vimfiler_ignore_pattern = ['^\.']
 
     augroup vimFilerStartup
         autocmd!

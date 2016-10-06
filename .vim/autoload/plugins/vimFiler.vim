@@ -29,15 +29,15 @@ function! s:vimfilerBufferMappings()
     nmap <buffer> j <Plug>(vimfiler_loop_cursor_down)
     nmap <buffer> k <Plug>(vimfiler_loop_cursor_up)
     nmap <buffer> h <Plug>(vimfiler_smart_h)
+    nmap <buffer> l <Plug>(vimfiler_expand_or_edit)
+
+    nmap <buffer> o <Plug>(vimfiler_cd_or_edit)
+    nmap <buffer> <leader>o <Plug>(vimfiler_select_sort_type)
+    nmap <buffer> O <Plug>(vimfiler_expand_tree)
 
     nmap <buffer> ~ <Plug>(vimfiler_switch_to_home_directory)
     nmap <buffer> \ <Plug>(vimfiler_switch_to_root_directory)
     nmap <buffer> & <Plug>(vimfiler_switch_to_project_directory)
-
-    nmap <buffer> l <Plug>(vimfiler_expand_or_edit)
-    nmap <buffer> o <Plug>(vimfiler_cd_or_edit)
-
-    nmap <buffer> O <Plug>(vimfiler_expand_tree)
 
     nmap <buffer> R <Plug>(vimfiler_redraw_screen)
     nmap <buffer> <leader>R <Plug>(vimfiler_redraw_screen)
@@ -50,24 +50,25 @@ function! s:vimfilerBufferMappings()
     nmap <buffer> gk <Plug>(vimfiler_jump_first_child)
 
     nmap <buffer> <leader>s <Plug>(vimfiler_popup_shell)
-    nmap <buffer> <leader>S <Plug>(vimfiler_select_sort_type)
 
     nnoremap <silent><buffer><expr> S vimfiler#do_switch_action('vsplit')
     nnoremap <silent><buffer><expr> s vimfiler#do_switch_action('split')
 
     nmap <buffer> dd <Plug>(vimfiler_delete_file)
-
     nmap <buffer> yy <Plug>(vimfiler_yank_full_path)
+
+    nmap <buffer> mf <Plug>(vimfiler_new_file)
+    nmap <buffer> md <Plug>(vimfiler_make_directory)
+
+    nmap <buffer> <C-g> <Plug>(vimfiler_print_filename)
 
     nmap <buffer> <Space> <Plug>(vimfiler_toggle_mark_current_line)
     nmap <buffer> * <Plug>(vimfiler_toggle_mark_all_lines)
     nmap <buffer> # <Plug>(vimfiler_clear_mark_all_lines)
 
-    nmap <buffer> <C-g> <Plug>(vimfiler_print_filename)
-
     nmap <buffer> q <Plug>(vimfiler_close)
-
-    nmap <buffer> H <Plug>(vimfiler_toggle_visible_ignore_files)
+    nmap <buffer> <leader>? <Plug>(vimfiler_help)
+    nmap <buffer> <leader>v <Plug>(vimfiler_toggle_visible_ignore_files)
 endfunction
 
 

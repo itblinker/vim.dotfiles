@@ -186,11 +186,22 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
     call dein#add('Valloric/YouCompleteMe',
                 \ {
                 \ 'name' : 'YouCompleteMe',
-                \ 'timeout' : 180,
+                \ 'timeout' : 10000,
                 \ 'build': './install.py --clang-completer',
                 \ 'lazy' : 1,
                 \ 'on_source' : 'ycmgenerator'
                 \ })
+
+    " checking syntax async (2) plugins to check
+    "call dein#add('w0rp/ale',
+                "\ {
+                "\ 'name' : 'AsynchronousLintEngine',
+                "\ })
+
+    "call dein#add(' maralla/validator.vim ',
+                "\ {
+                "\ 'name' : 'Validator',
+                "\ })
 
     call dein#add('kien/rainbow_parentheses.vim',
                 \ {
@@ -231,10 +242,16 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ 'on_ft' : 'tmux',
                 \ })
 
-    if vimrc#isWorkingUnderTmux()
-        call dein#add('tmux-plugins/vim-tmux-focus-events')
-        call dein#add('christoomey/vim-tmux-navigator')
-    endif
+    call dein#add('tmux-plugins/vim-tmux-focus-events')
+    call dein#add('christoomey/vim-tmux-navigator')
+
+    call dein#add('vimwiki/vimwiki',
+                \ {
+                \ 'on_event' : 'VimEnter',
+                \ 'name' : 'vimwiki',
+                \ 'hook_source': 'call plugins#vimwiki#PostSourceSetup()'
+                \ })
+
 
     "call dein#add('itblinker/fgrep.vim')
     "call dein#add('itblinker/ttcn.vim')
@@ -250,6 +267,8 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
     call dein#add('cohama/lexima.vim')
     call dein#add('bling/vim-bufferline')
     call dein#add('mkitt/tabline.vim')
+
+    call dein#add('rstacruz/vim-xtract')
 
     call dein#add('google/vim-maktaba',
             \ {
@@ -289,10 +308,7 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
     "Plug 'Shougo/vimshell.vim'
     "Plug 'Shougo/neopairs.vim'
 
-    "call dein#add('vimwiki/vimwiki',
-                "\ {
-                "\ 'if' : 0
-                "\ })
+
 
     "call dein#add('https://github.com/vim-utils/vim-man.git',
                 "\ {
@@ -444,12 +460,6 @@ nnoremap / /\v
 nnoremap ? ?\v
 
 nnoremap <leader><space> :nohlsearch<CR>
-
-nnoremap <c-k> <c-w>k
-nnoremap <c-j> <c-w>j
-nnoremap <c-l> <c-w>l
-nnoremap <c-h> <c-w>h
-nnoremap <c-x> <c-w>x
 
 set pastetoggle=<F2>
 

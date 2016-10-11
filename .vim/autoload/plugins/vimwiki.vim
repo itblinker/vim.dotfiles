@@ -1,15 +1,32 @@
-function! plugins#vimwiki#Setup()
+function! plugins#vimwiki#PostSourceSetup()
     call s:settings()
     call s:mappings()
 endfunction
 
+function! s:getWimWikiLIst()
+"{{{
+    if !vimrc#isDropboxAvailable()
+        return [s:getLocalWiki()]
+    else
+        return [
+             \ s:getLocalWiki(),
+             \ {'path': vimrc#getDropboxDirPath().'/wiki',
+             \  'path_html' : vimrc#getDropboxDirPath().'/wiki_html'}
+             \ ]
+
+    endif
+endfunction
+
+function! s:getLocalWiki()
+    let l:cwd_wiki = vimrc#getCacheDir().'/wiki'
+    let l:cwd_wiki_html = l:cwd_wiki.'_html'
+
+    return {'path': l:cwd_wiki, 'path_html' : l:cwd_wiki_html.'_html'}
+endfunction
+"}}}
 
 function! s:settings()
-    let l:local_wiki = manager#vim#GeCwdVimStore().'/wiki'
-    let g:vimwiki_list = [
-                \ {'path': '~/Dropbox/Notes/vimwiki'},
-                \ {'path': l:local_wiki}
-                \ ]
+    let g:vimwiki_list = s:getWimWikiLIst()
 
     let g:vimwiki_dir_link = 'index'
     let g:vimwiki_hl_headers = 1
@@ -38,11 +55,8 @@ endfunction
 
 
 function s:mappings()
-    let g:vimwiki_map_prefix = '<Leader>v'
-
-    nmap <Leader>vw <Plug>VimwikiIndex
-    nmap <Leader>vs <Plug>VimwikiUISelect
-    nmap <Leader>vd <Plug>VimwikiDiaryIndex
+    nnoremap tlv <Plug>1VimwikiTabIndex
+    nnoremap tgv <Plug>2VimwikiTabIndex
 
     call s:bufferMappings()
 endfunction

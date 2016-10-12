@@ -249,7 +249,8 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ {
                 \ 'on_event' : 'VimEnter',
                 \ 'name' : 'vimwiki',
-                \ 'hook_source': 'call plugins#vimwiki#PostSourceSetup()'
+                \ 'hook_source' : 'call plugins#vimwiki#PreSourceSetup()',
+                \ 'hook_post_source': 'call plugins#vimwiki#PostSourceSetup()'
                 \ })
 
 
@@ -458,6 +459,8 @@ nnoremap _ :split<CR>
 
 nnoremap / /\v
 nnoremap ? ?\v
+
+nnoremap td :tabclose<CR>
 
 nnoremap <leader><space> :nohlsearch<CR>
 

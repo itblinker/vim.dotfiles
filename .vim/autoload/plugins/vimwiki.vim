@@ -1,5 +1,11 @@
+function! plugins#vimwiki#PreSourceSetup()
+    let g:vimwiki_map_prefix = '<Leader><Leader><Leader>'
+endfunction
+
+
 function! plugins#vimwiki#PostSourceSetup()
     call s:settings()
+    call s:commands()
     call s:mappings()
 endfunction
 
@@ -10,55 +16,75 @@ function! s:getWimWikiLIst()
     else
         return [
              \ s:getLocalWiki(),
-             \ {'path': vimrc#getDropboxDirPath().'/wiki',
-             \  'path_html' : vimrc#getDropboxDirPath().'/wiki_html'}
+             \ s:getDropboxWiki()
              \ ]
-
     endif
 endfunction
 
 function! s:getLocalWiki()
     let l:cwd_wiki = vimrc#getCacheDir().'/wiki'
-    let l:cwd_wiki_html = l:cwd_wiki.'_html'
+    let l:cwd_wiki_html = vimrc#getCacheDir().'/wiki_html'
 
-    return {'path': l:cwd_wiki, 'path_html' : l:cwd_wiki_html.'_html'}
+    return {
+           \ 'path': l:cwd_wiki,
+           \ 'path_html' : cwd_wiki_html,
+           \ 'diary_rel_path' : 'diary/',
+           \ 'auto_tags': 1,
+           \ 'auto_export' : 0,
+           \ 'auto_toc' : 1,
+           \ 'index' : 'index',
+           \ 'ext' : '.wiki',
+           \ 'syntax': 'default'
+           \ }
 endfunction
+
+
+function! s:getDropboxWiki()
+    let l:dropbox_wiki = vimrc#getDropboxDirPath().'/wiki'
+    let l:dropbox_wiki_html = vimrc#getDropboxDirPath().'/wiki_html'
+
+    return {
+           \ 'path': l:dropbox_wiki,
+           \ 'path_html' : dropbox_wiki_html,
+           \ 'diary_rel_path' : 'diary/',
+           \ 'auto_tags': 1,
+           \ 'auto_export' : 0,
+           \ 'auto_toc' : 1,
+           \ 'index' : 'index',
+           \ 'ext' : '.wiki',
+           \ 'syntax': 'default'
+           \ }
+endfunction
+
 "}}}
 
 function! s:settings()
     let g:vimwiki_list = s:getWimWikiLIst()
-
-    let g:vimwiki_dir_link = 'index'
-    let g:vimwiki_hl_headers = 1
-    let g:vimwiki_hl_cb_checked = 2
 endfunction
 
 
-function! s:bufferMappings()
-    autocmd FileType vimwiki nmap <silent><buffer> <Leader>vgH <Plug>Vimwiki2HTML
-
-    autocmd FileType vimwiki nmap <silent><buffer> <Leader>vs <Plug>VimwikiSplitLink
-    autocmd FileType vimwiki nmap <silent><buffer> <Leader>vS <Plug>VimwikiVSplitLink
-    autocmd FileType vimwiki nmap <silent><buffer> <Leader>vo <Plug>VimwikiFollowLink
-    autocmd FileType vimwiki nmap <silent><buffer> <Leader>v< <Plug>VimwikiGoBackLink
-
-    autocmd FileType vimwiki nmap <silent><buffer> <Leader>vn <Plug>VimwikiNextLink
-    autocmd FileType vimwiki nmap <silent><buffer> <Leader>vN <Plug>VimwikiPrevLink
-
-    autocmd FileType vimwiki nmap <silent><buffer> <Leader>vD <Plug>VimwikiDeleteLink
-    autocmd FileType vimwiki nmap <silent><buffer> <Leader>vR <Plug>VimwikiRenameLink
-
-    autocmd FileType vimwiki nmap <silent><buffer> <leader>vO :VimwikiGoto
-    autocmd FileType vimwiki nmap <silent><buffer> <leader>vF :VimwikiSearch /
-    autocmd FileType vimwiki nmap <silent><buffer> <leader>vB :VimwikiBacklinks<CR>
+function! s:vimwiki_buffer_mappings()
+    nmap <C-]> <Plug>VimwikiFollowLink
+    nmap <C-t> <Plug>VimwikiGoBackLink
 endfunction
 
 
-function s:mappings()
-    nnoremap tlv <Plug>1VimwikiTabIndex
-    nnoremap tgv <Plug>2VimwikiTabIndex
+function! s:mappings()
 
-    call s:bufferMappings()
+    nnoremap <leader><leader>w :VimwikiUISelect<CR>
+    nnoremap <leader><leader>l :1VimwikiTabIndex<CR>
+    nnoremap <leader><leader>g :2VimwikiTabIndex<CR>
+
+    augroup vimwiki_autocmds
+        autocmd!
+        autocmd Filetype vimwiki call s:vimwiki_buffer_mappings()
+    augroup END
+
+endfunction
+
+
+function! s:commands()
+
 endfunction
 
 

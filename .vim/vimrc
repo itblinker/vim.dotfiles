@@ -27,6 +27,14 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ 'hook_post_source': 'call plugins#unite#PostSourceSetup()'
                 \ })
 
+    call dein#add('Shougo/unite-outline',
+                \ {
+                \ 'name' : 'uniteOutline',
+                \ 'on_event' : 'VimEnter',
+                \ 'depends' : ['unite']
+                \ })
+
+
     call dein#add('Shougo/tabpagebuffer.vim',
                 \ {
                 \ 'name' : 'tabpagebuffer',
@@ -189,7 +197,9 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ 'timeout' : 10000,
                 \ 'build': './install.py --clang-completer',
                 \ 'lazy' : 1,
-                \ 'on_source' : 'ycmgenerator'
+                \ 'on_source' : 'ycmgenerator',
+                \ 'on_event' : 'VimEnter',
+                \ 'on_if' : 'filereadable('''.getcwd().'/.ycm_extra_conf.py'')',
                 \ })
 
     " checking syntax async (2) plugins to check
@@ -253,7 +263,6 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ 'hook_post_source': 'call plugins#vimwiki#PostSourceSetup()'
                 \ })
 
-
     "call dein#add('itblinker/fgrep.vim')
     "call dein#add('itblinker/ttcn.vim')
     "call dein#add('tblinker/cplane.sct')
@@ -301,7 +310,7 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 "\ 'hook_post_source': 'call plugins#unitetag#PostSourceSetup()'
                 "\ })
 
-    "Plug 'Shougo/unite-outline'
+
     "Plug 'Shougo/unite-build'
     "Plug 'Shougo/neoinclude.vim'
     "Plug 'kopischke/unite-spell-suggest'

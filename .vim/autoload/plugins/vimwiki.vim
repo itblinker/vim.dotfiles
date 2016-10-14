@@ -5,7 +5,6 @@ endfunction
 
 function! plugins#vimwiki#PostSourceSetup()
     call s:settings()
-    call s:commands()
     call s:mappings()
 endfunction
 
@@ -27,13 +26,13 @@ function! s:getLocalWiki()
 
     return {
            \ 'path': l:cwd_wiki,
-           \ 'path_html' : cwd_wiki_html,
-           \ 'diary_rel_path' : 'diary/',
-           \ 'auto_tags': 1,
-           \ 'auto_export' : 0,
-           \ 'auto_toc' : 1,
-           \ 'index' : 'index',
-           \ 'ext' : '.wiki',
+           \ 'path_html': cwd_wiki_html,
+           \ 'diary_rel_path': 'diary/',
+           \ 'auto_export': 0,
+           \ 'auto_toc': 1,
+           \ 'auto_tag': 1,
+           \ 'index': 'index',
+           \ 'ext': '.wiki',
            \ 'syntax': 'default'
            \ }
 endfunction
@@ -45,13 +44,13 @@ function! s:getDropboxWiki()
 
     return {
            \ 'path': l:dropbox_wiki,
-           \ 'path_html' : dropbox_wiki_html,
-           \ 'diary_rel_path' : 'diary/',
-           \ 'auto_tags': 1,
-           \ 'auto_export' : 0,
-           \ 'auto_toc' : 1,
-           \ 'index' : 'index',
-           \ 'ext' : '.wiki',
+           \ 'path_html': dropbox_wiki_html,
+           \ 'diary_rel_path': 'diary/',
+           \ 'auto_export': 0,
+           \ 'auto_toc': 1,
+           \ 'auto_tag': 1,
+           \ 'index': 'index',
+           \ 'ext': '.wiki',
            \ 'syntax': 'default'
            \ }
 endfunction
@@ -64,28 +63,29 @@ endfunction
 
 
 function! s:vimwiki_buffer_mappings()
-    nmap <C-]> <Plug>VimwikiFollowLink
-    nmap <C-t> <Plug>VimwikiGoBackLink
+    nmap <buffer> <CR> <nop>
+
+    nmap <buffer> <C-]> <Plug>VimwikiFollowLink
+    nmap <buffer> <C-t> <Plug>VimwikiGoBackLink
+
+    nmap <buffer> <leader>n <Plug>VimwikiNextLink
+    nmap <buffer> <leader>N <Plug>VimwikiPrevLink
+
+    nmap <buffer> <leader>R <Plug>VimwikiRenameLink
+    nmap <buffer> <leader>D <Plug>VimwikiDeleteLink
+
+    nmap <buffer> <leader>o :VimwikiSearch //<Left>
+    nmap <buffer> <leader>O :VimwikiGoto
+
+    nmap <buffer> <leader>H :execute 'VimwikiGoto index'<CR>
 endfunction
 
 
 function! s:mappings()
-
-    nnoremap <leader><leader>w :VimwikiUISelect<CR>
-    nnoremap <leader><leader>l :1VimwikiTabIndex<CR>
-    nnoremap <leader><leader>g :2VimwikiTabIndex<CR>
+    nnoremap <leader><leader>w :execute "tabnew \| VimwikiUISelect"<CR>
 
     augroup vimwiki_autocmds
         autocmd!
         autocmd Filetype vimwiki call s:vimwiki_buffer_mappings()
     augroup END
-
 endfunction
-
-
-function! s:commands()
-
-endfunction
-
-
-

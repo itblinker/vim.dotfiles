@@ -109,32 +109,27 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ })
 
 
-    if vimrc#isSvnRepository()
-        call dein#add('kmnk/vim-unite-svn',
-                \ {
-                \ 'name' : 'unitesvn',
-                \ 'on_event' : 'VimEnter',
-                \ 'depends' : ['unite']
-                \ })
-    endif
+    call dein#add('kmnk/vim-unite-svn',
+            \ {
+            \ 'name' : 'unitesvn',
+            \ 'depends' : ['unite'],
+            \ 'on_if' : 'isdirectory('''.getcwd().'/.svn'')'
+            \ })
 
-    if vimrc#isGitRepository()
-        call dein#add('kmnk/vim-unite-giti',
-                \ {
-                \ 'name' : 'unitegiti',
-                \ 'on_event' : 'VimEnter',
-                \ 'depends' : ['unite']
-                \ })
-    endif
+    call dein#add('kmnk/vim-unite-giti',
+            \ {
+            \ 'name' : 'unitegiti',
+            \ 'depends' : ['unite'],
+            \ 'on_if' : 'isdirectory('''.getcwd().'/.git'')'
+            \ })
 
-    if vimrc#isGtagsAvailable()
-        call dein#add('hewes/unite-gtags',
-                \ {
-                \ 'name' : 'unitegtags',
-                \ 'on_ft' : ['cpp', 'c'],
-                \ 'hook_post_source': 'call plugins#unitegtags#PostSourceSetup()'
-                \ })
-    endif
+    call dein#add('hewes/unite-gtags',
+            \ {
+            \ 'name' : 'unitegtags',
+            \ 'on_ft' : ['cpp', 'c'],
+            \ 'hook_post_source': 'call plugins#unitegtags#PostSourceSetup()'
+            \ })
+
 
     call dein#add('scrooloose/nerdcommenter',
                 \ {

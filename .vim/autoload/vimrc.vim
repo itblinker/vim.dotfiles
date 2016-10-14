@@ -11,20 +11,16 @@ function! vimrc#echoExceptionDetails()
 endfunction
 "}}}
 
-function! vimrc#getLocalCacheDirName()
-"{{{
-    return '.vim.cache.local'
-endfunction
-"}}}
-
-function! vimrc#getGlobalCacheDirName()
-"{{{
-    return '.vim.cache.global'
-endfunction
-"}}}
-
 function! vimrc#getCacheDir() abort
 "{{{
+    if s:isLocalCacheAvailable()
+        return s:localCacheDir
+    endif
+
+    if argc() != 0
+        return s:fetchGlobalCacheDir()
+    endif
+
     try
         return s:fetchLocalCacheDir()
     catch
@@ -37,18 +33,20 @@ function! vimrc#getCacheDir() abort
 endfunction
 
 
-let s:localCacheParentDir = getcwd()
-let s:localCacheDir = s:localCacheParentDir.'/'.vimrc#getLocalCacheDirName()
+let s:localCacheParentPath = getcwd()
+let s:localChaceDirName = '.vim.cache.local'
+let s:localCacheDir = s:localCacheParentPath.'/'.s:localChaceDirName
 
-let s:globalCacheParentDir = expand('$HOME')
-let s:globalCacheDir = s:globalCacheParentDir.'/'.vimrc#getGlobalCacheDirName()
+let s:globalCacheParentPath = expand('$HOME')
+let s:globalCacheDirName = '.vim.cache.global'
+let s:globalCacheDir = s:globalCacheParentPath.'/'.s:globalCacheDirName
 
 function! s:isLocalCacheAvailable() abort
     return isdirectory(s:localCacheDir)
 endfunction
 
 function! s:createLocalCacheDir() abort
-    call mkdir(vimrc#getLocalCacheDirName(), s:localCacheParentDir)
+    call mkdir(s:localChaceDirName, s:localCacheParentPath)
 endfunction
 
 function! s:isGlobalCacheAvailable() abort
@@ -56,7 +54,7 @@ function! s:isGlobalCacheAvailable() abort
 endfunction
 
 function! s:createGlobalCacheDir() abort
-    call mkdir(vimrc#getGlobalCacheDirName(), s:globalCacheParentDir)
+    call mkdir(s:globalCacheDirName, s:globalCacheParentPath)
 endfunction
 
 
@@ -126,12 +124,6 @@ endfunction
 function! vimrc#isCMakeListFileAvailable()
 "{{{
    return filereadable(getcwd().'/CMakeLists.txt')
-endfunction
-"}}}
-
-function! vimrc#isYcmProjectConfigFileAvailable()
-"{{{
-   return filereadable(getcwd().'/.ycm_extra_conf.py')
 endfunction
 "}}}
 

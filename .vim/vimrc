@@ -388,7 +388,6 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
 
 call dein#end()
 "}}}
-
 "{{{ settings | global
 
 syntax enable
@@ -462,7 +461,6 @@ set history=2000
 set undolevels=2000
 
 "}}}
-
 "{{{ mappings | global
 
 let g:mapleader = ','
@@ -495,6 +493,6 @@ nnoremap <leader><space> :nohlsearch<CR>
 
 set pastetoggle=<F2>
 
-vnoremap <leader>G :call vimrc#grep#fixed#execute(vimrc#utils#getSelection())<CR>
+vnoremap <leader>G :call vimrc#grep#fixed#execute(vimrc#utils#string#getSelection())<CR>
 
 "}}}

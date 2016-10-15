@@ -35,11 +35,6 @@ function! s:getBufferList()
 endfunction
 "}}}
 
-function! vimrc#escape(string)
-"{{{
-    return escape(a:string, "*?[{`$\\%#'\"|!<")
-endfunction
-"}}}
 
 function! vimrc#isSvnRepository()
 "{{{

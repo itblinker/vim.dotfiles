@@ -1,6 +1,6 @@
 nnoremap <buffer> q :q<cr>
 
-nnoremap <buffer> <leader>< :call vimrc#OpenOlderLlorQfList()<CR>
-nnoremap <buffer> <leader>> :call vimrc#OpenNewerLlOrQfList()<CR>
+nnoremap <buffer> <leader>< :call vimrc#openOlderLlorQfList()<CR>
+nnoremap <buffer> <leader>> :call vimrc#openNewerLlOrQfList()<CR>
 
 setlocal switchbuf=useopen

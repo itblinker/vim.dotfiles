@@ -17,6 +17,11 @@ function! s:isWorkingUnderTmux() abort
 endfunction
 "}}}
 
+function! vimrc#bin#tmux#isAvailable() abort
+    return strlen(g:vimrc#bin#tmux#path) || executable('tmux')
+endfunction
+
+
 function! vimrc#bin#tmux#getPath() abort
     if strlen(g:vimrc#bin#tmux#path)
         return g:vimrc#bin#tmux#path
@@ -25,11 +30,6 @@ function! vimrc#bin#tmux#getPath() abort
     else
         call vimrc#exceptions#throw('tmux bin not available')
     endif
-endfunction
-
-
-function! vimrc#bin#tmux#isAvailable() abort
-    return strlen(g:vimrc#bin#tmux#path) || executable('tmux')
 endfunction
 
 

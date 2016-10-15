@@ -1,16 +1,3 @@
-function! vimrc#throw(string) abort
-"{{{
-   let v:errmsg = 'vimrc: '.a:string
-   throw v:errmsg
-endfunction
-"}}}
-
-function! vimrc#echoExceptionDetails()
-"{{{
-    echomsg v:errmsg
-endfunction
-"}}}
-
 function! vimrc#getLocalCacheDirName()
 "{{{
     return '.vim.cache.local'
@@ -33,7 +20,7 @@ function! vimrc#getCacheDir() abort
         try
             return s:fetchGlobalCacheDir()
         catch
-            call vimrc#throw('create '.s:globalCacheDir.' manually to suppress the error')
+            call vimrc#exceptions#throw('create '.s:globalCacheDir.' manually to suppress the error')
         endtry
     endtry
 endfunction

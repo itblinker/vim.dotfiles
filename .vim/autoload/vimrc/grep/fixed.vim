@@ -26,6 +26,6 @@ function! vimrc#grep#fixed#execute(pattern, ...) abort
         endif
 
     catch
-        call vimrc#echoExceptionDetails()
+        call vimrc#exceptions#echomsg()
     endtry
 endfunction

@@ -1,8 +1,8 @@
-let g:gtags_supported_filetypes = ['cpp', 'c']
+let s:gtags_supported_filetypes = ['cpp', 'c']
 
 
 function! plugins#unitegtags#hook()
-    if vimrc#utils#isSupportedFilete(g:gtags_supported_filetypes) && executable('gtags')
+    if vimrc#utils#isSupportedFilete(s:gtags_supported_filetypes) && executable('gtags')
         return 1
     else
         return 0
@@ -12,7 +12,7 @@ endfunction
 
 function! plugins#unitegtags#PostSourceSetup()
     call s:settings()
-    call vimrc#utils#setAugroupForFiletype('au_filetype_mappings_gtags', g:gtags_supported_filetypes, 'MappingsForGtags')
+    call vimrc#utils#setAugroupForFiletype('au_filetype_mappings_gtags', s:gtags_supported_filetypes, 'MappingsForGtags')
 endfunction
 
 

@@ -23,7 +23,7 @@ function! vimrc#bin#tmux#getPath() abort
     elseif executable('tmux')
         return exepath('tmux')
     else
-        vimrc#exceptions#throw('tmux bin not available')
+        call vimrc#exceptions#throw('tmux bin not available')
     endif
 endfunction
 
@@ -37,6 +37,6 @@ function! vimrc#bin#tmux#isWorkingUnder()
     try
         return s:isWorkingUnderTmux()
     catch
-        call vimrc#exceptions#echomsg()
+        call vimrc#exceptions#echomsg('problem: vimrc#bin#tmux#isWorkingUnder()')
     endtry
 endfunction

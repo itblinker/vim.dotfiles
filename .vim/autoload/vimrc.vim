@@ -46,24 +46,3 @@ function! vimrc#isSvnRepository()
    return isdirectory(getcwd().'/.svn')
 endfunction
 "}}}
-"
-function! vimrc#isGitRepository()
-"{{{
-   return isdirectory(getcwd().'/.git')
-endfunction
-"}}}
-
-function! vimrc#isDropboxAvailable()
-"{{{
-
-    return isdirectory(s:dropbox_path)
-endfunction
-
-let s:dropbox_path = expand('$HOME').'/cloudDisc/Dropbox/notes.vimwiki'
-"}}}
-
-function! vimrc#getDropboxDirPath()
-"{{{
-    return s:dropbox_path
-endfunction
-"}}}

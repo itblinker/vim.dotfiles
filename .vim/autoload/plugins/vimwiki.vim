@@ -10,7 +10,7 @@ endfunction
 
 function! s:getWimWikiLIst()
 "{{{
-    if !vimrc#isDropboxAvailable()
+    if !vimrc#bin#dropbox#isDirectoryAvailable()
         return [s:getLocalWiki()]
     else
         return [
@@ -39,8 +39,8 @@ endfunction
 
 
 function! s:getDropboxWiki()
-    let l:dropbox_wiki = vimrc#getDropboxDirPath().'/wiki'
-    let l:dropbox_wiki_html = vimrc#getDropboxDirPath().'/wiki_html'
+    let l:dropbox_wiki = vimrc#bin#dropbox#getDirectory().'/wiki'
+    let l:dropbox_wiki_html = vimrc#bin#dropbox#getDirectory().'/wiki_html'
 
     return {
            \ 'path': l:dropbox_wiki,

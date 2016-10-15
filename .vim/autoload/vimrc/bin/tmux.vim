@@ -22,7 +22,7 @@ function! vimrc#bin#tmux#isAvailable() abort
 endfunction
 
 
-function! vimrc#bin#tmux#getPath() abort
+function! vimrc#bin#tmux#getPath()
     if strlen(g:vimrc#bin#tmux#path)
         return g:vimrc#bin#tmux#path
     elseif executable('tmux')

@@ -7,7 +7,7 @@ function! vimrc#bin#gtags#isAvailable() abort
 endfunction
 
 
-function! vimrc#bin#gtags#getPath() abort
+function! vimrc#bin#gtags#getPath()
     if strlen(g:vimrc#bin#gtags#path)
         return g:vimrc#bin#gtags#path
     elseif executable('gtags')

@@ -1,5 +1,5 @@
 "{{{
-function! s:getCache() abort
+function! s:getCache()
     if vimrc#cache#local#isAvailable()
         return vimrc#cache#local#getPath()
     endif

@@ -8,7 +8,7 @@ function! vimrc#bin#dropbox#isAvailable()
 endfunction
 
 
-function! vimrc#bin#dropbox#getPath() abort
+function! vimrc#bin#dropbox#getPath()
     if strlen(g:vimrc#bin#dropbox#binPath)
         return g:vimrc#bin#dropbox#binPath
     elseif executable('dropbox')

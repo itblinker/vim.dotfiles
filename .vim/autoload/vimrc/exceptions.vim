@@ -1,4 +1,4 @@
-function! vimrc#exceptions#throw(string) abort
+function! vimrc#exceptions#throw(string)
    let v:errmsg = 'vimrc: '.a:string
    throw v:errmsg
 endfunction

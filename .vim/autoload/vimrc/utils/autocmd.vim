@@ -7,9 +7,10 @@ function! s:filetypeAutoCmd(name, supportedFiletypesList, funcref) abort
 endfunction
 "}}}
 
-function! vimrc#utils#autocmd#filetype(name, listOfFiletypes, funcref)
+function! vimrc#utils#autocmd#filetype(listOfFiletypes, funcref)
+    let l:name = 'function_'.a:funcref
     try
-        call s:filetypeAutoCmd(a:name, a:listOfFiletypes, a:funcref)
+        call s:filetypeAutoCmd(l:name, a:listOfFiletypes, a:funcref)
     catch
        call vimrc#exceptions#echomsg()
     endtry

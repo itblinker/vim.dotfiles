@@ -13,6 +13,12 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
 
     call dein#add('Shougo/dein.vim')
 
+    call dein#add('google/vim-maktaba',
+            \ {
+            \ 'name' : 'maktaba',
+            \ 'hook_source': 'call plugins#maktaba#PreSourceSetup()'
+            \ })
+
     call dein#add('Shougo/vimproc.vim',
                 \ {
                 \ 'name' : 'vimproc',
@@ -127,9 +133,16 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
             \ {
             \ 'name' : 'unitegtags',
             \ 'on_ft' : ['cpp', 'c'],
+            \ 'on_if' : 'plugins#unitegtags#hook()',
             \ 'hook_post_source': 'call plugins#unitegtags#PostSourceSetup()'
             \ })
 
+    "call dein#add('hewes/unite-gtags',
+            "\ {
+            "\ 'name' : 'unitegtags',
+            "\ 'on_ft' : ['cpp', 'c'],
+            "\ 'hook_post_source': 'call plugins#unitegtags#PostSourceSetup()'
+            "\ })
 
     call dein#add('scrooloose/nerdcommenter',
                 \ {

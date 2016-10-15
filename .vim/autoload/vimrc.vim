@@ -11,6 +11,12 @@ function! vimrc#echoExceptionDetails()
 endfunction
 "}}}
 
+function! vimrc#getLocalCacheDirName()
+"{{{
+    return '.vim.cache.local'
+endfunction
+"}}}
+
 function! vimrc#getCacheDir() abort
 "{{{
     if s:isLocalCacheAvailable()
@@ -34,8 +40,7 @@ endfunction
 
 
 let s:localCacheParentPath = getcwd()
-let s:localChaceDirName = '.vim.cache.local'
-let s:localCacheDir = s:localCacheParentPath.'/'.s:localChaceDirName
+let s:localCacheDir = s:localCacheParentPath.'/'.vimrc#getLocalCacheDirName()
 
 let s:globalCacheParentPath = expand('$HOME')
 let s:globalCacheDirName = '.vim.cache.global'
@@ -46,7 +51,7 @@ function! s:isLocalCacheAvailable() abort
 endfunction
 
 function! s:createLocalCacheDir() abort
-    call mkdir(s:localChaceDirName, s:localCacheParentPath)
+    call mkdir(vimrc#getLocalCacheDirName(), s:localCacheParentPath)
 endfunction
 
 function! s:isGlobalCacheAvailable() abort
@@ -84,18 +89,13 @@ endfunction
 
 function! vimrc#getStringVisuallySelected()
 "{{{
-    "try
-        let [lnum1, col1] = getpos("'<")[1:2]
-        let [lnum2, col2] = getpos("'>")[1:2]
-        let lines = getline(lnum1, lnum2)
-        let lines[-1] = lines[-1][: col2 - (&selection == 'inclusive' ? 1 : 2)]
-        let lines[0] = lines[0][col1 - 1:]
+    let [lnum1, col1] = getpos("'<")[1:2]
+    let [lnum2, col2] = getpos("'>")[1:2]
+    let lines = getline(lnum1, lnum2)
+    let lines[-1] = lines[-1][: col2 - (&selection == 'inclusive' ? 1 : 2)]
+    let lines[0] = lines[0][col1 - 1:]
 
-        return join(lines, "\n")
-
-    "catch
-        "call vimrc#throw('problem with visual selection')
-    "endtry
+    return join(lines, "\n")
 endfunction
 "}}}
 
@@ -146,7 +146,7 @@ function! vimrc#openNewerLlOrQfList()
     endif
 endfunction
 
-function s:isThisLocationListBuffer()
+function! s:isThisLocationListBuffer()
     let curbufnr = winbufnr(0)
     for bufnum in map(filter(split(s:getBufferList(), '\n'), 'v:val =~ "Location List"'), 'str2nr(matchstr(v:val, "\\d\\+"))')
         if curbufnr == bufnum
@@ -156,7 +156,7 @@ function s:isThisLocationListBuffer()
     return 0
 endfunction
 
-function s:getBufferList()
+function! s:getBufferList()
     redir =>buflist
     silent! ls
     redir END

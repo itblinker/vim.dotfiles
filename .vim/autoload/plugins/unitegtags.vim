@@ -14,7 +14,7 @@ function! s:settings()
 endfunction
 
 
-function! plugins#unitegtags#hook()
+function! plugins#unitegtags#isNeeded()
     return vimrc#utils#isFiletypeMatch(s:filetypes)
 endfunction
 

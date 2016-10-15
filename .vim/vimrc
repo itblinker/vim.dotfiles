@@ -139,17 +139,9 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
     call dein#add('hewes/unite-gtags',
             \ {
             \ 'name' : 'unitegtags',
-            \ 'on_ft' : ['cpp', 'c'],
-            \ 'on_if' : 'plugins#unitegtags#hook()',
+            \ 'on_if' : 'plugins#unitegtags#isNeeded()',
             \ 'hook_post_source': 'call plugins#unitegtags#PostSourceSetup()'
             \ })
-
-    "call dein#add('hewes/unite-gtags',
-            "\ {
-            "\ 'name' : 'unitegtags',
-            "\ 'on_ft' : ['cpp', 'c'],
-            "\ 'hook_post_source': 'call plugins#unitegtags#PostSourceSetup()'
-            "\ })
 
     call dein#add('scrooloose/nerdcommenter',
                 \ {

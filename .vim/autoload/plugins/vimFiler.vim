@@ -60,6 +60,9 @@ function! s:vimfilerBufferMappings()
     nmap <buffer> mf <Plug>(vimfiler_new_file)
     nmap <buffer> md <Plug>(vimfiler_make_directory)
 
+    nmap <buffer> rf <Plug>(vimfiler_rename_file)
+    nmap <buffer> rd <Plug>(vimfiler_rename_file)
+
     nmap <buffer> <C-g> <Plug>(vimfiler_print_filename)
 
     nmap <buffer> <Space> <Plug>(vimfiler_toggle_mark_current_line)

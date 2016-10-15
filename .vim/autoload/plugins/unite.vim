@@ -34,7 +34,7 @@ endfunction
 
 
 function! s:paths()
-    let g:unite_data_directory = vimrc#getCacheDir().'/unite'
+    let g:unite_data_directory = vimrc#cache#get().'/unite'
 endfunction
 
 

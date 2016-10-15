@@ -21,8 +21,8 @@ function! s:getWimWikiLIst()
 endfunction
 
 function! s:getLocalWiki()
-    let l:cwd_wiki = vimrc#getCacheDir().'/wiki'
-    let l:cwd_wiki_html = vimrc#getCacheDir().'/wiki_html'
+    let l:cwd_wiki = vimrc#cache#get().'/wiki'
+    let l:cwd_wiki_html = vimrc#cache#get().'/wiki_html'
 
     return {
            \ 'path': l:cwd_wiki,

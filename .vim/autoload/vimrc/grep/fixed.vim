@@ -1,5 +1,5 @@
 let g:vimrc#grep#fixed#flags = '-nHr'
-let g:vimrc#grep#fixed#default_exclude_dir = '--exclude-dir=.git --exclude-dir=.svn --exclude-dir=.bzr --exclude-dir='.vimrc#getLocalCacheDirName()
+let g:vimrc#grep#fixed#default_exclude_dir = '--exclude-dir=.git --exclude-dir=.svn --exclude-dir=.bzr --exclude-dir='.vimrc#cache#local#getDirName()
 let g:vimrc#grep#fixed#default_include_dir = ''
 
 

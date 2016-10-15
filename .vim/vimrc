@@ -457,7 +457,7 @@ set hlsearch
 set ignorecase
 set smartcase
 
-execute 'set viminfo+=n'.vimrc#getCacheDir().'/.viminfo'
+execute 'set viminfo+=n'.vimrc#cache#get().'/.viminfo'
 set history=2000
 set undolevels=2000
 
@@ -469,8 +469,13 @@ let g:mapleader = ','
 
 inoremap jk <esc>
 
+noremap <silent> <left> :3wincmd ><cr>
+noremap <silent> <right> :3wincmd <<cr>
+noremap <silent> <up> :3wincmd +<cr>
+noremap <silent> <down> :3wincmd -<cr>
+
 nnoremap q <nop>
-nnoremap Q :bd!<CR>
+nnoremap Q :q<CR>
 
 vnoremap < <gv
 vnoremap > >gv

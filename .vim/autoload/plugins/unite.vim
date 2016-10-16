@@ -140,8 +140,29 @@ function! MappingsForUniteBuffer()
 endfunction
 "}}}
 
+
+function! s:findFile(name, path, bufferName)
+    execute 'Unite -buffer-name='.a:bufferName.' find:'.a:path.':-type\ f\ -iname\ *'.a:name.'*'
+endfunction
+
+
+function! plugins#unite#findFile(...)
+    if a:0 == 1
+        call s:findFile(a:1, './', 'findFile')
+    elseif a:0 == 2
+       call s:findFile(a:1, a:2, 'findFile')
+    endif
+endfunction
+
+
+function! s:commands()
+    command -nargs=+ -complete=dir FF : call plugins#unite#findFile(<f-args>)
+endfunction
+
+
 function! plugins#unite#PostSourceSetup()
     call s:settings()
+    call s:commands()
     call s:globalMappings()
     call vimrc#utils#autocmd#filetype(['unite'], 'MappingsForUniteBuffer')
 endfunction

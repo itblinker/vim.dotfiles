@@ -1,20 +1,4 @@
-function! plugins#unite#PostSourceSetup()
-"{{{
-    call s:settings()
-    call s:mappings()
-endfunction
-
-
-function! s:settings()
-    call s:paths()
-    call s:setupDefaultProfile()
-    call s:cachingRecursiveFiles()
-    call s:asyncCommandsSettings()
-    call s:find()
-    call s:grep()
-endfunction
-
-
+"{{{ local functions: Post setup
 function! s:setupDefaultProfile()
     call unite#custom#profile('default', 'context',
                 \ {
@@ -80,14 +64,13 @@ function! s:grep()
 endfunction
 
 
-function! s:mappings()
-    call s:globalMappings()
-
-	augroup uniteBufferSpecific
-	    autocmd!
-	    autocmd FileType unite call s:uniteBufferMappings()
-    augroup END
-
+function! s:settings()
+    call s:paths()
+    call s:setupDefaultProfile()
+    call s:cachingRecursiveFiles()
+    call s:asyncCommandsSettings()
+    call s:find()
+    call s:grep()
 endfunction
 
 
@@ -119,7 +102,7 @@ function! s:globalMappings()
 endfunction
 
 
-function! s:uniteBufferMappings()
+function! MappingsForUniteBuffer()
     setlocal number
     setlocal relativenumber
 
@@ -143,7 +126,7 @@ function! s:uniteBufferMappings()
     nmap <buffer> gg <Plug>(unite_cursor_top)
     nmap <buffer> G <Plug>(unite_cursor_bottom)
     nmap <buffer> <leader>p <Plug>(unite_smart_preview)
-    nmap <buffer> ? <Plug>(unite_quick_help)
+    nmap <buffer> <leader>? <Plug>(unite_quick_help)
     nmap <buffer> M <Plug>(unite_disable_max_candidates)
     imap <buffer> <C-f> <Plug>(unite_select_next_page)
     imap <buffer> <C-b> <Plug>(unite_select_previous_page)
@@ -157,32 +140,8 @@ function! s:uniteBufferMappings()
 endfunction
 "}}}
 
-
-function! plugins#unite#Grep(...)
-"{{{
-    if a:0 == 1
-        execute 'Unite '.s:getGrepSource(escape(a:1, '\[]%'), getcwd())
-    elseif a:0 == 2
-        execute 'Unite '.s:getGrepSource(escape(a:1, '\[]%'), a:2)
-    else
-        echomsg 'vimrc#plugins#unite#Grep expects max 2 arguments | skipped'
-    endif
+function! plugins#unite#PostSourceSetup()
+    call s:settings()
+    call s:globalMappings()
+    call vimrc#utils#autocmd#filetype(['unite'], 'MappingsForUniteBuffer')
 endfunction
-
-
-function! s:getGrepSource(string, path)
-    let s:cache = g:unite_source_grep_default_opts
-    let g:unite_source_grep_default_opts =
-                \ '-rHn --exclude-dir=.*git --exclude-dir=.svn --exclude-dir=.bzr --exclude-dir='
-
-    try
-        return 'grep:'.a:path.'::'.a:string
-    catch
-        let g:unite_source_grep_default_opts = s:cache
-        throw v:exception
-    finally
-        let g:unite_source_grep_default_opts = s:cache
-    endtry
-endfunction
-
-"}}}

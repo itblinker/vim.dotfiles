@@ -35,7 +35,6 @@ function! s:getBufferList()
 endfunction
 "}}}
 
-
 function! vimrc#isSvnRepository()
 "{{{
    return isdirectory(getcwd().'/.svn')

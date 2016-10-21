@@ -4,6 +4,9 @@ function! s:fileFinder(name, path, options, bufferName)
 endfunction
 
 
+"
+" first argument should be <bang>0 | 0 = 'no bang'| 1 = 'with bang'
+"
 function! plugins#unite#findFile(...)
     let l:options = '-type\ f\ -iname\ '
     let l:name = '*'.a:2.'*'
@@ -21,6 +24,11 @@ function! plugins#unite#findFile(...)
     else
         echo 'unsuported number of arguments: '.a:0
     endif
+endfunction
+
+
+function! plugins#unite#findFileDialog(filename)
+    call plugins#unite#findFile(1, a:filename)
 endfunction
 
 "}}}
@@ -124,12 +132,10 @@ function! s:globalMappings()
     nnoremap <leader>p :Unite jump<CR>
     nnoremap <leader>e :Unite change<CR>
 
-    vnoremap <leader>o : call plugins#unite#findFile(1, vimrc#utils#string#getSelection())<CR>
-    noremap <leader>o : call plugins#unite#findFile(1, expand('<cfile>'))<CR>
+    vnoremap <leader>o : call plugins#unite#findFileDialog(vimrc#utils#string#getSelection())<CR>
+    nnoremap <leader>o : call plugins#unite#findFileDialog(expand('<cfile>'))<CR>
 
     "execute 'nnoremap <leader>ss :call manager#plugin#unite#FindSimiliarFilesByUnite()<CR>'
-    "execute 'nnoremap <leader>sf :call manager#plugin#unite#FindSourceOrHeaderFileByUnite()<CR>'
-    "execute 'nnoremap <leader>GW :call manager#plugin#unite#GrepByUnite()<CR>'
 endfunction
 
 
@@ -169,6 +175,10 @@ function! MappingsForUniteBuffer()
     nnoremap <silent><buffer><expr> p unite#smart_map('p', unite#do_action('append'))
     nnoremap <silent><buffer><expr> P unite#smart_map('P', unite#do_action('insert'))
 endfunction
+
+function! UniteMappingsForCAndCppBuffer()
+    nnoremap <leader>sf : call plugins#unite#findFileDialog(vimrc#language#cpp#getSourceOrHeaderFilename())<CR>
+endfunction
 "}}}
 
 
@@ -182,4 +192,5 @@ function! plugins#unite#PostSourceSetup()
     call s:commands()
     call s:globalMappings()
     call vimrc#utils#autocmd#filetype(['unite'], 'MappingsForUniteBuffer')
+    call vimrc#utils#autocmd#filetype(['cpp', 'c'], 'UniteMappingsForCAndCppBuffer')
 endfunction

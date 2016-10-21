@@ -1,3 +1,31 @@
+"{{{ local function: find file
+function! s:fileFinder(name, path, options, bufferName)
+    execute 'Unite -buffer-name='.a:bufferName.' find:'.a:path.':'.a:options.'\ '.a:name
+endfunction
+
+
+function! plugins#unite#findFile(...)
+    let l:options = '-type\ f\ -iname\ '
+    let l:name = '*'.a:2.'*'
+
+    "bang parameter on/off flag
+    if a:1 == 1
+        let l:options = '-type\ f\ -name\ '
+        let l:name = a:2
+    endif
+
+    if a:0 == 2
+        call s:fileFinder(l:name, './', l:options, 'findFile')
+    elseif a:0 == 3
+        call s:fileFinder(l:name, a:3, l:options, 'findFile')
+    else
+        echo 'unsuported number of arguments: '.a:0
+    endif
+endfunction
+
+"}}}
+
+
 "{{{ local functions: Post setup
 function! s:setupDefaultProfile()
     call unite#custom#profile('default', 'context',
@@ -96,6 +124,9 @@ function! s:globalMappings()
     nnoremap <leader>p :Unite jump<CR>
     nnoremap <leader>e :Unite change<CR>
 
+    vnoremap <leader>o : call plugins#unite#findFile(1, vimrc#utils#string#getSelection())<CR>
+    noremap <leader>o : call plugins#unite#findFile(1, expand('<cfile>'))<CR>
+
     "execute 'nnoremap <leader>ss :call manager#plugin#unite#FindSimiliarFilesByUnite()<CR>'
     "execute 'nnoremap <leader>sf :call manager#plugin#unite#FindSourceOrHeaderFileByUnite()<CR>'
     "execute 'nnoremap <leader>GW :call manager#plugin#unite#GrepByUnite()<CR>'
@@ -141,22 +172,8 @@ endfunction
 "}}}
 
 
-function! s:findFile(name, path, bufferName)
-    execute 'Unite -buffer-name='.a:bufferName.' find:'.a:path.':-type\ f\ -iname\ *'.a:name.'*'
-endfunction
-
-
-function! plugins#unite#findFile(...)
-    if a:0 == 1
-        call s:findFile(a:1, './', 'findFile')
-    elseif a:0 == 2
-       call s:findFile(a:1, a:2, 'findFile')
-    endif
-endfunction
-
-
 function! s:commands()
-    command -nargs=+ -complete=dir FF : call plugins#unite#findFile(<f-args>)
+    command! -bang -nargs=+ -complete=dir FF : call plugins#unite#findFile(<bang>0, <f-args>)
 endfunction
 
 

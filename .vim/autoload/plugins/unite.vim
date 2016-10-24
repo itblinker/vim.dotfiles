@@ -1,36 +1,40 @@
 "{{{ local function: find file
-function! s:fileFinder(name, path, options, bufferName)
+function! s:fileFinder(bufferName, options, name, path)
     execute 'Unite -buffer-name='.a:bufferName.' find:'.a:path.':'.a:options.'\ '.a:name
 endfunction
 
+function! s:getUniteFileFindStrongOptions()
+    return '-type\ f\ -name\ '
+endfunction
+
+function! s:getUniteFileFindWeakOptions()
+    return '-type\ f\ -iname\ '
+endfunction
 
 "
 " first argument should be <bang>0 | 0 = 'no bang'| 1 = 'with bang'
 "
-function! plugins#unite#findFile(...)
-    let l:options = '-type\ f\ -iname\ '
-    let l:name = '*'.a:2.'*'
+function! plugins#unite#FindFileBang(strictOptionsFlag, bufferName, ...)
+    let l:bufferName = 'FindFile:'.a:bufferName
 
-    "bang parameter on/off flag
-    if a:1 == 1
-        let l:options = '-type\ f\ -name\ '
-        let l:name = a:2
-    endif
-
-    if a:0 == 2
-        call s:fileFinder(l:name, './', l:options, 'findFile')
-    elseif a:0 == 3
-        call s:fileFinder(l:name, a:3, l:options, 'findFile')
+    if a:strictOptionsFlag == 1
+        if a:0 == 1
+            call s:fileFinder(l:bufferName, s:getUniteFileFindStrongOptions(), a:1, './')
+        elseif a:0 == 2
+            call s:fileFinder(l:bufferName, s:getUniteFileFindStrongOptions(), a:1, a:2)
+        else
+            echomsg 'plugins#unite#FindFileWithBangOption: unsuported number of arguments'
+        endif
     else
-        echo 'unsuported number of arguments: '.a:0
+        if a:0 == 1
+            call s:fileFinder(l:bufferName, s:getUniteFileFindWeakOptions(), '*'.a:1.'*', './')
+        elseif a:0 == 2
+            call s:fileFinder(l:bufferName, s:getUniteFileFindWeakOptions(), '*'.a:1.'*', a:2)
+        else
+            echomsg 'plugins#unite#FindFileWithBangOption: unsuported number of arguments'
+        endif
     endif
 endfunction
-
-
-function! plugins#unite#findFileDialog(filename)
-    call plugins#unite#findFile(1, a:filename)
-endfunction
-
 "}}}
 
 
@@ -132,14 +136,14 @@ function! s:globalMappings()
     nnoremap <leader>p :Unite jump<CR>
     nnoremap <leader>e :Unite change<CR>
 
-    vnoremap <leader>o : call plugins#unite#findFileDialog(vimrc#utils#string#getSelection())<CR>
-    nnoremap <leader>o : call plugins#unite#findFileDialog(expand('<cfile>'))<CR>
+    vnoremap <leader>o : call plugins#unite#FindFileBang(1, 'open', vimrc#utils#string#getSelection())<CR>
+    nnoremap <leader>o : call plugins#unite#FindFileBang(1, 'open', expand('<cfile>'))<CR>
 
     "execute 'nnoremap <leader>ss :call manager#plugin#unite#FindSimiliarFilesByUnite()<CR>'
 endfunction
 
 
-function! MappingsForUniteBuffer()
+function! UniteMappingsForUniteBuffer()
     setlocal number
     setlocal relativenumber
 
@@ -176,14 +180,15 @@ function! MappingsForUniteBuffer()
     nnoremap <silent><buffer><expr> P unite#smart_map('P', unite#do_action('insert'))
 endfunction
 
+
 function! UniteMappingsForCAndCppBuffer()
-    nnoremap <leader>sf : call plugins#unite#findFileDialog(vimrc#language#cpp#getSourceOrHeaderFilename())<CR>
+    nnoremap <leader>sf : call plugins#unite#FindFileBang(1, 'cpp:source/header', vimrc#language#cpp#getSourceOrHeaderFilename())<CR>
 endfunction
 "}}}
 
 
 function! s:commands()
-    command! -bang -nargs=+ -complete=dir FF : call plugins#unite#findFile(<bang>0, <f-args>)
+    command! -bang -nargs=+ -complete=dir FF : call plugins#unite#FindFileBang(<bang>0, 'command', <f-args>)
 endfunction
 
 
@@ -191,6 +196,6 @@ function! plugins#unite#PostSourceSetup()
     call s:settings()
     call s:commands()
     call s:globalMappings()
-    call vimrc#utils#autocmd#filetype(['unite'], 'MappingsForUniteBuffer')
+    call vimrc#utils#autocmd#filetype(['unite'], 'UniteMappingsForUniteBuffer')
     call vimrc#utils#autocmd#filetype(['cpp', 'c'], 'UniteMappingsForCAndCppBuffer')
 endfunction

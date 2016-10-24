@@ -117,29 +117,27 @@ endfunction
 function! s:globalMappings()
     let g:unite_no_default_keymappings = 1
 
-    nnoremap <leader>ru :UniteResume -smartcase<CR>
+    nnoremap <leader>r :Unite -buffer-name=resume resume<CR>
 
-    nnoremap <leader>w :Unite window<CR>
-    nnoremap <leader>t :Unite tab<CR>
+    nnoremap <leader>w :Unite -buffer-name=windows window<CR>
+    nnoremap <leader>t :Unite -buffer-name=tabs tab<CR>
 
-    nnoremap <leader>sa :Unite file_rec/async:!<CR>
+    nnoremap <leader>sa :Unite -buffer-name=file_rec file_rec/async:!<CR>
 
     call unite#custom#source('file_rec/async',
                 \ 'matchers', ['converter_file_directory', 'matcher_regexp'])
 
-    nnoremap <leader>bf  :Unite buffer:-<CR>
-    nnoremap <leader>ba  :Unite buffer<CR>
+    nnoremap <leader>bf  :Unite -buffer-name=buffers_files buffer:-<CR>
+    nnoremap <leader>ba  :Unite -buffer-name=buffers_all buffer<CR>
 
     call unite#custom#source('buffer_tab,buffer',
                 \ 'matchers', ['converter_file_directory', 'matcher_regexp'])
 
-    nnoremap <leader>p :Unite jump<CR>
-    nnoremap <leader>e :Unite change<CR>
+    nnoremap <leader>p :Unite -buffer-name=jumps jump<CR>
+    nnoremap <leader>e :Unite -buffer-name=changes change<CR>
 
     vnoremap <leader>o : call plugins#unite#FindFileBang(1, 'open', vimrc#utils#string#getSelection())<CR>
     nnoremap <leader>o : call plugins#unite#FindFileBang(1, 'open', expand('<cfile>'))<CR>
-
-    "execute 'nnoremap <leader>ss :call manager#plugin#unite#FindSimiliarFilesByUnite()<CR>'
 endfunction
 
 

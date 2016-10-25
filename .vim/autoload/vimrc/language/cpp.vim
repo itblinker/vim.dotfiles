@@ -14,5 +14,4 @@ function! vimrc#language#cpp#getSourceOrHeaderFilename()
     else
         return l:filenameBase.'.*'
     endif
-
 endfunction

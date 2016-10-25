@@ -6,7 +6,7 @@ endfunction
 
 function! s:settings()
     let g:bookmark_auto_save = 1
-    let g:bookmark_auto_save_file = vimrc#cache#get().'/bookmarks'
+    let g:bookmark_auto_save_file = vimrc#cache#fetch().'/bookmarks'
 
     let g:bookmark_center = 1
     let g:bookmark_auto_close = 0

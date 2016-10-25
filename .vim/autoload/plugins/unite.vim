@@ -3,13 +3,16 @@ function! s:fileFinder(bufferName, options, name, path)
     execute 'Unite -no-wipe -buffer-name='.a:bufferName.' find:'.a:path.':'.a:options.'\ '.a:name
 endfunction
 
+
 function! s:getUniteFileFindStrongOptions()
     return '-type\ f\ -name\ '
 endfunction
 
+
 function! s:getUniteFileFindWeakOptions()
     return '-type\ f\ -iname\ '
 endfunction
+
 
 "
 " first argument should be <bang>0 | 0 = 'no bang'| 1 = 'with bang'
@@ -53,6 +56,7 @@ function! s:setupDefaultProfile()
                 \ 'previewheight' : 15,
                 \ 'truncate' : 0,
                 \ 'toggle' : 1,
+                \ 'empty' : 0,
                 \ 'restore' : 1,
                 \ 'quit' : 1,
                 \ 'wipe' : 1
@@ -62,7 +66,7 @@ endfunction
 
 
 function! s:paths()
-    let g:unite_data_directory = vimrc#cache#get().'/unite'
+    let g:unite_data_directory = vimrc#cache#fetch().'/unite'
 endfunction
 
 
@@ -73,15 +77,15 @@ endfunction
 
 
 function! s:asyncCommandsSettings()
-    if executable('ag')
-        let g:unite_source_rec_async_command =
-                    \ ['ag', '--follow', '--nocolor', '--nogroup',
-                    \  '--hidden', '-g', '']
-    elseif executable('ack')
-        let g:unite_source_rec_async_command =
-                    \ ['ag', '--follow', '--nocolor', '--nogroup',
-                    \  '--hidden', '-g', '']
-    endif
+    "if executable('ag')
+        "let g:unite_source_rec_async_command =
+                    "\ ['ag', '--follow', '--nocolor', '--nogroup',
+                    "\  '--hidden', '-g', '']
+    "elseif executable('ack')
+        "let g:unite_source_rec_async_command =
+                    "\ ['ag', '--follow', '--nocolor', '--nogroup',
+                    "\  '--hidden', '-g', '']
+    "endif
 endfunction
 
 
@@ -93,18 +97,19 @@ endfunction
 function! s:grep()
     let g:unite_source_grep_default_opts =
                 \ '-iRHn --exclude-dir=.git --exclude-dir=.svn --exclude-dir=.bzr'
+                \ .' --exclude-dir='.vimrc#cache#local#getDirName()
+                \ .' --exclude-dir='.vimrc#cache#global#getDirName()
 
     let g:unite_source_grep_recursive_opt = ''
-
     let g:unite_source_grep_search_word_highlight = 'None'
 
-    if executable('ag')
-        let g:unite_source_grep_command = 'ag'
-        let g:unite_source_grep_default_opts =
-                    \ '-i --vimgrep --hidden --ignore ' .
-                    \ '''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'''
-        let g:unite_source_grep_recursive_opt = ''
-    endif
+    "if executable('ag')
+        "let g:unite_source_grep_command = 'ag'
+        "let g:unite_source_grep_default_opts =
+                    "\ '-i --vimgrep --hidden --ignore '.
+                    "\ '''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'''
+        "let g:unite_source_grep_recursive_opt = ''
+    "endif
 endfunction
 
 

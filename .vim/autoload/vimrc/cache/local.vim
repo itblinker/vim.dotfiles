@@ -5,7 +5,7 @@ let s:cache = s:parentPath.'/'.s:dirName
 
 
 function! s:createCache() abort
-    mkdir(s:dirName, s:parentPath)
+    call mkdir(s:dirName, s:parentPath)
 endfunction
 "}}}
 

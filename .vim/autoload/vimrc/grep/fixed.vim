@@ -1,7 +1,9 @@
 let g:vimrc#grep#fixed#flags = '-nHr'
-let g:vimrc#grep#fixed#default_exclude_dir = '--exclude-dir=.git --exclude-dir=.svn --exclude-dir=.bzr --exclude-dir='.vimrc#cache#local#getDirName()
-let g:vimrc#grep#fixed#default_include_dir = ''
+let g:vimrc#grep#fixed#default_exclude_dir = '--exclude-dir=.git --exclude-dir=.svn --exclude-dir=.bzr'
+            \ .' --exclude-dir='.vimrc#cache#local#getDirName()
+            \ .' --exclude-dir='.vimrc#cache#global#getDirName()
 
+let g:vimrc#grep#fixed#default_include_dir = ''
 
 function! s:getGrepCmdForFixedString(pattern, flags, path)
     return 'grep! -F '''.escape(a:pattern, '*#$\\').''' '.a:flags.' '.a:path

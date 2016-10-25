@@ -9,7 +9,7 @@ function! s:settings()
     let g:NERDTreeChDirMode = 0
     let g:NERDTreeWinPos = 'left'
 
-    let g:NERDTreeBookmarksFile = vimrc#cache#get().'/nerdtree-bookmarks.vim'
+    let g:NERDTreeBookmarksFile = vimrc#cache#fetch().'/nerdtree-bookmarks.vim'
 
     let g:NERDTreeShowBookmarks = 1
     let g:NERDTreeQuitOnOpen = 1

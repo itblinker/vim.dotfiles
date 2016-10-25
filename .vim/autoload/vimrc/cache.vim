@@ -4,7 +4,7 @@ function! s:getCache()
         return vimrc#cache#local#getPath()
     endif
 
-    if argc() != 0
+    if argc() > 0
         return vimrc#cache#global#fetch()
     endif
 
@@ -20,10 +20,10 @@ function! s:getCache()
 endfunction
 "}}}
 
-function! vimrc#cache#get()
+function! vimrc#cache#fetch()
     try
         return s:getCache()
     catch
-        call vimrc#exceptions#echomsg('problem: vimrc#cache#get()')
+        call vimrc#exceptions#echomsg('problem: vimrc#cache#fetch()')
     endtry
 endfunction

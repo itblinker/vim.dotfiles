@@ -4,7 +4,7 @@ endfunction
 
 
 function! s:mappings()
-   nnoremap <leader>q :Unite quickfix<CR>
-   nnoremap <leader>l :Unite location_list<CR>
+   nnoremap <leader>q :Unite -buffer-name=quickfix quickfix<CR>
+   nnoremap <leader>l :Unite -buffer-name=location_list location_list<CR>
 endfunction
 

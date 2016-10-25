@@ -10,5 +10,5 @@ endfunction
 
 
 function! s:mappings()
-   nnoremap <leader>y :Unite history/yank<CR>
+   nnoremap <leader>y :Unite -buffer-name=history_yank history/yank<CR>
 endfunction

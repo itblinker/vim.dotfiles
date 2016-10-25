@@ -1,6 +1,6 @@
 "{{{ local function: find file
 function! s:fileFinder(bufferName, options, name, path)
-    execute 'Unite -buffer-name='.a:bufferName.' find:'.a:path.':'.a:options.'\ '.a:name
+    execute 'Unite -no-wipe -buffer-name='.a:bufferName.' find:'.a:path.':'.a:options.'\ '.a:name
 endfunction
 
 function! s:getUniteFileFindStrongOptions()
@@ -49,9 +49,13 @@ function! s:setupDefaultProfile()
                 \ 'prompt_direction' : 'top',
                 \ 'auto_preview' : 0,
                 \ 'horizontal' : 1,
-                \ 'winheight' : '15',
-                \ 'previewheight' : '15',
-                \ 'truncate' : '0'
+                \ 'winheight' : 15,
+                \ 'previewheight' : 15,
+                \ 'truncate' : 0,
+                \ 'toggle' : 1,
+                \ 'restore' : 1,
+                \ 'quit' : 1,
+                \ 'wipe' : 1
                 \ })
     call unite#filters#matcher_default#use(['matcher_regexp'])
 endfunction
@@ -122,7 +126,7 @@ function! s:globalMappings()
     nnoremap <leader>w :Unite -buffer-name=windows window<CR>
     nnoremap <leader>t :Unite -buffer-name=tabs tab<CR>
 
-    nnoremap <leader>sa :Unite -buffer-name=file_rec file_rec/async:!<CR>
+    nnoremap <leader>sa :Unite -no-wipe -buffer-name=file_rec file_rec/async:!<CR>
 
     call unite#custom#source('file_rec/async',
                 \ 'matchers', ['converter_file_directory', 'matcher_regexp'])

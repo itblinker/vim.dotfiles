@@ -10,5 +10,5 @@ endfunction
 
 
 function! s:mappings()
-    noremap <leader>sm :Unite file_mru<CR>
+    noremap <leader>sm :Unite -buffer-name=file_mru file_mru<CR>
 endfunction

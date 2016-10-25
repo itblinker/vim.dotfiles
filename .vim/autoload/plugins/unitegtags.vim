@@ -1,9 +1,9 @@
 let s:filetypes = ['cpp', 'c']
 
 function! MappingsForGtags()
-    nnoremap <buffer> <C-]> :Unite -immediately gtags/def<CR>
-    nnoremap <buffer> <leader>gr :Unite gtags/ref<CR>
-    nnoremap <buffer> <leader>gc :Unite gtags/context<CR>
+    nnoremap <buffer> <C-]> :Unite -no-wipe -buffer-name=gtags_definitions -immediately gtags/def<CR>
+    nnoremap <buffer> <leader>gr :Unite -no-wipe -buffer-name=gtags_references gtags/ref<CR>
+    nnoremap <buffer> <leader>gc :Unite -no-wipe -buffer-name=gtags_context gtags/context<CR>
 endfunction
 
 

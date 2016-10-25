@@ -103,11 +103,6 @@ endfunction
 function! s:startup()
     let g:vimfiler_as_default_explorer = 1
     let g:vimfiler_ignore_pattern = ['^\.']
-
-    augroup vimFilerStartup
-        autocmd!
-        autocmd VimEnter * if !argc() | VimFiler | endif
-    augroup END
 endfunction
 
 

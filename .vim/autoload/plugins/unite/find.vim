@@ -43,11 +43,6 @@ function! s:findFileWithUniteBufferCreation(bangFlag, filename, path) abort
 endfunction
 
 
-function! Test(bangFlag, filename, path)
-    return s:findFileWithUniteBufferCreation(a:bangFlag, a:filename, a:path)
-endfunction
-
-
 function! plugins#unite#find#file(bangFlag, ...)
     try
         if a:0 == 1

@@ -1,46 +1,3 @@
-"{{{ local function: find file
-function! s:fileFinder(bufferName, options, name, path)
-    execute 'Unite -no-wipe -buffer-name='.a:bufferName.' find:'.a:path.':'.a:options.'\ '.a:name
-endfunction
-
-
-function! s:getUniteFileFindStrongOptions()
-    return '-type\ f\ -name\ '
-endfunction
-
-
-function! s:getUniteFileFindWeakOptions()
-    return '-type\ f\ -iname\ '
-endfunction
-
-
-"
-" first argument should be <bang>0 | 0 = 'no bang'| 1 = 'with bang'
-"
-function! plugins#unite#FindFileBang(strictOptionsFlag, bufferName, ...)
-    let l:bufferName = 'FindFile:'.a:bufferName
-
-    if a:strictOptionsFlag == 1
-        if a:0 == 1
-            call s:fileFinder(l:bufferName, s:getUniteFileFindStrongOptions(), a:1, './')
-        elseif a:0 == 2
-            call s:fileFinder(l:bufferName, s:getUniteFileFindStrongOptions(), a:1, a:2)
-        else
-            echomsg 'plugins#unite#FindFileWithBangOption: unsuported number of arguments'
-        endif
-    else
-        if a:0 == 1
-            call s:fileFinder(l:bufferName, s:getUniteFileFindWeakOptions(), '*'.a:1.'*', './')
-        elseif a:0 == 2
-            call s:fileFinder(l:bufferName, s:getUniteFileFindWeakOptions(), '*'.a:1.'*', a:2)
-        else
-            echomsg 'plugins#unite#FindFileWithBangOption: unsuported number of arguments'
-        endif
-    endif
-endfunction
-"}}}
-
-
 "{{{ local functions: Post setup
 function! s:setupDefaultProfile()
     call unite#custom#profile('default', 'context',
@@ -145,8 +102,8 @@ function! s:globalMappings()
     nnoremap <leader>p :Unite -buffer-name=jumps jump<CR>
     nnoremap <leader>e :Unite -buffer-name=changes change<CR>
 
-    vnoremap <leader>o : call plugins#unite#find#inCwd(vimrc#utils#string#getSelection())<CR>
-    nnoremap <leader>o : call plugins#unite#find#inCwd(expand('<cfile>'))<CR>
+    vnoremap <leader>o : call plugins#unite#find#fileInCwd(vimrc#utils#string#getSelection())<CR>
+    nnoremap <leader>o : call plugins#unite#find#fileInCwd(expand('<cfile>'))<CR>
 endfunction
 
 
@@ -189,13 +146,13 @@ endfunction
 
 
 function! UniteMappingsForCAndCppBuffer()
-    nnoremap <leader>sf : call plugins#unite#FindFileBang(1, 'cpp:source/header', vimrc#language#cpp#getSourceOrHeaderFilename())<CR>
+    nnoremap <leader>sf : call plugins#unite#find#fileInCwd(vimrc#language#cpp#getSourceOrHeaderFilename())<CR>
 endfunction
 "}}}
 
 
 function! s:commands()
-    command! -bang -nargs=+ -complete=dir FF : call plugins#unite#FindFileBang(<bang>0, 'command', <f-args>)
+    command! -bang -nargs=+ -complete=dir FF : call plugins#unite#find#file(<bang>0, <f-args>)
 endfunction
 
 

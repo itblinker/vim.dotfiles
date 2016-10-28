@@ -145,8 +145,8 @@ function! s:globalMappings()
     nnoremap <leader>p :Unite -buffer-name=jumps jump<CR>
     nnoremap <leader>e :Unite -buffer-name=changes change<CR>
 
-    vnoremap <leader>o : call plugins#unite#FindFileBang(1, 'open', vimrc#utils#string#getSelection())<CR>
-    nnoremap <leader>o : call plugins#unite#FindFileBang(1, 'open', expand('<cfile>'))<CR>
+    vnoremap <leader>o : call plugins#unite#find#inCwd(vimrc#utils#string#getSelection())<CR>
+    nnoremap <leader>o : call plugins#unite#find#inCwd(expand('<cfile>'))<CR>
 endfunction
 
 

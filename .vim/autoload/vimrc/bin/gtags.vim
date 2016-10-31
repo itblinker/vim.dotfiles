@@ -1,6 +1,4 @@
-"{{{ global variables
 let g:vimrc#bin#gtags#path = ''
-"}}}
 
 function! vimrc#bin#gtags#isAvailable() abort
     return strlen(g:vimrc#bin#gtags#path) || executable('gtags')

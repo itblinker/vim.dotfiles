@@ -13,135 +13,145 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
 
     call dein#add('Shougo/dein.vim')
 
-    call dein#add('google/vim-maktaba',
-            \ {
-            \ 'name' : 'maktaba',
-            \ 'lazy' : 1,
-            \ 'hook_source': 'call plugins#maktaba#PreSourceSetup()'
-            \ })
+    call dein#add('google/vim-maktaba', {
+                \ 'name' : 'maktaba',
+                \
+                \ 'lazy' : 1,
+                \ 'hook_source': 'call plugins#maktaba#PreSourceSetup()'
+                \ })
 
-    call dein#add('vim-jp/vital.vim',
-            \ {
-            \ 'name' : 'vital',
-            \ 'lazy' : 1
-            \ })
-
-    call dein#add('Shougo/vimproc.vim',
-                \ {
-                \ 'name' : 'vimproc',
-                \ 'build' : 'make',
+    call dein#add('vim-jp/vital.vim', {
+                \ 'name' : 'vital',
+                \
                 \ 'lazy' : 1
                 \ })
 
-    call dein#add('Shougo/unite.vim',
-                \ {
+    call dein#add('Shougo/vimproc.vim', {
+                \ 'name' : 'vimproc',
+                \ 'build' : 'make',
+                \
+                \ 'lazy' : 1
+                \ })
+
+    call dein#add('Shougo/unite.vim', {
                 \ 'name' : 'unite',
+                \
                 \ 'on_event' : 'VimEnter',
                 \ 'hook_post_source': 'call plugins#unite#PostSourceSetup()'
                 \ })
 
-    call dein#add('Shougo/unite-outline',
-                \ {
+    call dein#add('Shougo/unite-outline', {
                 \ 'name' : 'uniteOutline',
-                \ 'on_event' : 'VimEnter',
-                \ 'depends' : ['unite']
+                \
+                \ 'depends' : ['unite'],
+                \
+                \ 'on_event' : 'VimEnter'
                 \ })
 
-
-    call dein#add('Shougo/tabpagebuffer.vim',
-                \ {
+    call dein#add('Shougo/tabpagebuffer.vim', {
                 \ 'name' : 'tabpagebuffer',
-                \ 'on_event' : 'VimEnter',
+                \
                 \ 'depends' : ['unite'],
+                \
+                \ 'on_event' : 'VimEnter',
                 \ 'hook_post_source': 'call plugins#tabpagebuffer#PostSourceSetup()'
                 \ })
 
-    call dein#add('MattesGroeger/vim-bookmarks',
-                \ {
+    call dein#add('MattesGroeger/vim-bookmarks', {
                 \ 'name' : 'vimbookmarks',
-                \ 'on_event' : 'VimEnter',
+                \
                 \ 'depends' : ['unite'],
+                \
+                \ 'on_event' : 'VimEnter',
                 \ 'hook_post_source': 'call plugins#vimbookmarks#PostSourceSetup()'
                 \ })
 
     call dein#add('tacroe/unite-mark')
 
-    call dein#add('Shougo/neomru.vim',
-                \ {
+    call dein#add('Shougo/neomru.vim', {
                 \ 'name' : 'neomru',
-                \ 'on_event' : 'VimEnter',
+                \
                 \ 'depends' : ['unite'],
+                \
+                \ 'on_event' : 'VimEnter',
                 \ 'hook_post_source': 'call plugins#neomru#PostSourceSetup()'
                 \ })
 
-    call dein#add('Shougo/neoyank.vim',
-                \ {
+    call dein#add('Shougo/neoyank.vim', {
                 \ 'name' : 'neoyank',
-                \ 'on_event' : 'VimEnter',
+                \
                 \ 'depends' : ['unite'],
+                \
+                \ 'on_event' : 'VimEnter',
                 \ 'hook_post_source': 'call plugins#neoyank#PostSourceSetup()'
                 \ })
 
-    call dein#add('thinca/vim-unite-history',
-                \ {
+    call dein#add('thinca/vim-unite-history', {
                 \ 'name' : 'unitehistory',
-                \ 'on_event' : 'VimEnter',
+                \
                 \ 'depends' : ['unite'],
+                \
+                \ 'on_event' : 'VimEnter',
                 \ 'hook_post_source': 'call plugins#unitehistory#PostSourceSetup()'
                 \ })
 
-    call dein#add('osyo-manga/unite-quickfix',
-                \ {
+    call dein#add('osyo-manga/unite-quickfix', {
                 \ 'name' : 'unitequickfix',
-                \ 'on_event' : 'VimEnter',
+                \
                 \ 'depends' : ['unite'],
+                \
+                \ 'on_event' : 'VimEnter',
                 \ 'hook_post_source': 'call plugins#unitequickix#PostSourceSetup()'
                 \ })
 
-    call dein#add('Shougo/unite-help',
-                \ {
+    call dein#add('Shougo/unite-help', {
                 \ 'name' : 'unite-help',
+                \
                 \ 'depends' : ['unite']
                 \ })
 
-    call dein#add('Shougo/vimfiler.vim',
-                \ {
+    call dein#add('Shougo/vimfiler.vim', {
                 \ 'name' : 'vimFiler',
-                \ 'on_event' : 'VimEnter',
+                \
                 \ 'depends' : ['unite'],
+                \
+                \ 'on_event' : 'VimEnter',
                 \ 'hook_source': 'call plugins#vimFiler#PreSourceSetup()',
                 \ 'hook_post_source': 'call plugins#vimFiler#PostSourceSetup()'
                 \ })
 
-    call dein#add('majkinetor/unite-cmdmatch',
-                \ {
+    call dein#add('majkinetor/unite-cmdmatch', {
                 \ 'name' : 'uniteCmdmatch',
-                \ 'on_event' : 'VimEnter',
+                \
                 \ 'depends' : ['unite'],
+                \
+                \ 'on_event' : 'VimEnter',
                 \ 'hook_post_source': 'call plugins#uniteCmdmatch#PostSourceSetup()'
                 \ })
 
 
-    call dein#add('kmnk/vim-unite-svn',
-            \ {
-            \ 'name' : 'unitesvn',
-            \ 'depends' : ['unite'],
-            \ 'on_if' : 'isdirectory('''.getcwd().'/.svn'')'
-            \ })
+    call dein#add('kmnk/vim-unite-svn', {
+                \ 'name' : 'unitesvn',
+                \
+                \ 'if' : 'plugins#uniteSvn#isNeeded()',
+                \
+                \ 'depends' : ['unite']
+                \ })
 
-    call dein#add('kmnk/vim-unite-giti',
-            \ {
-            \ 'name' : 'unitegiti',
-            \ 'depends' : ['unite'],
-            \ 'on_if' : 'isdirectory('''.getcwd().'/.git'')'
-            \ })
+    call dein#add('kmnk/vim-unite-giti', {
+                \ 'name' : 'unitegiti',
+                \
+                \ 'if' : 'plugins#uniteGiti#isNeeded()',
+                \
+                \ 'depends' : ['unite']
+                \ })
 
     call dein#add('hewes/unite-gtags',
-            \ {
-            \ 'name' : 'unitegtags',
-            \ 'on_if' : 'plugins#unitegtags#isNeeded()',
-            \ 'hook_post_source': 'call plugins#unitegtags#PostSourceSetup()'
-            \ })
+                \ {
+                \ 'name' : 'unitegtags',
+                \ 'on_if' : 'plugins#unitegtags#isNeeded()',
+                \ 'hook_post_source': 'call plugins#unitegtags#PostSourceSetup()'
+                \ })
 
     call dein#add('scrooloose/nerdcommenter',
                 \ {
@@ -192,7 +202,7 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
     command! GenerateYcmConfigurationBasedOnCMakeList :YcmGenerateConfig -f
     call dein#add('rdnetto/YCM-Generator',
                 \ {
-                \ 'name' : 'ycmgenerator',
+                \ 'name' : 'YcmGenerator',
                 \ 'rev': 'stable',
                 \ 'lazy' : 1,
                 \ 'on_cmd' : 'YcmGenerateConfig'
@@ -203,10 +213,9 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ 'name' : 'YouCompleteMe',
                 \ 'timeout' : 10000,
                 \ 'build': './install.py --clang-completer',
-                \ 'lazy' : 1,
-                \ 'on_source' : 'ycmgenerator',
+                \ 'on_source' : 'YcmGenerator',
                 \ 'on_event' : 'VimEnter',
-                \ 'on_if' : 'filereadable('''.getcwd().'/.ycm_extra_conf.py'')',
+                \ 'on_if' : 'plugins#youCompleMe#isNeeded()',
                 \ })
 
     " checking syntax async (2) plugins to check
@@ -259,8 +268,17 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ 'on_ft' : 'tmux',
                 \ })
 
-    call dein#add('tmux-plugins/vim-tmux-focus-events')
-    call dein#add('christoomey/vim-tmux-navigator')
+    call dein#add('tmux-plugins/vim-tmux-focus-events',
+                \ {
+                \ 'name' : 'tmuxFocusEvents',
+                \ 'if' : 'plugins#tmuxFocusEvents#isNeeded()'
+                \ })
+
+    call dein#add('christoomey/vim-tmux-navigator',
+                \ {
+                \ 'name' : 'tmuxNavigator',
+                \ 'if' : 'plugins#tmuxNavigator#isNeeded()'
+                \ })
 
     call dein#add('vimwiki/vimwiki',
                 \ {
@@ -379,9 +397,6 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
     "}}}
 
 call dein#end()
-"}}}
-"{{{ custom: autocmds //set auto for cpp -> and call vimrc#cpp#setup() TODO
-
 "}}}
 "{{{ settings | global
 

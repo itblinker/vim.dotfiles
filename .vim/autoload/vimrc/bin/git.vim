@@ -1,7 +1,4 @@
-"{{{ global variables
 let g:vimrc#bin#git#path = ''
-"}}}
-
 
 function! vimrc#bin#git#getPath() abort
     if strlen(g:vimrc#bin#git#path)

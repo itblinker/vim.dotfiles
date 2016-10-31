@@ -1,7 +1,5 @@
-"{{{ global variables
 let g:vimrc#bin#tmux#path = ''
-"}}}
-"{{{ local functions
+
 function! s:isWorkingUnderTmux() abort
     let session = get(g:, 'tmux_session', '')
 
@@ -15,7 +13,7 @@ function! s:isWorkingUnderTmux() abort
         return 1
     endif
 endfunction
-"}}}
+
 
 function! vimrc#bin#tmux#isAvailable() abort
     return strlen(g:vimrc#bin#tmux#path) || executable('tmux')

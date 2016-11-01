@@ -1,9 +1,3 @@
-function! plugins#rainbowParenthesis#PostSourceSetup()
-    call s:settings()
-    call s:turn_on_c_and_cpp()
-endfunction
-
-
 function! s:settings()
     let g:rbpt_colorpairs = [
                 \ ['brown',       'RoyalBlue3'],
@@ -22,20 +16,16 @@ function! s:settings()
     let g:rbpt_loadcmd_toggle = 0
 endfunction
 
-
-function! s:turn_on_c_and_cpp()
-    augroup aucmd_rainbow_parenthesis_c_and_cpp
-        autocmd!
-        autocmd Syntax cpp call s:settings_c_languages()
-        autocmd Syntax c call s:settings_c_languages()
-    augroup END
-endfunction
-
-
-function! s:settings_c_languages()
+function! RainbowParenthesisSettingsForCandCpp()
     execute "RainbowParenthesesActivate"
 
     execute "RainbowParenthesesLoadRound"
     execute "RainbowParenthesesLoadSquare"
     execute "RainbowParenthesesLoadBraces"
+endfunction
+
+
+function! plugins#rainbowParenthesis#PostSourceSetup()
+    call s:settings()
+    call vimrc#utils#autocmd#filetype(['c', 'cpp'], 'RainbowParenthesisSettingsForCandCpp')
 endfunction

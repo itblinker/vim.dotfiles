@@ -8,7 +8,7 @@ endfunction
 "}}}
 
 function! vimrc#utils#autocmd#filetype(listOfFiletypes, funcref)
-    let l:name = 'function_'.a:funcref
+    let l:name = 'augroup_filetypes_'.join(a:listOfFiletypes, '_').'_'.a:funcref
     try
         call s:filetypeAutoCmd(l:name, a:listOfFiletypes, a:funcref)
     catch

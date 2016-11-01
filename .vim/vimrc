@@ -10,21 +10,7 @@ execute 'set rtp+='.expand('$HOME/DEV/git.softwares/dein.vim')
 
 " {where plugins are stored}
 call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
-
     call dein#add('Shougo/dein.vim')
-
-    call dein#add('google/vim-maktaba', {
-                \ 'name' : 'maktaba',
-                \
-                \ 'lazy' : 1,
-                \ 'hook_source': 'call plugins#maktaba#PreSourceSetup()'
-                \ })
-
-    call dein#add('vim-jp/vital.vim', {
-                \ 'name' : 'vital',
-                \
-                \ 'lazy' : 1
-                \ })
 
     call dein#add('Shougo/vimproc.vim', {
                 \ 'name' : 'vimproc',
@@ -129,7 +115,6 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ 'hook_post_source': 'call plugins#uniteCmdmatch#PostSourceSetup()'
                 \ })
 
-
     call dein#add('kmnk/vim-unite-svn', {
                 \ 'name' : 'unitesvn',
                 \
@@ -156,157 +141,121 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ 'hook_post_source': 'call plugins#unitegtags#PostSourceSetup()'
                 \ })
 
-    call dein#add('scrooloose/nerdcommenter',
-                \ {
+    call dein#add('scrooloose/nerdcommenter', {
                 \ 'name' : 'nerdcommenter',
+                \
                 \ 'on_event' : 'VimEnter',
                 \ 'hook_source': 'call plugins#nerdcomment#PreSourceSetup()',
                 \ 'hook_post_source' : 'call plugins#nerdcomment#PostSourceSetup()'
                 \ })
 
-    call dein#add('easymotion/vim-easymotion',
-                \ {
+    call dein#add('easymotion/vim-easymotion', {
                 \ 'name' : 'easymotion',
+                \
                 \ 'on_event' : 'VimEnter',
                 \ 'hook_post_source' : 'call plugins#easymotion#PostSourceSetup()'
                 \ })
 
-    call dein#add('sjl/gundo.vim',
-                \ {
-                \ 'name' : 'gundo',
-                \ 'on_event' : 'VimEnter',
-                \ 'hook_post_source': 'call plugins#gundo#PostSourceSetup()'
-                \ })
-
-    call dein#add('kshenoy/vim-signature',
-                \ {
+    call dein#add('kshenoy/vim-signature', {
                 \ 'name' : 'signaure'
                 \ })
 
-    call dein#add('yssl/QFEnter',
-                \ {
+    call dein#add('yssl/QFEnter', {
                 \ 'name' : 'qfenter',
+                \
                 \ 'on_event' : 'VimEnter',
                 \ 'hook_post_source': 'call plugins#qfenter#PostSourceSetup()'
                 \ })
 
-    call dein#add('itblinker/highlighter.vim',
-                \ {
+    call dein#add('itblinker/highlighter.vim', {
                 \ 'name' : 'highlighter'
                 \ })
 
-    call dein#add('vifm/vifm.vim',
-                \ {
+    call dein#add('vifm/vifm.vim', {
                 \ 'name' : 'vifm',
+                \
                 \ 'on_event' : 'VimEnter',
                 \ 'hook_post_source': 'call plugins#vifm#PostSourceSetup()'
                 \ })
 
     command! GenerateYcmConfigurationBasedOnCMakeList :YcmGenerateConfig -f
-    call dein#add('rdnetto/YCM-Generator',
-                \ {
+    call dein#add('rdnetto/YCM-Generator', {
                 \ 'name' : 'YcmGenerator',
                 \ 'rev': 'stable',
+                \
                 \ 'lazy' : 1,
                 \ 'on_cmd' : 'YcmGenerateConfig'
                 \ })
 
-    call dein#add('Valloric/YouCompleteMe',
-                \ {
+    call dein#add('Valloric/YouCompleteMe', {
                 \ 'name' : 'YouCompleteMe',
                 \ 'timeout' : 10000,
                 \ 'build': './install.py --clang-completer',
+                \
                 \ 'on_source' : 'YcmGenerator',
+                \
                 \ 'on_event' : 'VimEnter',
                 \ 'on_if' : 'plugins#youCompleMe#isNeeded()',
                 \ })
 
-    " checking syntax async (2) plugins to check
-    "call dein#add('w0rp/ale',
-                "\ {
-                "\ 'name' : 'AsynchronousLintEngine',
-                "\ })
-
-    "call dein#add(' maralla/validator.vim ',
-                "\ {
-                "\ 'name' : 'Validator',
-                "\ })
-
-    call dein#add('kien/rainbow_parentheses.vim',
-                \ {
+    call dein#add('kien/rainbow_parentheses.vim', {
                 \ 'name' : 'rainbowParenthesis',
+                \
                 \ 'on_event' : 'VimEnter',
                 \ 'hook_post_source': 'call plugins#rainbowParenthesis#PostSourceSetup()'
                 \ })
 
-    call dein#add('octol/vim-cpp-enhanced-highlight',
-                \ {
+    call dein#add('octol/vim-cpp-enhanced-highlight', {
                 \ 'name' : 'cppenhancedhighlight_syntax',
+                \
                 \ 'on_ft' : 'cpp',
                 \ 'hook_post_source': 'call plugins#cppenhancedhighlits#PostSourceSetup()'
                 \ })
 
-    call dein#add('aklt/plantuml-syntax',
-                \ {
+    call dein#add('aklt/plantuml-syntax', {
                 \ 'name' : 'plantuml_syntax',
+                \
                 \ 'on_ft' : 'plantuml',
                 \ })
 
-    call dein#add('scrooloose/vim-slumlord',
-                \ {
+    call dein#add('scrooloose/vim-slumlord', {
                 \ 'name' : 'slumlord',
+                \
                 \ 'on_ft' : 'plantuml',
                 \ })
 
-    call dein#add('szw/vim-maximizer',
-                \ {
-                \ 'on_event' : 'VimEnter',
+    call dein#add('szw/vim-maximizer', {
                 \ 'name' : 'maximizer',
+                \
+                \ 'on_event' : 'VimEnter',
                 \ 'hook_source': 'call plugins#maximizer#PreSourceSetup()'
                 \ })
 
-    call dein#add('tmux-plugins/vim-tmux',
-                \ {
+    call dein#add('tmux-plugins/vim-tmux', {
                 \ 'name' : 'tmux_syntax',
+                \
                 \ 'on_ft' : 'tmux',
                 \ })
 
-    call dein#add('tmux-plugins/vim-tmux-focus-events',
-                \ {
+    call dein#add('tmux-plugins/vim-tmux-focus-events', {
                 \ 'name' : 'tmuxFocusEvents',
+                \
                 \ 'if' : 'plugins#tmuxFocusEvents#isNeeded()'
                 \ })
 
-    call dein#add('christoomey/vim-tmux-navigator',
-                \ {
+    call dein#add('christoomey/vim-tmux-navigator', {
                 \ 'name' : 'tmuxNavigator',
+                \
                 \ 'if' : 'plugins#tmuxNavigator#isNeeded()'
                 \ })
 
-    call dein#add('vimwiki/vimwiki',
-                \ {
-                \ 'on_event' : 'VimEnter',
+    call dein#add('vimwiki/vimwiki', {
                 \ 'name' : 'vimwiki',
+                \
+                \ 'on_event' : 'VimEnter',
                 \ 'hook_source' : 'call plugins#vimwiki#PreSourceSetup()',
                 \ 'hook_post_source': 'call plugins#vimwiki#PostSourceSetup()'
                 \ })
-
-    "call dein#add('itblinker/fgrep.vim')
-    "call dein#add('itblinker/ttcn.vim')
-    "call dein#add('tblinker/cplane.sct')
-
-    call dein#add('ntpeters/vim-better-whitespace')
-    call dein#add('bronson/vim-trailing-whitespace')
-    call dein#add('google/vim-searchindex')
-    call dein#add('tpope/vim-dispatch')
-    call dein#add('tpope/vim-eunuch')
-    call dein#add('mhinz/vim-signify')
-
-    call dein#add('cohama/lexima.vim')
-    call dein#add('bling/vim-bufferline')
-    call dein#add('mkitt/tabline.vim')
-
-    call dein#add('rstacruz/vim-xtract')
 
     call dein#add('google/vim-maktaba',
             \ {
@@ -321,7 +270,41 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
             \ 'lazy' : 1
             \ })
 
+    call dein#add('ntpeters/vim-better-whitespace')
+    call dein#add('bronson/vim-trailing-whitespace')
+    call dein#add('google/vim-searchindex')
+    call dein#add('tpope/vim-dispatch')
+    call dein#add('tpope/vim-eunuch')
+    call dein#add('mhinz/vim-signify')
+    call dein#add('cohama/lexima.vim')
+    call dein#add('bling/vim-bufferline')
+    call dein#add('mkitt/tabline.vim')
+    call dein#add('rstacruz/vim-xtract')
+
     "{{{ plugins to configure
+
+    " checking syntax async (2) plugins to check
+    "call dein#add('w0rp/ale',
+                "\ {
+                "\ 'name' : 'AsynchronousLintEngine',
+                "\ })
+
+    "call dein#add(' maralla/validator.vim ',
+                "\ {
+                "\ 'name' : 'Validator',
+                "\ })
+
+    "TODO: gundo alternative: mbbill/undotree
+    "call dein#add('sjl/gundo.vim', {
+                "\ 'name' : 'gundo',
+                "\
+                "\ 'on_event' : 'VimEnter',
+                "\ 'hook_post_source': 'call plugins#gundo#PostSourceSetup()'
+                "\ })
+
+    "call dein#add('itblinker/fgrep.vim')
+    "call dein#add('itblinker/ttcn.vim')
+    "call dein#add('tblinker/cplane.sct')
 
     "call dein#add('Shougo/unite-session',
                 "\ {
@@ -400,6 +383,7 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
     "}}}
 
 call dein#end()
+
 "}}}
 "{{{ settings | global
 

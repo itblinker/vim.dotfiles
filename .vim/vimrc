@@ -146,9 +146,12 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ 'depends' : ['unite']
                 \ })
 
-    call dein#add('hewes/unite-gtags',
-                \ {
+    call dein#add('hewes/unite-gtags', {
                 \ 'name' : 'unitegtags',
+                \
+                \ 'depends' : ['unite'],
+                \
+                \ 'on_event' : 'FileType',
                 \ 'on_if' : 'plugins#unitegtags#isNeeded()',
                 \ 'hook_post_source': 'call plugins#unitegtags#PostSourceSetup()'
                 \ })

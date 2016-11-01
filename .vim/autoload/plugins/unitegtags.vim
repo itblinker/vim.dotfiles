@@ -1,6 +1,6 @@
 let s:filetypes = ['cpp', 'c']
 
-function! MappingsForGtags()
+function! GtagsMappingsFroCandCpp()
     nnoremap <buffer> <C-]> :Unite -no-wipe -buffer-name=gtags_definitions -immediately gtags/def<CR>
     nnoremap <buffer> <leader>gr :Unite -no-wipe -buffer-name=gtags_references gtags/ref<CR>
     nnoremap <buffer> <leader>gc :Unite -no-wipe -buffer-name=gtags_context gtags/context<CR>
@@ -13,13 +13,12 @@ function! s:settings()
                 \ }
 endfunction
 
-
 function! plugins#unitegtags#isNeeded()
-    return vimrc#utils#isFiletypeMatch(s:filetypes)
+    return vimrc#bin#gtags#isAvailable() && vimrc#utils#isFiletypeMatch(s:filetypes)
 endfunction
 
 
 function! plugins#unitegtags#PostSourceSetup()
     call s:settings()
-    call vimrc#utils#autocmd#filetype(s:filetypes, 'MappingsForGtags')
+    call vimrc#utils#autocmd#filetype(s:filetypes, 'GtagsMappingsFroCandCpp')
 endfunction

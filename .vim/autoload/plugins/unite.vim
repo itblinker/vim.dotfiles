@@ -91,6 +91,8 @@ function! s:globalMappings()
 
     call unite#custom#source('file_rec/async',
                 \ 'matchers', ['converter_file_directory', 'matcher_regexp'])
+    call unite#custom#source('file_rec/async',
+                \ 'ignore_pattern', vimrc#cache#local#getDirName())
 
     nnoremap <leader>bf  :Unite -buffer-name=buffers_files buffer:-<CR>
     nnoremap <leader>ba  :Unite -buffer-name=buffers_all buffer<CR>

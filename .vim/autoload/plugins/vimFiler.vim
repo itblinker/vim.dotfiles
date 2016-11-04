@@ -71,7 +71,7 @@ function! s:vimfilerBufferMappings()
 
     nmap <buffer> q <Plug>(vimfiler_close)
     nmap <buffer> <leader>? <Plug>(vimfiler_help)
-    nmap <buffer> <leader>v <Plug>(vimfiler_toggle_visible_ignore_files)
+    nmap <buffer> za <Plug>(vimfiler_toggle_visible_ignore_files)
 endfunction
 
 

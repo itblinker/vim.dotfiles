@@ -1,68 +1,27 @@
-function! plugins#vimwiki#PreSourceSetup()
-    let g:vimwiki_map_prefix = '<Leader><Leader><Leader>'
-endfunction
-
-
-function! plugins#vimwiki#PostSourceSetup()
-    call s:settings()
-    call s:mappings()
-endfunction
-
-function! s:getWimWikiLIst()
-"{{{
-    if !vimrc#bin#dropbox#isDirectoryAvailable()
-        return [s:getLocalWiki()]
-    else
-        return [
-             \ s:getLocalWiki(),
-             \ s:getDropboxWiki()
-             \ ]
-    endif
-endfunction
-
-function! s:getLocalWiki()
-    let l:cwd_wiki = vimrc#cache#fetch().'/wiki'
-    let l:cwd_wiki_html = vimrc#cache#fetch().'/wiki_html'
-
-    return {
-           \ 'path': l:cwd_wiki,
-           \ 'path_html': cwd_wiki_html,
-           \ 'diary_rel_path': 'diary/',
-           \ 'auto_export': 0,
-           \ 'auto_toc': 1,
-           \ 'auto_tag': 1,
-           \ 'index': 'index',
-           \ 'ext': '.wiki',
-           \ 'syntax': 'default'
-           \ }
-endfunction
-
-
-function! s:getDropboxWiki()
-    let l:dropbox_wiki = vimrc#bin#dropbox#getDirectory().'/wiki'
-    let l:dropbox_wiki_html = vimrc#bin#dropbox#getDirectory().'/wiki_html'
-
-    return {
-           \ 'path': l:dropbox_wiki,
-           \ 'path_html': dropbox_wiki_html,
-           \ 'diary_rel_path': 'diary/',
-           \ 'auto_export': 0,
-           \ 'auto_toc': 1,
-           \ 'auto_tag': 1,
-           \ 'index': 'index',
-           \ 'ext': '.wiki',
-           \ 'syntax': 'default'
-           \ }
-endfunction
-
-"}}}
-
 function! s:settings()
-    let g:vimwiki_list = s:getWimWikiLIst()
+    let g:vimwiki_list = [ plugins#vimwiki#dropbox#getConfiguration() ]
 endfunction
 
 
-function! s:vimwiki_buffer_mappings()
+function! LaunchVimWiki()
+    try
+        if !vimrc#bin#dropbox#isAvailable()
+            echomsg 'vimwiki: dropbox cannot be found by vim'
+        endif
+
+        execute '$tabnew | VimwikiIndex'
+    catch
+        echomsg 'some fucking problem you have got dude'
+    endtry
+endfunction
+
+
+function s:globalMappings()
+    nnoremap <leader><leader>w :call LaunchVimWiki()<CR>
+endfunction
+
+
+function! MappingsForVimWikiBuffer()
     nmap <buffer> <CR> <nop>
 
     nmap <buffer> <C-]> <Plug>VimwikiFollowLink
@@ -81,11 +40,23 @@ function! s:vimwiki_buffer_mappings()
 endfunction
 
 
-function! s:mappings()
-    nnoremap <leader><leader>w :execute "tabnew \| VimwikiUISelect"<CR>
+function! s:localMappings()
+    call vimrc#utils#autocmd#filetype(['vimwiki'], 'MappingsForVimWikiBuffer')
+endfunction
 
-    augroup vimwiki_autocmds
-        autocmd!
-        autocmd Filetype vimwiki call s:vimwiki_buffer_mappings()
-    augroup END
+
+function! s:mappings()
+    call s:globalMappings()
+    call s:localMappings()
+endfunction
+
+
+function! plugins#vimwiki#PreSourceSetup()
+    let g:vimwiki_map_prefix = '<Leader><Leader><Leader>'
+endfunction
+
+
+function! plugins#vimwiki#PostSourceSetup()
+    call s:settings()
+    call s:mappings()
 endfunction

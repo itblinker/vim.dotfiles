@@ -1,4 +1,3 @@
-"{{{ local functions: Post setup
 function! s:setupDefaultProfile()
     call unite#custom#profile('default', 'context',
                 \ {

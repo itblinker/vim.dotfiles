@@ -1,7 +1,7 @@
-"{{{ global variables
+
 let g:vimrc#bin#dropbox#directory = expand('$HOME').'/cloudDisc/Dropbox'
 let g:vimrc#bin#dropbox#binPath = ''
-"}}}
+
 
 function! vimrc#bin#dropbox#isAvailable()
     return strlen(g:vimrc#bin#dropbox#binPath) || executable('dropbox')

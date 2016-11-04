@@ -258,17 +258,18 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ })
 
     call dein#add('google/vim-maktaba',
-            \ {
-            \ 'name' : 'maktaba',
-            \ 'lazy' : 1,
-            \ 'hook_source': 'call plugins#maktaba#PreSourceSetup()'
-            \ })
+                \ {
+                \ 'name' : 'maktaba',
+                \ 'lazy' : 1,
+                \
+                \ 'hook_source': 'call plugins#maktaba#PreSourceSetup()'
+                \ })
 
     call dein#add('vim-jp/vital.vim',
-            \ {
-            \ 'name' : 'vital',
-            \ 'lazy' : 1
-            \ })
+                \ {
+                \ 'name' : 'vital',
+                \ 'lazy' : 1
+                \ })
 
     call dein#add('ntpeters/vim-better-whitespace')
     call dein#add('bronson/vim-trailing-whitespace')
@@ -281,7 +282,16 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
     call dein#add('mkitt/tabline.vim')
     call dein#add('rstacruz/vim-xtract')
 
+    call dein#add('cohama/agit.vim', {
+                \ 'name' : 'agit'
+                \ })
+
     "{{{ plugins to configure
+
+    "super
+    "cohama/lexima.vim
+    "cohama/agit.vim
+
 
     " checking syntax async (2) plugins to check
     "call dein#add('w0rp/ale',

@@ -1,50 +1,84 @@
 let g:plugins#unitegtags#cpp#settings = {
-\   'dbpath' : vimrc#cache#fetch().'/gtags/cpp',
+\   'dbpath' : {
+\       'path' : vimrc#cache#fetch().'/gtags/cpp'
+\   },
 \   'find_cmd' : {
 \       'filetypes' : ['*.cpp', '*.hpp', '*.h', '*.c'],
 \       'paths' : [getcwd()],
-\       'paths_ignore' : []
+\       'paths_ignore' : ['test_module']
 \   }
 \ }
 
-function! s:wrapExtension(string)
-    return ''''.a:string.''''
+
+function! g:plugins#unitegtags#cpp#settings.dbpath.get()
+    if !isdirectory(self.path)
+        call mkdir(self.path, 'p')
+    endif
+
+    return self.path
 endfunction
 
 
-function! g:plugins#unitegtags#cpp#settings.find_cmd.form()
+function! s:formFindNamePart(extension)
+    return '-iname '''.a:extension.''''
+endfunction
+
+
+function! s:formIgnorePathsPart(extension)
+    return '! -ipath ''*'.a:extension.'*'''
+endfunction
+
+
+function! g:plugins#unitegtags#cpp#settings.find_cmd.get()
     let l:cmd = 'find '.join(self.paths, ' ')
              \ .' -type f \( '
-             \ .join(map(deepcopy(self.filetypes), 's:wrapExtension(v:val)'), ' -oSta ')
-             \ .' \)'
+             \ .join(map(deepcopy(self.filetypes), 's:formFindNamePart(v:val)'), ' -o ')
+             \ .' \) '
+             \ .join(map(deepcopy(self.paths_ignore), 's:formIgnorePathsPart(v:val)'), ' ')
     return l:cmd
 endfunction
 
 
-function! g:plugins#unitegtags#cpp#settings.find_cmd.getPaths()
-    let l:paths = ''
-
-    for l:item in self.paths
-        let l:paths = ' '.l:item
-    endfor
-
-    return l:paths
+function! g:plugins#unitegtags#cpp#settings.filenameWithList()
+    return self.dbpath.get().'/'.'list.last.files'
 endfunction
 
 
-function! g:plugins#unitegtags#cpp#settings.find_cmd.getIgnoredPaths()
-    echomsg 'paths are: '.join(self.paths, ' ')
-    echomsg 'filetypes are: '.join(self.filetypes, ' -o ')
-    echomsg 'mappings starts'
-    let l:string = map(copy(self.filetypes), 's:wrapExtension(v:val)')
-    echomsg 'echo echo: '.join(l:string, ' ')
+function! g:plugins#unitegtags#cpp#settings.logfileForList()
+    return self.dbpath.get().'/'.'logs.last.fileList'
 endfunction
 
 
-function! g:plugins#unitegtags#cpp#settings.init()
-    if !isdirectory(self.dbpath)
-        call mkdir(self.dbpath, 'p')
-    endif
+function! g:plugins#unitegtags#cpp#settings.logfileForGtags()
+    return self.dbpath.get().'/'.'logs.last.gtags'
+endfunction
+
+
+function! g:plugins#unitegtags#cpp#settings.makeFileList() abort
+    execute 'silent! Start! '.self.find_cmd.get().' > '.self.filenameWithList().' 2> '.self.logfileForList()
+endfunction
+
+
+function! g:plugins#unitegtags#cpp#settings.setEnvironment() abort
+    let $GTAGSFORCECPP=''
+    let $GTAGSROOT=getcwd()
+    let $GTAGSDBPATH=self.dbpath.get()
+endfunction
+
+
+function! g:plugins#unitegtags#cpp#settings.doRetag() abort
+        execute 'silent! Start! gtags --file '.self.filenameWithList().' '.self.dbpath.get().' --verbose --warning --statistics > '.self.logfileForGtags().' 2>&1'
+endfunction
+
+
+function! g:plugins#unitegtags#cpp#settings.retag()
+    try
+        call self.makeFileList()
+        call self.setEnvironment()
+        call self.doRetag()
+    catch
+        call vimrc#exceptions#echomsg('gtags problem: retag()')
+    endtry
 endfunction
 
 
@@ -52,16 +86,6 @@ function! GtagsCppMappings()
     nnoremap <buffer> <C-]> :Unite -no-wipe -buffer-name=gtags_definitions -immediately gtags/def<CR>
     nnoremap <buffer> <leader>gr :Unite -no-wipe -buffer-name=gtags_references gtags/ref<CR>
     nnoremap <buffer> <leader>gc :Unite -no-wipe -buffer-name=gtags_context gtags/context<CR>
-endfunction
-
-
-function! s:createFileListToTag()
-    call system('find -type f ./ > file.list')
-endfunction
-
-
-function! s:commands()
-
 endfunction
 
 

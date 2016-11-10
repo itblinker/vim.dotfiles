@@ -71,6 +71,11 @@ function! g:plugins#unitegtags#cpp#settings.logfileForGtags()
 endfunction
 
 
+function! g:plugins#unitegtags#cpp#settings.logfileForGtagsFileUpdate()
+    return self.dbpath.get().'/'.'logs.last.singleFile.gtags'
+endfunction
+
+
 function! g:plugins#unitegtags#cpp#settings.makeFileList() abort
     execute 'silent! Start! '.self.find_cmd.get().' > '.self.filenameWithList().' 2> '.self.logfileForList()
 endfunction
@@ -83,18 +88,25 @@ function! g:plugins#unitegtags#cpp#settings.setEnvironment() abort
 endfunction
 
 
-function! g:plugins#unitegtags#cpp#settings.doRetag() abort
-        execute 'silent! Start! gtags --file '.self.filenameWithList().' '.self.dbpath.get().' --verbose --warning --statistics > '.self.logfileForGtags().' 2>&1'
+function! g:plugins#unitegtags#cpp#settings.performFullTag() abort
+    execute 'silent! Start! gtags --file '.self.filenameWithList().' '.self.dbpath.get()
+        \  .' --verbose --warning --statistics > '.self.logfileForGtags().' 2>&1'
 endfunction
 
 
-function! g:plugins#unitegtags#cpp#settings.retag()
+function! g:plugins#unitegtags#cpp#settings.performTagUpdateForCurrentFile() abort
+    execute 'silent! Start! gtags '.self.dbpath.get().' --single-update '.expand('%;p')
+         \ .' --verbose --warning --statistics > '.self.logfileForGtagsFileUpdate().' 2>&1'
+endfunction
+
+
+function! g:plugins#unitegtags#cpp#settings.tag()
     try
         call self.makeFileList()
         call self.setEnvironment()
-        call self.doRetag()
+        call self.performFullTag()
     catch
-        call vimrc#exceptions#echomsg('gtags-cpp :retag()')
+        call vimrc#exceptions#echomsg('gtags-cpp :tag()')
     endtry
 endfunction
 
@@ -107,7 +119,7 @@ endfunction
 
 
 function! s:localCommands()
-    command! -buffer -nargs=0 GtagsFullRetag :call g:plugins#unitegtags#cpp#settings.retag()
+    command! -buffer -nargs=0 GtagsFullTag :call g:plugins#unitegtags#cpp#settings.tag()
 endfunction
 
 

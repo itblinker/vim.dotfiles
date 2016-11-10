@@ -94,7 +94,7 @@ function! g:plugins#unitegtags#cpp#settings.retag()
         call self.setEnvironment()
         call self.doRetag()
     catch
-        call vimrc#exceptions#echomsg('gtags problem: retag()')
+        call vimrc#exceptions#echomsg('gtags-cpp :retag()')
     endtry
 endfunction
 
@@ -117,7 +117,11 @@ endfunction
 
 
 function! plugins#unitegtags#cpp#setup()
-    call vimrc#utils#autocmd#filetype(['cpp'], 'GtagsCppMappings')
-    call s:localCommands()
-    call s:startupSettings() 
+    try
+        call vimrc#utils#autocmd#filetype(['cpp'], 'GtagsCppMappings')
+        call s:localCommands()
+        call s:startupSettings()
+    catch
+        call vimrc#exceptions#echomsg('gtags-cpp :setup()')
+    endtry
 endfunction

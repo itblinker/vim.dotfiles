@@ -9,13 +9,30 @@ let g:plugins#unitegtags#cpp#settings = {
 \   }
 \ }
 
-
-function! g:plugins#unitegtags#cpp#settings.dbpath.get()
+function! g:plugins#unitegtags#cpp#settings.dbpath.init()
     if !isdirectory(self.path)
         call mkdir(self.path, 'p')
     endif
+endfunction
 
+
+function! g:plugins#unitegtags#cpp#settings.dbpath.get()
+    call self.init()
     return self.path
+endfunction
+
+
+function! g:plugins#unitegtags#cpp#settings.areTagsAvailable()
+    return  filereadable(self.dbpath.path.'/GTAGS') &&
+          \ filereadable(self.dbpath.path.'/GRTAGS') &&
+          \ filereadable(self.dbpath.path.'/GPATH')
+endfunction()
+
+
+function! g:plugins#unitegtags#cpp#settings.startup()
+    if self.areTagsAvailable()
+        call self.setEnvironment()
+    endif
 endfunction
 
 
@@ -89,6 +106,18 @@ function! GtagsCppMappings()
 endfunction
 
 
+function! s:localCommands()
+    command! -buffer -nargs=0 GtagsFullRetag :call g:plugins#unitegtags#cpp#settings.retag()
+endfunction
+
+
+function! s:startupSettings()
+    call g:plugins#unitegtags#cpp#settings.startup()
+endfunction
+
+
 function! plugins#unitegtags#cpp#setup()
     call vimrc#utils#autocmd#filetype(['cpp'], 'GtagsCppMappings')
+    call s:localCommands()
+    call s:startupSettings() 
 endfunction

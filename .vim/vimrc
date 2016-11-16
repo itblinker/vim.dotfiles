@@ -12,14 +12,9 @@ execute 'set rtp+='.expand('$HOME/DEV/git.softwares/dein.vim')
 
 " {where plugins are stored}
 call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
-    call dein#add('Shougo/dein.vim')
 
-    call dein#add('Shougo/vimproc.vim', {
-                \ 'name' : 'vimproc',
-                \ 'build' : 'make',
-                \
-                \ 'lazy' : 1
-                \ })
+    call dein#add('Shougo/dein.vim',    {'name' : 'dein'})
+    call dein#add('Shougo/vimproc.vim', {'name' : 'vimproc', 'build' : 'make'})
 
     call dein#add('Shougo/unite.vim', {
                 \ 'name' : 'unite',
@@ -133,13 +128,22 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ 'depends' : ['unite']
                 \ })
 
-    call dein#add('hewes/unite-gtags', {
-                \ 'name' : 'unitegtags',
+    call dein#add('matfranczyk/vim.gtag.indexer.c.cpp', {
+                \ 'name' : 'gtagIndexerCCpp',
                 \
                 \ 'depends' : ['unite', 'dispatch'],
                 \
-                \ 'on_event' : 'FileType',
-                \ 'on_if' : 'plugins#unitegtags#isNeeded()',
+                \ 'on_ft' : ['cpp', 'c'],
+                \ 'hook_post_source': 'call plugins#gtagIndexerCCpp#PostSourceSetup()'
+                \ })
+
+    call dein#add('hewes/unite-gtags', {
+                \ 'name' : 'unitegtags',
+                \
+                \ 'depends' : ['unite'],
+                \
+                \ 'lazy' : 1,
+                \ 'on_source' : 'gtagIndexerCCpp',
                 \ 'hook_post_source': 'call plugins#unitegtags#PostSourceSetup()'
                 \ })
 
@@ -180,21 +184,18 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ 'hook_post_source': 'call plugins#vifm#PostSourceSetup()'
                 \ })
 
-    command! GenerateYcmConfigurationBasedOnCMakeList :YcmGenerateConfig -f
     call dein#add('rdnetto/YCM-Generator', {
                 \ 'name' : 'YcmGenerator',
-                \ 'rev': 'stable',
                 \
-                \ 'lazy' : 1,
-                \ 'on_cmd' : 'YcmGenerateConfig'
+                \ 'rev': 'stable',
                 \ })
 
     call dein#add('Valloric/YouCompleteMe', {
                 \ 'name' : 'YouCompleteMe',
-                \ 'timeout' : 10000,
-                \ 'build': './install.py --clang-completer',
                 \
-                \ 'on_source' : 'YcmGenerator',
+                \ 'frozen' : 1,
+                \ 'frozen_info' : 'plugin is to heavy for install/update/build inside in vim',
+                \ 'build': './install.py --clang-completer',
                 \
                 \ 'on_event' : 'VimEnter',
                 \ 'on_if' : 'plugins#youCompleMe#isNeeded()',
@@ -267,11 +268,18 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ 'hook_source': 'call plugins#maktaba#PreSourceSetup()'
                 \ })
 
-    call dein#add('vim-jp/vital.vim',
-                \ {
+    call dein#add('vim-jp/vital.vim', {
                 \ 'name' : 'vital',
+                \
                 \ 'lazy' : 1
                 \ })
+
+    call dein#add('vim-jp/vital-complete', {
+                \ 'name' : 'vitalComplte',
+                \
+                \ 'on_ft' : 'vim'
+                \ })
+
 
     call dein#add('tpope/vim-dispatch', {
                 \ 'name' : 'dispatch',
@@ -400,6 +408,7 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
     "}}}
 
 call dein#end()
+call dein#recache_runtimepath()
 
 "}}}
 "{{{ settings | global

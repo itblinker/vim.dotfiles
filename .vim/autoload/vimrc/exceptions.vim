@@ -4,7 +4,7 @@ function! vimrc#exceptions#throw(string)
 endfunction
 
 
-function! vimrc#exceptions#echomsg(...)
+function! vimrc#exceptions#echomsg()
     if a:0 == 1
         echomsg a:1.' error msg: '.v:errmsg
     else

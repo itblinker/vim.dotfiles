@@ -1,21 +1,3 @@
-let g:plugins#unitegtags#cpp#settings = {
-\   'dbpath' : {
-\       'path' : vimrc#cache#fetch().'/gtags/cpp'
-\   },
-\   'find_cmd' : {
-\       'filetypes' : ['*.cpp', '*.hpp', '*.h', '*.c'],
-\       'paths' : [getcwd()],
-\       'paths_ignore' : ['test_module']
-\   }
-\ }
-
-function! g:plugins#unitegtags#cpp#settings.dbpath.init()
-    if !isdirectory(self.path)
-        call mkdir(self.path, 'p')
-    endif
-endfunction
-
-
 function! g:plugins#unitegtags#cpp#settings.dbpath.get()
     call self.init()
     return self.path
@@ -111,29 +93,11 @@ function! g:plugins#unitegtags#cpp#settings.tag()
 endfunction
 
 
-function! GtagsCppMappings()
-    nnoremap <buffer> <C-]> :Unite -no-wipe -buffer-name=gtags_definitions -immediately gtags/def<CR>
-    nnoremap <buffer> <leader>gr :Unite -no-wipe -buffer-name=gtags_references gtags/ref<CR>
-    nnoremap <buffer> <leader>gc :Unite -no-wipe -buffer-name=gtags_context gtags/context<CR>
-endfunction
-
-
-function! s:localCommands()
-    command! -buffer -nargs=0 GtagsFullTag :call g:plugins#unitegtags#cpp#settings.tag()
-endfunction
-
-
-function! s:startupSettings()
-    call g:plugins#unitegtags#cpp#settings.startup()
-endfunction
-
-
 function! plugins#unitegtags#cpp#setup()
     try
-        call vimrc#utils#autocmd#filetype(['cpp'], 'GtagsCppMappings')
         call s:localCommands()
         call s:startupSettings()
     catch
-        call vimrc#exceptions#echomsg('gtags-cpp :setup()')
+        call vimrc#exceptions#echomsg()
     endtry
 endfunction

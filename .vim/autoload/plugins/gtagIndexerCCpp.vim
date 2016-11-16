@@ -9,6 +9,7 @@ endfunction
 
 function! plugins#gtagIndexerCCpp#PostSourceSetup()
 	call vimrc#utils#autocmd#filetype(['cpp', 'c'], 'GtagsIndexerCCppBufferCommands')
+	call gtag#indexer#ccpp#instance().startup()
 endfunction
 
 

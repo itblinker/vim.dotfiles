@@ -1,14 +1,8 @@
 function! vimrc#exceptions#throw(string)
-   let v:errmsg = 'vimrc: '.a:string
-   throw v:errmsg
+   throw 'vimrc: '.a:string
 endfunction
 
 
 function! vimrc#exceptions#echomsg()
-    if a:0 == 1
-        echomsg a:1.' error msg: '.v:errmsg
-    else
-        echomsg v:errmsg
-    endif
+    echomsg '[exception] '.v:exception.' [throwpoint]: '.v:throwpoint
 endfunction
-

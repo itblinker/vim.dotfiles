@@ -1,7 +1,7 @@
 let g:vimrc#grep#fixed#flags = '-nHr'
 let g:vimrc#grep#fixed#default_exclude_dir = '--exclude-dir=.git --exclude-dir=.svn --exclude-dir=.bzr'
-            \ .' --exclude-dir='.vimrc#cache#local#getDirName()
-            \ .' --exclude-dir='.vimrc#cache#global#getDirName()
+            \ .' --exclude-dir='.vimrc#cache#instance().local.path()
+            \ .' --exclude-dir='.vimrc#cache#instance().global.path()
 
 let g:vimrc#grep#fixed#default_include_dir = ''
 

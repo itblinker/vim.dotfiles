@@ -107,5 +107,5 @@ endfunction
 
 
 function! s:paths()
-    let g:vimfiler_data_directory = vimrc#cache#fetch().'/vimFiler'
+    let g:vimfiler_data_directory = vimrc#cache#instance().fetch().'/vimFiler'
 endfunction

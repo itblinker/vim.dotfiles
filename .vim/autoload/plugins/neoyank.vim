@@ -5,7 +5,7 @@ endfunction
 
 
 function! s:settings()
-    let g:neoyank#file = vimrc#cache#fetch().'/neoyank.txt'
+    let g:neoyank#file = vimrc#cache#instance().fetch().'/neoyank.txt'
 endfunction
 
 

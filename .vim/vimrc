@@ -479,7 +479,7 @@ set hlsearch
 set ignorecase
 set smartcase
 
-execute 'set viminfo+=n'.vimrc#cache#fetch().'/.viminfo'
+execute 'set viminfo+=n'.vimrc#cache#instance().fetch().'/.viminfo'
 set history=2000
 set undolevels=2000
 

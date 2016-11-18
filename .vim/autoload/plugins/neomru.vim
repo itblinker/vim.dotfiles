@@ -5,7 +5,7 @@ endfunction
 
 
 function! s:settings()
-    let g:neomru#file_mru_path = vimrc#cache#fetch().'/neomru.txt'
+    let g:neomru#file_mru_path = vimrc#cache#instance().fetch().'/neomru.txt'
 endfunction
 
 

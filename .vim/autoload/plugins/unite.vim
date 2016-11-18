@@ -22,7 +22,7 @@ endfunction
 
 
 function! s:paths()
-    let g:unite_data_directory = vimrc#cache#fetch().'/unite'
+    let g:unite_data_directory = vimrc#cache#instance().fetch().'/unite'
 endfunction
 
 
@@ -53,8 +53,8 @@ endfunction
 function! s:grep()
     let g:unite_source_grep_default_opts =
                 \ '-iRHn --exclude-dir=.git --exclude-dir=.svn --exclude-dir=.bzr'
-                \ .' --exclude-dir='.vimrc#cache#local#getDirName()
-                \ .' --exclude-dir='.vimrc#cache#global#getDirName()
+                \ .' --exclude-dir='.vimrc#cache#instance().local.path()
+                \ .' --exclude-dir='.vimrc#cache#instance().global.path()
 
     let g:unite_source_grep_recursive_opt = ''
     let g:unite_source_grep_search_word_highlight = 'None'
@@ -92,7 +92,7 @@ function! s:globalMappings()
     call unite#custom#source('file_rec/async',
                 \ 'matchers', ['converter_file_directory', 'matcher_regexp'])
     call unite#custom#source('file_rec/async',
-                \ 'ignore_pattern', vimrc#cache#local#getDirName())
+                \ 'ignore_pattern', vimrc#cache#instance().local.path())
 
     nnoremap <leader>bf  :Unite -buffer-name=buffers_files buffer:-<CR>
     nnoremap <leader>ba  :Unite -buffer-name=buffers_all buffer<CR>

@@ -14,7 +14,7 @@ function! vimrc#bin#dropbox#getPath()
     elseif executable('dropbox')
         return exepath('dropbox')
     else
-        call vimrc#exceptions#throw('dropbox bin not available')
+        call vimrc#exception#throw('dropbox bin not available')
     endif
 endfunction
 
@@ -30,7 +30,7 @@ function! vimrc#bin#dropbox#getDirectory() abort
     endif
 
     if !vimrc#bin#dropbox#isDirectoryAvailable()
-        call vimrc#exceptions#throw('dropbox folder: '.g:vimrc#bin#dropbox#directory.' is not available')
+        call vimrc#exception#throw('dropbox folder: '.g:vimrc#bin#dropbox#directory.' is not available')
     endif
 
     return g:vimrc#bin#dropbox#directory

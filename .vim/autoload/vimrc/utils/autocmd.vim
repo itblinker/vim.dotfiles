@@ -12,6 +12,6 @@ function! vimrc#utils#autocmd#filetype(listOfFiletypes, funcref)
     try
         call s:filetypeAutoCmd(l:name, a:listOfFiletypes, a:funcref)
     catch
-       call vimrc#exceptions#echomsg()
+       call vimrc#exception#error()
     endtry
 endfunction

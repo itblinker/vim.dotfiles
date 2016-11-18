@@ -19,7 +19,7 @@ function! vimrc#utils#string#escape(string)
     try
         return s:escape(a:string)
     catch
-       call vimrc#exceptions#echomsg('problem: vimrc#utils#string#escape()')
+       call vimrc#exception#warning()
     endtry
 endfunction
 
@@ -28,7 +28,7 @@ function! vimrc#utils#string#getSelection()
     try
         return s:getSelection()
     catch
-       call vimrc#exceptions#echomsg()
+       call vimrc#exception#warning()
     endtry
 endfunction
 

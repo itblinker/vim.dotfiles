@@ -88,7 +88,7 @@ function! g:plugins#unitegtags#cpp#settings.tag()
         call self.setEnvironment()
         call self.performFullTag()
     catch
-        call vimrc#exceptions#echomsg('gtags-cpp :tag()')
+        call vimrc#exception#warning()
     endtry
 endfunction
 
@@ -98,6 +98,6 @@ function! plugins#unitegtags#cpp#setup()
         call s:localCommands()
         call s:startupSettings()
     catch
-        call vimrc#exceptions#echomsg()
+        call vimrc#exceptions#warning()
     endtry
 endfunction

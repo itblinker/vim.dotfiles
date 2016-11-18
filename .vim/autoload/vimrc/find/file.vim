@@ -12,7 +12,7 @@ function! vimrc#find#file#getList(filename, path) abort
         return s:find(a:filename, join(a:path, ' '))
     endif
 
-    call vimrc#exceptions#throw(expand('%:p').': incorrect argumnent type')
+    call vimrc#exception#throw(expand('%:p').': incorrect argumnent type')
 endfunction
 
 

@@ -11,6 +11,6 @@ function! vimrc#bin#gtags#getPath()
     elseif executable('gtags')
         return exepath('gtags')
     else
-        call vimrc#exceptions#throw('gtags bin not available')
+        call vimrc#exception#throw('gtags bin not available')
     endif
 endfunction

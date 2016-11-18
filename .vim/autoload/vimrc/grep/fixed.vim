@@ -1,7 +1,7 @@
 let g:vimrc#grep#fixed#flags = '-nHr'
 let g:vimrc#grep#fixed#default_exclude_dir = '--exclude-dir=.git --exclude-dir=.svn --exclude-dir=.bzr'
-            \ .' --exclude-dir='.vimrc#cache#instance().local.path()
-            \ .' --exclude-dir='.vimrc#cache#instance().global.path()
+            \ .' --exclude-dir='.vimrc#cache#instance().local.globDirName()
+            \ .' --exclude-dir='.vimrc#cache#instance().global.globDirName()
 
 let g:vimrc#grep#fixed#default_include_dir = ''
 
@@ -28,6 +28,6 @@ function! vimrc#grep#fixed#execute(pattern, ...) abort
         endif
 
     catch
-        call vimrc#exceptions#echomsg()
+        call vimrc#exception#error()
     endtry
 endfunction

@@ -5,6 +5,11 @@ let s:cpo_save = &cpo | set cpo&vim
 function! s:localCacheFactory()
     let l:obj = { 'dirName' : '.vim.cache.local', 'parentPath' : getcwd() }
 
+
+    function! l:obj.globDirName()
+        return '*'.self.dirName.'*'
+    endfunction
+
     function! l:obj.path()
         return self.parentPath.'/'.self.dirName
     endfunction
@@ -13,16 +18,16 @@ function! s:localCacheFactory()
         return isdirectory(self.path())
     endfunction
 
-    function l:obj.create()
+    function l:obj.create() abort
         call mkdir(self.path(), 'p', 0700)
     endfunction
 
-    function! l:obj.fetch()
+    function! l:obj.fetch() abort
         if !self.isAvailable()
             try
                 call self.create()
             catch
-                call vimrc#exceptions#throw('local cache cannot be created')
+                call vimrc#exception#throw('local cache cannot be created')
             endtry
         endif
 
@@ -37,7 +42,11 @@ function! s:globalCacheFactory()
     let l:obj = { 'parentPath' : expand('$HOME').'/.vim.cache.global' }
 
     function! l:obj.dirName()
-        return substitute(getcwd(), '/', '', 'g')
+        return substitute(getcwd(), '/', '.', 'g')
+    endfunction
+
+    function! l:obj.globDirName()
+        return '*'.self.dirName().'*'
     endfunction
 
     function! l:obj.path()
@@ -48,16 +57,16 @@ function! s:globalCacheFactory()
         return isdirectory(self.path())
     endfunction
 
-    function l:obj.create()
+    function l:obj.create() abort
          call mkdir(self.path(), 'p', 0700)
     endfunction
 
-    function! l:obj.fetch()
+    function! l:obj.fetch() abort
         if !self.isAvailable()
             try
                 call self.create()
             catch
-                call vimrc#exceptions#throw('global cache cannot be created')
+                call vimrc#exception#throw('global cache cannot be created')
             endtry
         endif
 
@@ -70,26 +79,39 @@ endfunction
 
 function! s:cacheFactory()
     let l:obj =  extend({}, { 'local'  : s:localCacheFactory(),
-                \             'global' : s:globalCacheFactory() })
+                 \            'global' : s:globalCacheFactory(),
+                 \            'cache_fetched_path' : ''})
 
-    function! l:obj.fetch()
+    function! l:obj.fetching()
         if self.local.isAvailable()
             return self.local.path()
         endif
 
-        if argc() > 0
-            return self.global.fetch()
+        try
+            if argc() > 0
+                return self.global.fetch()
+            else
+                try
+                    return self.local.fetch()
+                catch
+                    try
+                        let l:path =  self.global.fetch()
+                        call vimrc#message#instance().warning('local cache cannot be used <-> global in use')
+                        return l:path
+                    catch
+                        call vimrc#exception#error()
+                    endtry
+                endtry
+            endif
+        endtry
+    endfunction
+
+    function! l:obj.fetch()
+        if empty(self.cache_fetched_path)
+            let self.cache_fetched_path = self.fetching()
         endif
 
-        try
-            return self.local.fetch()
-        catch
-            try
-                return self.global.fetch()
-            catch
-                call vimrc#exceptions#throw('cannot take vim cache dir (creation problem or ...)')
-            endtry
-        endtry
+        return self.cache_fetched_path
     endfunction
 
     return l:obj

@@ -14,7 +14,7 @@ function! plugins#unite#find#fileInCwd(filename)
     try
         execute s:getUniteFindCommand(a:filename, './', s:options.strong)
     catch
-        call vimrc#exceptions#echomsg()
+        call vimrc#exception#warning()
     endtry
 endfunction
 
@@ -50,7 +50,7 @@ function! plugins#unite#find#file(bangFlag, ...)
         elseif a:0 == 2
             call s:findFileWithUniteBufferCreation(a:bangFlag, a:1, a:2)
         else
-            vimrc#exceptions#throw('plugins#unite#find#file: invalid number of arguments')
+            vimrc#exception#throw('plugins#unite#find#file: invalid number of arguments')
         endif
     catch
         call vimrc#exceptions#echomsg()

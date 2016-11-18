@@ -10,11 +10,11 @@ function! s:localCacheFactory()
     endfunction
 
     function l:obj.isAvailable()
-        return isdirectory(self.parentPath.'/'.self.dirName)
+        return isdirectory(self.path())
     endfunction
 
     function l:obj.create()
-        call mkdir(self.dirName, self.parentPath)
+        call mkdir(self.path(), 'p', 0700)
     endfunction
 
     function! l:obj.fetch()
@@ -34,18 +34,22 @@ endfunction
 
 
 function! s:globalCacheFactory()
-    let l:obj = { 'dirName' : '.vim.cache.global', 'parentPath' : expand('$HOME') }
+    let l:obj = { 'parentPath' : expand('$HOME').'/.vim.cache.global' }
+
+    function! l:obj.dirName()
+        return substitute(getcwd(), '/', '', 'g')
+    endfunction
 
     function! l:obj.path()
-        return self.parentPath.'/'.self.dirName
+        return self.parentPath.'/'.self.dirName()
     endfunction
 
     function l:obj.isAvailable()
-        return isdirectory(self.parentPath.'/'.self.dirName)
+        return isdirectory(self.path())
     endfunction
 
     function l:obj.create()
-        call mkdir(self.dirName, self.parentPath)
+         call mkdir(self.path(), 'p', 0700)
     endfunction
 
     function! l:obj.fetch()

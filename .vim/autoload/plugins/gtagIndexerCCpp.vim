@@ -2,30 +2,38 @@
 let s:cpo_save = &cpo | set cpo&vim
 ""----------------------------------
 
-function! s:configurationFactory()
-    let l:obj = gtag#indexer#ccpp#defaultConfiguration#factory()
+function! s:defaultCofig()
+	let l:obj = { 'dbpath' : {},
+				\ 'pathList' : {},
+				\ 'filetypes' : {},
+				\}
 
-    unlet l:obj.pathList.exclude
-    function! l:obj.pathList.exclude()
-        return [ '*test_module*' ]
-    endfunction
+	function l:obj.dbpath.get()
+		return getcwd()
+	endfunction
 
-    unlet l:obj.dbpath.get
-    function! l:obj.dbpath.get()
-        return vimrc#cache#fetch().'/gtags/cpp'
-    endfunction
+	function l:obj.pathList.include()
+		return [ getcwd() ]
+	endfunction
 
-    return l:obj
+	function l:obj.pathList.exclude()
+		return [ '*test_module*' ]
+	endfunction
+
+	function l:obj.filetypes.list()
+		return ['*.cpp', '*.hpp','*.c', '*.h', '*.cc', '*.hh', '*.cxx', '*.hxx']
+	endfunction
+
+	return l:obj
 endfunction
 
-let s:lazyIndexerInstance = {}
 
+let s:indexerLazyInstance = {}
 function! s:instance()
-    if empty(s:lazyIndexerInstance)
-        let s:lazyIndexerInstance = gtag#indexer#ccpp#new(s:configurationFactory())
+    if empty(s:indexerLazyInstance)
+        let s:indexerLazyInstance = gtags#indexer#ccpp#new(s:defaultCofig())
     endif
-
-    return s:lazyIndexerInstance
+    return s:indexerLazyInstance
 endfunction
 
 

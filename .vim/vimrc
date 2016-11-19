@@ -416,7 +416,7 @@ call dein#recache_runtimepath()
 syntax enable
 filetype plugin indent on
 
-set wildignore=*/.git/*,*/.hg/*,*/.svn/*,*/.bzr/*,*.o,*.obj
+execute 'set wildignore='.vimrc#ignore#instance().wildignore.get()
 
 set encoding=utf-8
 set title

@@ -2,16 +2,24 @@
 let s:cpo_save = &cpo | set cpo&vim
 "----------------------------------
 
-function! s:localCacheFactory()
-    let l:obj = { 'dirName' : '.vim.cache.local', 'parentPath' : getcwd() }
+function! s:prefix()
+    return '.vim.cache.'
+endfunction
 
+
+function! s:localCacheFactory()
+    let l:obj = { 'parentPath' : getcwd() }
+
+    function! l:obj.dirName()
+        return s:prefix().'local'
+    endfunction
 
     function! l:obj.globDirName()
-        return '*'.self.dirName.'*'
+        return '*'.self.dirName().'*'
     endfunction
 
     function! l:obj.path()
-        return self.parentPath.'/'.self.dirName
+        return self.parentPath.'/'.self.dirName()
     endfunction
 
     function l:obj.isAvailable()
@@ -42,7 +50,7 @@ function! s:globalCacheFactory()
     let l:obj = { 'parentPath' : expand('$HOME').'/.vim.cache.global' }
 
     function! l:obj.dirName()
-        return substitute(getcwd(), '/', '.', 'g')
+        return s:prefix().substitute(getcwd(), '/', '.', 'g')
     endfunction
 
     function! l:obj.globDirName()
@@ -66,7 +74,7 @@ function! s:globalCacheFactory()
             try
                 call self.create()
             catch
-                call vimrc#exception#throw('global cache cannot be created')
+                call vimrc#exception#throw('global cache cannot be created & use')
             endtry
         endif
 
@@ -112,6 +120,10 @@ function! s:cacheFactory()
         endif
 
         return self.cache_fetched_path
+    endfunction
+
+    function! l:obj.cacheGlob()
+        return s:prefix().'*'
     endfunction
 
     return l:obj

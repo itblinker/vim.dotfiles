@@ -1,9 +1,4 @@
-let g:vimrc#grep#fixed#flags = '-nHr'
-let g:vimrc#grep#fixed#default_exclude_dir = '--exclude-dir=.git --exclude-dir=.svn --exclude-dir=.bzr'
-            \ .' --exclude-dir='.vimrc#cache#instance().local.globDirName()
-            \ .' --exclude-dir='.vimrc#cache#instance().global.globDirName()
-
-let g:vimrc#grep#fixed#default_include_dir = ''
+let g:vimrc#grep#fixed#flags = '-I -nHr'
 
 function! s:getGrepCmdForFixedString(pattern, flags, path)
     return 'grep! -F '''.escape(a:pattern, '*#$\\').''' '.a:flags.' '.a:path
@@ -23,7 +18,7 @@ function! vimrc#grep#fixed#execute(pattern, ...) abort
             call s:execute(a:pattern,
                          \ getcwd(),
                          \ g:vimrc#grep#fixed#flags,
-                         \ g:vimrc#grep#fixed#default_exclude_dir,
+                         \ vimrc#ignore#instance().grep.get(),
                          \ g:vimrc#grep#fixed#default_include_dir)
         endif
 

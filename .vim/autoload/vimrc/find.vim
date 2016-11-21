@@ -2,7 +2,6 @@
 let s:cpo_save = &cpo | set cpo&vim
 "----------------------------------
 
-
 function! vimrc#find#file(filename, path)
     try
         return vimrc#find#file#getList(a:filename, a:path)
@@ -136,4 +135,3 @@ endfunction
 "---------------------------------------
 let &cpo = s:cpo_save | unlet s:cpo_save
 "---------------------------------------
-

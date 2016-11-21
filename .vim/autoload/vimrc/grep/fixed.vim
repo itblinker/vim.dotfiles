@@ -5,9 +5,9 @@ function! s:getGrepCmdForFixedString(pattern, flags, path)
 endfunction
 
 
-function! s:execute(pattern, root_path, flags, exclude_dir_globs, include_globs)
+function! s:execute(pattern, root_path, flags, exclude_dir_globs)
     execute s:getGrepCmdForFixedString(a:pattern,
-                                     \ a:flags.' '.a:exclude_dir_globs.' '.a:include_globs,
+                                     \ a:flags.' '.a:exclude_dir_globs,
                                      \ a:root_path)
 endfunction
 
@@ -18,8 +18,7 @@ function! vimrc#grep#fixed#execute(pattern, ...) abort
             call s:execute(a:pattern,
                          \ getcwd(),
                          \ g:vimrc#grep#fixed#flags,
-                         \ vimrc#ignore#instance().grep.get(),
-                         \ g:vimrc#grep#fixed#default_include_dir)
+                         \ vimrc#ignore#instance().grep.get())
         endif
 
     catch

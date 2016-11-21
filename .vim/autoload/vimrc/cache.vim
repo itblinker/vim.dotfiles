@@ -122,8 +122,8 @@ function! s:cacheFactory()
         return self.cache_fetched_path
     endfunction
 
-    function! l:obj.cacheGlob()
-        return s:prefix().'*'
+    function! l:obj.dirNamePrefix()
+        return s:prefix()
     endfunction
 
     return l:obj

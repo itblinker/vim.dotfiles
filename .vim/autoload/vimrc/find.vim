@@ -2,24 +2,6 @@
 let s:cpo_save = &cpo | set cpo&vim
 "----------------------------------
 
-function! vimrc#find#file(filename, path)
-    try
-        return vimrc#find#file#getList(a:filename, a:path)
-    catch
-        call vimrc#exception#warning()
-    endtry
-endfunction
-
-
-function! vimrc#find#isFileExist(filename, path)
-    try
-        return vimrc#find#file#isReachable(a:filename, a:path)
-    catch
-        call vimrc#exception#warning()
-    endtry
-endfunction
-
-
 function! s:findFactory()
     let l:obj = { 'formatter' : {} }
 
@@ -40,25 +22,22 @@ function! s:findFactory()
     endfunction
 
 
-    function! l:obj.excludeDirs(globPattern)
-        let l:pattern = deepcopy(a:globPattern)
+    function! l:obj.formatter.makeList(arg)
+        let l:item = deepcopy(a:arg)
 
-        if type(l:pattern) == type('')
-            let l:pattern = [l:pattern]
+        if type(l:item) == type('')
+            let l:item = [l:item]
         endif
 
-        return join(map(l:pattern, 'self.formatter.excludeDir(v:val)'), ' ')
+        return l:item
     endfunction
 
+    function! l:obj.excludeDirs(globPattern)
+        return join(map(self.formatter.makeList(a:globPattern), 'self.formatter.excludeDir(v:val)'), ' ')
+    endfunction
 
     function! l:obj.excludeFiles(globPattern)
-        let l:pattern = deepcopy(a:globPattern)
-
-        if type(l:pattern) == type('')
-            let l:pattern = [l:pattern]
-        endif
-
-        return join(map(l:pattern, 'self.formatter.excludeFile(v:val)'), ' ')
+        return join(map(self.formatter.makeList(a:globPattern), 'self.formatter.excludeFile(v:val)'), ' ')
     endfunction
 
 
@@ -67,13 +46,7 @@ function! s:findFactory()
     endfunction
 
     function! l:obj.names(names)
-        let l:names = deepcopy(a:names)
-
-        if type(l:names) == type('')
-            let l:names = [l:names]
-        endif
-
-        return join(map(deepcopy(l:names), 'self.formatter.name(v:val)'), ' -o ')
+        return join(map(self.formatter.makeList(a:names), 'self.formatter.name(v:val)'), ' -o ')
     endfunction
 
 
@@ -85,17 +58,9 @@ function! s:findFactory()
         endif
     endfunction
 
-
     function! l:obj.paths(paths)
-        let l:paths = deepcopy(a:paths)
-
-        if type(l:paths) == type('')
-            let l:paths = [l:paths]
-        endif
-
-        return join(l:paths, ' ')
+        return join(self.formatter.makeList(a:paths), ' ')
     endfunction
-
 
     function! l:obj.get_cmd(patterns, paths, excludeDirs, excludeFiles)
         return 'find '.self.paths(a:paths).' '.self.get_cmd_patterns_part(a:patterns, a:excludeDirs, a:excludeFiles)

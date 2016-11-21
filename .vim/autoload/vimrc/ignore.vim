@@ -5,7 +5,7 @@ let s:cpo_save = &cpo | set cpo&vim
 function! s:globsFactory()
     return  { 'dir' : {
             \         'vcs' : ['.svn', '.git'],
-            \         'vim' : [ vimrc#cache#instance().cacheGlob() ]
+            \         'vim' : [ vimrc#cache#instance().dirNamePrefix().'*' ]
             \         },
             \ 'file' : ['*.o', '*.obj', '*.pyc', '*.a', '*.so']
             \}
@@ -78,6 +78,8 @@ function! vimrc#ignore#instance()
 
     return s:ignoreLazyInstance
 endfunction
+
+let g:ignore = vimrc#ignore#instance()
 
 "---------------------------------------
 let &cpo = s:cpo_save | unlet s:cpo_save

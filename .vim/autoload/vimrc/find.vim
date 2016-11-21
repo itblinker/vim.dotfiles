@@ -49,21 +49,17 @@ function! s:findFactory()
         return join(map(self.formatter.makeList(a:names), 'self.formatter.name(v:val)'), ' -o ')
     endfunction
 
-
-    function! l:obj.get_cmd_patterns_part(patterns, excludeDirs, excludeFiles)
-        if len(self.excludeDirs(a:excludeDirs)) == 0 && len(self.excludeFiles(a:excludeFiles)) == 0
-            return self.names(a:patterns)
-        else
-            return self.excludeDirs(a:excludeDirs).' '.self.excludeFiles(a:excludeFiles).' -a \( '.self.names(a:patterns).' \)'
-        endif
-    endfunction
-
     function! l:obj.paths(paths)
         return join(self.formatter.makeList(a:paths), ' ')
     endfunction
 
     function! l:obj.get_cmd(patterns, paths, excludeDirs, excludeFiles)
-        return 'find '.self.paths(a:paths).' '.self.get_cmd_patterns_part(a:patterns, a:excludeDirs, a:excludeFiles)
+        return 'find '
+                    \.self.paths(a:paths).' '
+                    \.self.excludeDirs(a:excludeDirs).' '
+                    \.self.excludeFiles(a:excludeFiles).' '
+                    \.vimrc#ignore#instance().find.format().' '
+                    \.' -a \( '.self.names(a:patterns).' \)'
     endfunction
 
     "
@@ -95,7 +91,6 @@ function! vimrc#find#instance()
 
     return s:findLazyInstane
 endfunction
-
 
 "---------------------------------------
 let &cpo = s:cpo_save | unlet s:cpo_save

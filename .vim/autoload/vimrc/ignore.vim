@@ -25,7 +25,7 @@ function! s:ignoreFactory()
         return '--exclude='.a:glob
     endfunction
 
-    function! l:obj.grep.get()
+    function! l:obj.grep.format()
         let l:temp_vcs  = map(deepcopy(self.dir.vcs), 'self.formatDir(v:val)')
         let l:temp_vim  = map(deepcopy(self.dir.vim), 'self.formatDir(v:val)')
         let l:temp_file = map(deepcopy(self.file), 'self.formatFile(v:val)')
@@ -42,7 +42,7 @@ function! s:ignoreFactory()
         return '-not \( -type f -name '.a:glob.' -prune \)'
     endfunction
 
-    function! l:obj.find.get()
+    function! l:obj.find.format()
         let l:temp_vcs  = map(deepcopy(self.dir.vcs), 'self.formatDir(v:val)')
         let l:temp_vim  = map(deepcopy(self.dir.vim), 'self.formatDir(v:val)')
         let l:temp_file = map(deepcopy(self.file), 'self.formatFile(v:val)')
@@ -59,7 +59,7 @@ function! s:ignoreFactory()
         return a:glob
     endfunction
 
-    function! l:obj.wildignore.get()
+    function! l:obj.wildignore.format()
         let l:temp_vcs  = map(deepcopy(self.dir.vcs), 'self.formatDir(v:val)')
         let l:temp_file = map(deepcopy(self.file), 'self.formatFile(v:val)')
 

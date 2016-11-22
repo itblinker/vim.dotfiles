@@ -7,10 +7,17 @@ function! s:findFactory()
 
 
     function! l:obj.formatter.name(name)
-        if a:name.casesensitive
+        if type(a:name) == type('')
+            return '-name '''.a:name.''''
+        elseif has_key(a:name, 'name')
             return '-name '''.a:name.name.''''
-        else
-            return '-iname '''.a:name.name.''''
+        elseif has_key(a:name, 'iname')
+            return '-iname '''.a:name.iname.''''
+        endif
+        "elseif a:name.casesensitive == 1
+            "return '-name '''.a:name.name.''''
+        "else
+            "return '-iname '''.a:name.name.''''
         endif
     endfunction
 
@@ -97,13 +104,12 @@ endfunction
 " tests
 "--------
 
+"let s:cmd = s:findFactory().getCmd(['sniff*', {'name' : 'cac*vim'}, {'iname' : 'auto*.vim'}],
+            "\ {'include' : './', 'exclude' : ['./.vim/plugin', './.vim/ftplugin']} )
 
-"let s:cmd = s:findFactory().getCmd('cac*vim', {'include' : './', 'exclude' : ['./.vim/plugin', './.vim/ftplugin']} )
+let s:cmd = s:findFactory().getCmd(['sniff*', {'iname' : 'cac*vim'}, {'name' : 'auto*.vim'}],
+            \ {'include' : './', 'exclude' : './.vim/autoload/vital'} )
 
-let s:cmd = s:findFactory().getCmd([
-            \ {'name' : 'cac*vim',   'casesensitive' : 1},
-            \ {'name' : 'auto*.vim', 'casesensitive' : 0}],
-            \ {'include' : './', 'exclude' : ['./.vim/plugin', './.vim/ftplugin']} )
 
 "let s:cmd = s:findFactory().getCmd({'name' : 'cac*vim', 'casesensitive' : 1},
                                  "\ {'include' : './', 'exclude' : ['./.vim/plugin', './.vim/ftplugin']} )

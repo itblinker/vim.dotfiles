@@ -11,10 +11,8 @@ function! s:findFactory()
 
         if type(l:item) == type('')
             let l:item = [l:item]
-        endif
-
-        if len(l:item) == 0
-            call vimrc#exception#throw('name list cannot be empty')
+        elseif type(l:item) != type([])
+            call vimrc#exception#throw('arg type is not a list')
         endif
 
         return l:item
@@ -27,26 +25,61 @@ function! s:findFactory()
 
 
     function! l:obj.formatter.names(names)
-        return join(map(a:names, 'self.excludeName(v:val)'), ' -o ')
+        let l:out =  join(map(a:names, 'self.excludeName(v:val)'), ' -o ')
+
+        if strlen(l:out)
+            return l:out
+        else
+            return '-name ''*'''
+        endif
     endfunction
 
 
     function! l:obj.names(names)
         if type(a:names) == type('')
-            return '-type f -name '''.a:names.''''
+            if a:names != ''
+                return '-type f -name '''.a:names.''''
+            else
+                return '-type f -name ''*'''
+            endif
         else
             return '-type f \( '.self.formatter.names(self.makeList(a:names)).' \)'
         endif
     endfunction
 
 
-    function! l:obj.paths(paths)
-        if type(a:paths) == type('')
-            return a:paths
+    function! l:obj.formatter.pathExcludeDir(path)
+        if ! empty(globpath(getcwd(), a:path))
+            return a:path
+        else
+            call vimrc#exception#throw('exclude dir its not the part of root tree')
         endif
     endfunction
 
-    function! l:obj.getCmd(paths, names)
+
+    function! l:obj.formatter.path(path)
+        return '-not \( -path '''.self.pathExcludeDir(a:path).''' -prune \)'
+    endfunction
+
+
+    function! l:obj.formatter.paths(pathsList)
+        return join(map(a:pathsList, 'self.path(v:val)'), ' ')
+    endfunction
+
+
+    function! l:obj.paths(paths)
+        if type(a:paths) == type('')
+            return a:paths
+        else
+            try
+                return a:paths.include.' '.self.formatter.paths(self.makeList(a:paths.exclude))
+            catch
+                call vimrc#exception#throw('path argument, shold be dict with {include,exlucde} keys')
+            endtry
+        endif
+    endfunction
+
+    function! l:obj.getCmd(names, paths)
         return 'find '
                     \.self.paths(a:paths).' '
                     \.self.names(a:names)
@@ -60,8 +93,10 @@ endfunction
 " tests
 "--------
 
-echomsg 'cmd1: '.s:findFactory().getCmd('./', 'name')
-execute 'Dispatch '.s:findFactory().getCmd('./', ['cach*vim', 'find.vim'])
+let s:cmd = s:findFactory().getCmd('auto*.vim', {'include' : './', 'exclude' : ['./.vim/plugin', './.vim/ftplugin']} )
+
+echomsg 'cmd is '.s:cmd
+silent execute 'Dispatch '.s:cmd
 
 "---------------------------------------
 let &cpo = s:cpo_save | unlet s:cpo_save

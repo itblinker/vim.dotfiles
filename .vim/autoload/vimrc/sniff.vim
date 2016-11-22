@@ -6,19 +6,6 @@ function! s:findFactory()
     let l:obj = { 'formatter' : {} }
 
 
-    function! l:obj.makeList(item)
-        let l:item = deepcopy(a:item)
-
-        if type(l:item) == type('')
-            let l:item = [l:item]
-        elseif type(l:item) != type([])
-            call vimrc#exception#throw('arg type is not a list')
-        endif
-
-        return l:item
-    endfunction
-
-
     function! l:obj.formatter.name(name)
         return '-name '''.a:name.''''
     endfunction
@@ -35,20 +22,29 @@ function! s:findFactory()
     endfunction
 
 
+    function! l:obj.makeNameList(item)
+        let l:item = deepcopy(a:item)
+
+        if type(l:item) == type('')
+            let l:item = [l:item]
+        elseif type(l:item) != type([])
+            call vimrc#exception#throw('arg type is not a list')
+        endif
+
+        return l:item
+    endfunction
+
+
     function! l:obj.names(names)
         if type(a:names) == type('')
-            if a:names != ''
-                return '-type f -name '''.a:names.''''
-            else
-                return '-type f -name ''*'''
-            endif
+            return '-type f '.self.formatter.name(a:names)
         else
-            return '-type f \( '.self.formatter.names(self.makeList(a:names)).' \)'
+            return '-type f \( '.self.formatter.names(self.makeNameList(a:names)).' \)'
         endif
     endfunction
 
 
-    function! l:obj.formatter.pathExcludeDir(path)
+    function! l:obj.formatter.pathExcludeWholeDir(path)
         if ! empty(globpath(getcwd(), a:path))
             return a:path
         else
@@ -58,7 +54,7 @@ function! s:findFactory()
 
 
     function! l:obj.formatter.path(path)
-        return '-not \( -path '''.self.pathExcludeDir(a:path).''' -prune \)'
+        return '-not \( -path '''.self.pathExcludeWholeDir(a:path).''' -prune \)'
     endfunction
 
 
@@ -67,12 +63,24 @@ function! s:findFactory()
     endfunction
 
 
+    function! l:obj.makePathsList(paths)
+        let l:item = deepcopy(a:paths)
+
+        if type(l:item) == type([])
+            return l:item
+        elseif type(l:item) == type('')
+            return [l:item]
+        else
+            call vimrc#exception#throw('arg type its not a list')
+        endif
+    endfunction
+
     function! l:obj.paths(paths)
         if type(a:paths) == type('')
             return a:paths
         else
             try
-                return a:paths.include.' '.self.formatter.paths(self.makeList(a:paths.exclude))
+                return a:paths.include.' '.self.formatter.paths(self.makePathsList(a:paths.exclude))
             catch
                 call vimrc#exception#throw('path argument, shold be dict with {include,exlucde} keys')
             endtry

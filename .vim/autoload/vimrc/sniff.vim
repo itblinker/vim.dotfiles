@@ -11,17 +11,6 @@ function! s:findFactory()
     endfunction
 
 
-    function! l:obj.formatter.names(names)
-        let l:out =  join(map(a:names, 'self.name(v:val)'), ' -o ')
-
-        if strlen(l:out)
-            return l:out
-        else
-            return '-name ''*'''
-        endif
-    endfunction
-
-
     function! l:obj.makeNameList(item)
         let l:item = deepcopy(a:item)
 
@@ -36,11 +25,9 @@ function! s:findFactory()
 
 
     function! l:obj.names(names)
-        if type(a:names) == type('')
-            return '-type f '.self.formatter.name(a:names)
-        else
-            return '-type f \( '.self.formatter.names(self.makeNameList(a:names)).' \)'
-        endif
+        return '-type f \( '
+               \.join(map(self.makeNameList(a:names), 'self.formatter.name(v:val)'), ' -o ')
+               \.' \)'
     endfunction
 
 
@@ -104,7 +91,7 @@ endfunction
 " tests
 "--------
 
-let s:cmd = s:findFactory().getCmd('auto*.vim', {'include' : './', 'exclude' : ['./.vim/plugin', './.vim/ftplugin']} )
+let s:cmd = s:findFactory().getCmd(['cac*vim', 'auto*.vim'], {'include' : './', 'exclude' : ['./.vim/plugin', './.vim/ftplugin']} )
 
 echomsg 'cmd is '.s:cmd
 silent execute 'Dispatch '.s:cmd

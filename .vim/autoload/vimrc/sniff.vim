@@ -19,13 +19,13 @@ function! s:findFactory()
     endfunction
 
 
-    function! l:obj.formatter.excludeName(name)
+    function! l:obj.formatter.name(name)
         return '-name '''.a:name.''''
     endfunction
 
 
     function! l:obj.formatter.names(names)
-        let l:out =  join(map(a:names, 'self.excludeName(v:val)'), ' -o ')
+        let l:out =  join(map(a:names, 'self.name(v:val)'), ' -o ')
 
         if strlen(l:out)
             return l:out

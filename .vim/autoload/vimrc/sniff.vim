@@ -15,7 +15,7 @@ function! s:findFactory()
     endfunction
 
 
-    function! l:obj.makeNameList(item)
+    function! l:obj.formatter.makeNameList(item)
         let l:item = deepcopy(a:item)
 
         if type(l:item) == type('')
@@ -32,7 +32,7 @@ function! s:findFactory()
 
     function! l:obj.names(names)
         return '-type f \( '
-               \.join(map(self.makeNameList(a:names), 'self.formatter.name(v:val)'), ' -o ')
+               \.join(map(self.formatter.makeNameList(a:names), 'self.formatter.name(v:val)'), ' -o ')
                \.' \)'
     endfunction
 
@@ -56,7 +56,7 @@ function! s:findFactory()
     endfunction
 
 
-    function! l:obj.makePathsList(paths)
+    function! l:obj.formatter.makePathsList(paths)
         let l:item = deepcopy(a:paths)
 
         if type(l:item) == type([])
@@ -74,7 +74,7 @@ function! s:findFactory()
             return a:paths
         else
             try
-                return a:paths.include.' '.self.formatter.paths(self.makePathsList(a:paths.exclude))
+                return a:paths.include.' '.self.formatter.paths(self.formatter.makePathsList(a:paths.exclude))
             catch
                 call vimrc#exception#throw('path argument, shold be dict with {include,exlucde} keys')
             endtry
@@ -97,16 +97,16 @@ endfunction
 " tests
 "--------
 
-"let s:cmd = s:findFactory().getCmd(['cac*vim', 'auto*.vim'], {'include' : './', 'exclude' : ['./.vim/plugin', './.vim/ftplugin']} )
 
 "let s:cmd = s:findFactory().getCmd('cac*vim', {'include' : './', 'exclude' : ['./.vim/plugin', './.vim/ftplugin']} )
-"let s:cmd = s:findFactory().getCmd([
-            "\ {'name' : 'cac*vim',   'casesensitive' : 1},
-            "\ {'name' : 'auto*.vim', 'casesensitive' : 0}],
-            "\ {'include' : './', 'exclude' : ['./.vim/plugin', './.vim/ftplugin']} )
 
-let s:cmd = s:findFactory().getCmd({'name' : 'cac*vim', 'casesensitive' : 1},
-                                 \ {'include' : './', 'exclude' : ['./.vim/plugin', './.vim/ftplugin']} )
+let s:cmd = s:findFactory().getCmd([
+            \ {'name' : 'cac*vim',   'casesensitive' : 1},
+            \ {'name' : 'auto*.vim', 'casesensitive' : 0}],
+            \ {'include' : './', 'exclude' : ['./.vim/plugin', './.vim/ftplugin']} )
+
+"let s:cmd = s:findFactory().getCmd({'name' : 'cac*vim', 'casesensitive' : 1},
+                                 "\ {'include' : './', 'exclude' : ['./.vim/plugin', './.vim/ftplugin']} )
 
 
 echomsg 'cmd is '.s:cmd

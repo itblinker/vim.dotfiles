@@ -7,7 +7,11 @@ function! s:findFactory()
 
 
     function! l:obj.formatter.name(name)
-        return '-name '''.a:name.''''
+        if a:name.casesensitive
+            return '-name '''.a:name.name.''''
+        else
+            return '-iname '''.a:name.name.''''
+        endif
     endfunction
 
 
@@ -15,9 +19,11 @@ function! s:findFactory()
         let l:item = deepcopy(a:item)
 
         if type(l:item) == type('')
-            let l:item = [l:item]
+            let l:item = [ {'name' : a:item, 'casesensitive' : 1} ]
+        elseif type(l:item) == type({})
+            return [l:item]
         elseif type(l:item) != type([])
-            call vimrc#exception#throw('arg type is not a list')
+            call vimrc#exception#throw('Arg type is not a list')
         endif
 
         return l:item
@@ -91,7 +97,17 @@ endfunction
 " tests
 "--------
 
-let s:cmd = s:findFactory().getCmd(['cac*vim', 'auto*.vim'], {'include' : './', 'exclude' : ['./.vim/plugin', './.vim/ftplugin']} )
+"let s:cmd = s:findFactory().getCmd(['cac*vim', 'auto*.vim'], {'include' : './', 'exclude' : ['./.vim/plugin', './.vim/ftplugin']} )
+
+"let s:cmd = s:findFactory().getCmd('cac*vim', {'include' : './', 'exclude' : ['./.vim/plugin', './.vim/ftplugin']} )
+"let s:cmd = s:findFactory().getCmd([
+            "\ {'name' : 'cac*vim',   'casesensitive' : 1},
+            "\ {'name' : 'auto*.vim', 'casesensitive' : 0}],
+            "\ {'include' : './', 'exclude' : ['./.vim/plugin', './.vim/ftplugin']} )
+
+let s:cmd = s:findFactory().getCmd({'name' : 'cac*vim', 'casesensitive' : 1},
+                                 \ {'include' : './', 'exclude' : ['./.vim/plugin', './.vim/ftplugin']} )
+
 
 echomsg 'cmd is '.s:cmd
 silent execute 'Dispatch '.s:cmd

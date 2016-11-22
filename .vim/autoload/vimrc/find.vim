@@ -7,7 +7,7 @@ function! s:findFactory()
 
     function! l:obj.formatter.excludePattern(globPattern, type)
         if len(a:globPattern)
-            return '-not \( -type '.a:type.' -iname '.a:globPattern.' -prune \)'
+            return '-not \( -type '.a:type.' -iname '''.a:globPattern.''' -prune \)'
         else
             return ''
         endif
@@ -48,7 +48,7 @@ function! s:findFactory()
     endfunction
 
     function! l:obj.formatter.name(globPattern)
-        return '\( -type f -name '.a:globPattern.' \)'
+        return '\( -type f -name '''.a:globPattern.''' \)'
     endfunction
 
     function! l:obj.names(names)
@@ -107,7 +107,7 @@ endfunction
 "   tests
 "-------------
 
-"let s:cmd = vimrc#find#instance().cmd('vimrc.vim', ['./'], '', [''], './.vim/autoload/vital')
+"let s:cmd = vimrc#find#instance().cmd('vimrc.v?m', ['./'], '', [''], './.vim/autoload/vital')
 "echomsg 'cmd is '.s:cmd
 "echomsg 'found: '.string(systemlist(s:cmd))
 

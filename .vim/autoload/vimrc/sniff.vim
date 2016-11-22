@@ -27,7 +27,7 @@ function! s:findFactory()
 
 
     function! l:obj.formatter.names(names)
-        return join(map(a:names, 'self.excludeName(v:val)'), ' ')
+        return join(map(a:names, 'self.excludeName(v:val)'), ' -o ')
     endfunction
 
 
@@ -39,8 +39,16 @@ function! s:findFactory()
         endif
     endfunction
 
-    function! l:obj.getCmd(names)
+
+    function! l:obj.paths(paths)
+        if type(a:paths) == type('')
+            return a:paths
+        endif
+    endfunction
+
+    function! l:obj.getCmd(paths, names)
         return 'find '
+                    \.self.paths(a:paths).' '
                     \.self.names(a:names)
     endfunction
 
@@ -52,8 +60,8 @@ endfunction
 " tests
 "--------
 
-echomsg 'cmd1: '.s:findFactory().getCmd('name')
-echomsg 'cmd2: '.s:findFactory().getCmd(['first', 'second'])
+echomsg 'cmd1: '.s:findFactory().getCmd('./', 'name')
+execute 'Dispatch '.s:findFactory().getCmd('./', ['cach*vim', 'find.vim'])
 
 "---------------------------------------
 let &cpo = s:cpo_save | unlet s:cpo_save

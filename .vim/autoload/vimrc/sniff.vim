@@ -75,6 +75,7 @@ function! s:findFactory()
         endif
     endfunction
 
+
     function! l:obj.paths(paths)
         if type(a:paths) == type('')
             return a:paths
@@ -87,11 +88,13 @@ function! s:findFactory()
         endif
     endfunction
 
+
     function! l:obj.getCmd(names, paths)
         return 'find '
                     \.self.paths(a:paths).' '
                     \.self.names(a:names)
     endfunction
+
 
     return l:obj
 endfunction

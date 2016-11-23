@@ -52,7 +52,7 @@ function! s:findFactory()
         if type(a:path) == type('')
             return '-not \( -path '''.self.getUniquePathOfRootsChild(a:path).''' -prune \)'
         else
-            call vimrc#exception#throw('improper type: arg: '.string(a:path))
+            call vimrc#exception#throw('improper arg: '.string(a:path))
         endif
     endfunction
 
@@ -75,21 +75,36 @@ function! s:findFactory()
     endfunction
 
 
-    function! l:obj.path(paths)
-        if type(a:paths) == type('')
-            return a:paths
-        elseif type(a:paths) == type({})
-            return a:paths.path.' '.self.formatter.paths(self.formatter.makePathsList(a:paths.exclude))
+    function! l:obj.path(path)
+        if type(a:path) == type('')
+            return a:path
+        elseif type(a:path) == type({})
+            return a:path.path.' '.self.formatter.paths(self.formatter.makePathsList(a:path.exclude))
         else
             call vimrc#exception#throw('arg type its not a list')
         endif
     endfunction
 
 
-    function! l:obj.getCmd(names, paths)
+    function! l:obj.cmdComposer(names, path)
         return 'find '
-                    \.self.path(a:paths).' '
+                    \.self.path(a:path).' '
                     \.self.names(a:names)
+    endfunction
+
+
+    function! l:obj.getCmd(names, paths)
+        if type(a:paths) != type([])
+            return self.cmdComposer(a:names, a:paths)
+        else
+            let l:cmdList = []
+
+            for l:path in a:paths
+                call add(l:cmdList, self.cmdComposer(a:names, l:path))
+            endfor
+
+            return join(l:cmdList, ' && ')
+        endif
     endfunction
 
 
@@ -105,7 +120,7 @@ endfunction
             "\'./'')
 
 let s:cmd = s:findFactory().getCmd(['sniff*', {'iname' : 'cac*vim'}, {'name' : 'auto*.vim'}],
-            \ {'path' : './', 'exclude' : './.vim/autoload/vital'} )
+            \ [{'path' : './', 'exclude' : './.vim/autoload/vital'}, {'path' : './', 'exclude' : './.vim/autoload/vital'}] )
 
 "let s:cmd = s:findFactory().getCmd(['sniff*', {'iname' : 'cac*vim'}, {'name' : 'auto*.vim'}],
             "\ {'path' : './', 'exclude' : ['./.vim/autoload/vital']} )

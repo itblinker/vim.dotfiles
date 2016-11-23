@@ -6,6 +6,9 @@ function! vimrc#exception#throw(string)
    throw 'vimrc: '.a:string
 endfunction
 
+function! vimrc#exception#rethrow()
+   call vimrc#exception#throw('rethrown: '.v:exception)
+endfunction
 
 function! s:exception()
     return '[exception] '.v:exception.' [throwpoint]: '.v:throwpoint

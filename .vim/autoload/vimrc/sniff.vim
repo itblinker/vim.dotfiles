@@ -25,7 +25,7 @@ function! s:findFactory()
         elseif type(l:item) == type({})
             return [l:item]
         elseif type(l:item) != type([])
-            call vimrc#exception#throw('invalid argument type: '.string(a:item'))
+            call vimrc#exception#throw('invalid argument type: '.string(a:item))
         endif
 
         return l:item
@@ -70,18 +70,31 @@ function! s:findFactory()
         elseif type(l:items) == type('') || type(l:items) == type({})
             return [l:items]
         else
-            call vimrc#exception#throw('improper type: arg: '.string(a:path))
+            call vimrc#exception#throw('improper type: arg: '.string(a:paths))
+        endif
+    endfunction
+
+
+    function! l:obj.formatter.rootPath(path)
+        if a:path == './'
+            return getcwd()
+        else
+            return a:path
         endif
     endfunction
 
 
     function! l:obj.path(path)
         if type(a:path) == type('')
-            return a:path
-        elseif type(a:path) == type({})
-            return a:path.path.' '.self.formatter.paths(self.formatter.makePathsList(a:path.exclude))
+            return self.formatter.rootPath(a:path)
+        elseif has_key(a:path, 'path') && (! has_key(a:path, 'exclude'))
+            return self.formatter.rootPath(a:path.path)
+        elseif has_key(a:path, 'path') && has_key(a:path, 'exclude')
+            echomsg 'yes here'
+            return self.formatter.rootPath(a:path.path).' '
+                   \ .self.formatter.paths(self.formatter.makePathsList(a:path.exclude))
         else
-            call vimrc#exception#throw('invalid argument type: '.string(a:path)')
+            call vimrc#exception#throw('invalid argument type: '.string(a:path))
         endif
     endfunction
 
@@ -125,15 +138,22 @@ function! s:findFactory()
     endfunction
 
 
-
     function! l:obj.excludeDirPatterns(patterns)
-        return join(map(self.formatter.makePatternsListForExcludes(a:patterns), 'self.formatter.excludeDirPatterns(v:val)'), ' ')
+        if len(a:patterns)
+            return join(map(self.formatter.makePatternsListForExcludes(a:patterns), 'self.formatter.excludeDirPatterns(v:val)'), ' ')
+        else
+            return ''
+        endif
     endfunction
 
 
 
     function! l:obj.excludeFilePatterns(patterns)
-        return join(map(self.formatter.makePatternsListForExcludes(a:patterns), 'self.formatter.excludeFilePatterns(v:val)'), ' ')
+        if len(a:patterns)
+            return join(map(self.formatter.makePatternsListForExcludes(a:patterns), 'self.formatter.excludeFilePatterns(v:val)'), ' ')
+        else
+            return ''
+        endif
     endfunction
 
 
@@ -142,6 +162,7 @@ function! s:findFactory()
                     \.self.path(a:path).' '
                     \.self.excludeDirPatterns(a:excludeDirPatterns).' '
                     \.self.excludeFilePatterns(a:excludeFilePatterns).' '
+                    \.vimrc#ignore#instance().find.format().' '
                     \.self.names(a:names)
     endfunction
 
@@ -161,6 +182,28 @@ function! s:findFactory()
     endfunction
 
 
+    "------
+    " API
+    "------
+    function! l:obj.cmd(...)
+        try
+            if a:0 == 1
+                return self.getCmd(a:1, './', '', '')
+            elseif a:0 == 2
+                return self.getCmd(a:1, a:2, '', '')
+            elseif a:0 == 3
+                return self.getCmd(a:1, a:2, a:3, '')
+            elseif a:0 == 4
+                return self.getCmd(a:1, a:2, a:3, a:4)
+            else
+                call vimrc#exception#throw('not supported number of arguments')
+            endif
+        catch
+           call vimrc#exception#rethrow()
+        endtry
+    endfunction
+
+
     return l:obj
 endfunction
 
@@ -169,19 +212,43 @@ endfunction
 " tests
 "--------
 
-"let s:cmd = s:findFactory().getCmd(['sniff*', {'name' : 'cac*vim'}, {'iname' : 'auto*.vim'}],
-            "\'./'', '', '')
-
-"let s:cmd = s:findFactory().getCmd(['sniff*', {'iname' : 'cac*vim'}, {'name' : 'auto*.vim'}],
-            "\ [{'path' : './', 'exclude' : './.vim/autoload/vital'},
-            "\ {'path' : './', 'exclude' : './.vim/autoload/vital'}] , '', '')
-
-let s:cmd = s:findFactory().getCmd(['sniff*', {'iname' : 'cac*vim'}, {'name' : 'auto*.vim'}],
-            \ {'path' : './', 'exclude' : []}, [{'iname' : 'system'}, {'name' : 'dupa'}, 'elo'], {'name' : 'Sniff*'})
-
-
-echomsg 'cmd is '.s:cmd
-silent execute 'Dispatch '.s:cmd
+" find: argument: <file name glob enable path>
+"
+"let s:cmd = s:findFactory().cmd('sniff*')
+"let s:cmd = s:findFactory().cmd(['sniff*', 'vital*'])
+"let s:cmd = s:findFactory().cmd({'iname' : 'Vital*'})
+"let s:cmd = s:findFactory().cmd([{'name' : 'vital*'}, 'cache*'])
+"
+" find: argument: <paths and excludes>
+"
+"let s:cmd = s:findFactory().cmd('vimrc.vim',
+            "\ './')
+"let s:cmd = s:findFactory().cmd('vimrc.vim',
+            "\ {'path' : './'})
+"let s:cmd = s:findFactory().cmd('vimrc.vim',
+            "\ {'path' : './', 'exclude' : './.vim/ftplugin'})
+"let s:cmd = s:findFactory().cmd('vimrc.vim',
+            "\ [{'path' : './', 'exclude' : './.vim/ftplugin'}])
+"let s:cmd = s:findFactory().cmd('vimrc.vim',
+            "\ ['~/temp/temp', {'path' : './', 'exclude' : './.vim/ftplugin'}])
+"let s:cmd = s:findFactory().cmd(['vimrc.vim','*cpp'],
+            "\ ['~/temp/temp', {'path' : './', 'exclude' : './.vim/ftplugin'}])
+"
+" find: argument: <exclude dir pattern>
+"
+"let s:cmd = s:findFactory().cmd('vimrc.vim', './',
+            "\ 'dupa*')
+"let s:cmd = s:findFactory().cmd('vimrc.vim', './',
+            "\ [{'name' : 'dupa'}, 'dupa_2'])
+"
+" find: argument: <exclude file pattern>
+"
+"let s:cmd = s:findFactory().cmd('vimrc.vim', './', '',
+            "\ 'dupa*')
+"let s:cmd = s:findFactory().cmd('vimrc.vim', './', '',
+            "\ [{'iname' : 'dupa'}, 'dupa_2'])
+"echomsg 'cmd is '.s:cmd
+"silent execute 'Dispatch '.s:cmd
 
 "---------------------------------------
 let &cpo = s:cpo_save | unlet s:cpo_save

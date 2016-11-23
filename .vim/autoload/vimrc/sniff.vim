@@ -14,11 +14,6 @@ function! s:findFactory()
         elseif has_key(a:name, 'iname')
             return '-iname '''.a:name.iname.''''
         endif
-        "elseif a:name.casesensitive == 1
-            "return '-name '''.a:name.name.''''
-        "else
-            "return '-iname '''.a:name.name.''''
-        endif
     endfunction
 
 
@@ -44,17 +39,21 @@ function! s:findFactory()
     endfunction
 
 
-    function! l:obj.formatter.pathExcludeWholeDir(path)
-        if ! empty(globpath(getcwd(), a:path))
+    function! l:obj.formatter.getUniquePathOfRootsChild(path)
+        if len(split(globpath(getcwd(), a:path), expand('<NL>'))) == 1
             return a:path
         else
-            call vimrc#exception#throw('exclude dir its not the part of root tree')
+            call vimrc#exception#throw('exclude dir its not the part or is not unique of root tree: '.string(a:path))
         endif
     endfunction
 
 
     function! l:obj.formatter.path(path)
-        return '-not \( -path '''.self.pathExcludeWholeDir(a:path).''' -prune \)'
+        if type(a:path) == type('')
+            return '-not \( -path '''.self.getUniquePathOfRootsChild(a:path).''' -prune \)'
+        else
+            call vimrc#exception#throw('improper type: arg: '.string(a:path))
+        endif
     endfunction
 
 
@@ -64,34 +63,32 @@ function! s:findFactory()
 
 
     function! l:obj.formatter.makePathsList(paths)
-        let l:item = deepcopy(a:paths)
+        let l:items = deepcopy(a:paths)
 
-        if type(l:item) == type([])
-            return l:item
-        elseif type(l:item) == type('')
-            return [l:item]
+        if type(l:items) == type([])
+            return l:items
+        elseif type(l:items) == type('') || type(l:items) == type({})
+            return [l:items]
+        else
+            call vimrc#exception#throw('improper type: arg: '.string(a:path))
+        endif
+    endfunction
+
+
+    function! l:obj.path(paths)
+        if type(a:paths) == type('')
+            return a:paths
+        elseif type(a:paths) == type({})
+            return a:paths.path.' '.self.formatter.paths(self.formatter.makePathsList(a:paths.exclude))
         else
             call vimrc#exception#throw('arg type its not a list')
         endif
     endfunction
 
 
-    function! l:obj.paths(paths)
-        if type(a:paths) == type('')
-            return a:paths
-        else
-            try
-                return a:paths.include.' '.self.formatter.paths(self.formatter.makePathsList(a:paths.exclude))
-            catch
-                call vimrc#exception#throw('path argument, shold be dict with {include,exlucde} keys')
-            endtry
-        endif
-    endfunction
-
-
     function! l:obj.getCmd(names, paths)
         return 'find '
-                    \.self.paths(a:paths).' '
+                    \.self.path(a:paths).' '
                     \.self.names(a:names)
     endfunction
 
@@ -105,14 +102,13 @@ endfunction
 "--------
 
 "let s:cmd = s:findFactory().getCmd(['sniff*', {'name' : 'cac*vim'}, {'iname' : 'auto*.vim'}],
-            "\ {'include' : './', 'exclude' : ['./.vim/plugin', './.vim/ftplugin']} )
+            "\'./'')
 
 let s:cmd = s:findFactory().getCmd(['sniff*', {'iname' : 'cac*vim'}, {'name' : 'auto*.vim'}],
-            \ {'include' : './', 'exclude' : './.vim/autoload/vital'} )
+            \ {'path' : './', 'exclude' : './.vim/autoload/vital'} )
 
-
-"let s:cmd = s:findFactory().getCmd({'name' : 'cac*vim', 'casesensitive' : 1},
-                                 "\ {'include' : './', 'exclude' : ['./.vim/plugin', './.vim/ftplugin']} )
+"let s:cmd = s:findFactory().getCmd(['sniff*', {'iname' : 'cac*vim'}, {'name' : 'auto*.vim'}],
+            "\ {'path' : './', 'exclude' : ['./.vim/autoload/vital']} )
 
 
 echomsg 'cmd is '.s:cmd

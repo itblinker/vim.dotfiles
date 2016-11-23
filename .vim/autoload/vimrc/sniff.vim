@@ -86,7 +86,7 @@ function! s:findFactory()
     endfunction
 
 
-    function! l:obj.formatter.makePatternsListForExcludeDirs(patterns)
+    function! l:obj.formatter.makePatternsListForExcludes(patterns)
         if type(a:patterns) == type([])
             return a:patterns
         elseif type(a:patterns) == type('')
@@ -99,7 +99,7 @@ function! s:findFactory()
     endfunction
 
 
-    function! l:obj.formatter.excludeDirPattern(pattern)
+    function! l:obj.formatter.excludeDirPatterns(pattern)
         if type(a:pattern) == type('')
             return '-not \( -type d -name '''.a:pattern.''' -prune \)'
         elseif has_key(a:pattern, 'iname')
@@ -112,27 +112,48 @@ function! s:findFactory()
     endfunction
 
 
-    function! l:obj.excludeDirPatterns(patterns)
-        return join(map(self.formatter.makePatternsListForExcludeDirs(a:patterns), 'self.formatter.excludeDirPattern(v:val)'), ' ')
+    function! l:obj.formatter.excludeFilePatterns(pattern)
+        if type(a:pattern) == type('')
+            return '-not \( -type f -name '''.a:pattern.''' -prune \)'
+        elseif has_key(a:pattern, 'iname')
+            return '-not \( -type f -iname '''.a:pattern.iname.''' -prune \)'
+        elseif has_key(a:pattern, 'name')
+            return '-not \( -type f -name '''.a:pattern.name.''' -prune \)'
+        else
+            call vimrc#exception#throw('invalid arg: '.string(a:pattern))
+        endif
     endfunction
 
 
-    function! l:obj.cmdComposer(names, path, excludeDirPatterns)
+
+    function! l:obj.excludeDirPatterns(patterns)
+        return join(map(self.formatter.makePatternsListForExcludes(a:patterns), 'self.formatter.excludeDirPatterns(v:val)'), ' ')
+    endfunction
+
+
+
+    function! l:obj.excludeFilePatterns(patterns)
+        return join(map(self.formatter.makePatternsListForExcludes(a:patterns), 'self.formatter.excludeFilePatterns(v:val)'), ' ')
+    endfunction
+
+
+    function! l:obj.cmdComposer(names, path, excludeDirPatterns, excludeFilePatterns)
         return 'find '
                     \.self.path(a:path).' '
                     \.self.excludeDirPatterns(a:excludeDirPatterns).' '
+                    \.self.excludeFilePatterns(a:excludeFilePatterns).' '
                     \.self.names(a:names)
     endfunction
 
 
-    function! l:obj.getCmd(names, paths, excludeDirPatterns)
+    function! l:obj.getCmd(names, paths, excludeDirPatterns, excludeFilePatterns)
         if type(a:paths) != type([])
-            return self.cmdComposer(a:names, a:paths, a:excludeDirPatterns)
+            return self.cmdComposer(a:names, a:paths, a:excludeDirPatterns, a:excludeFilePatterns)
         else
             let l:cmdList = []
 
             for l:path in a:paths
-                call add(l:cmdList, self.cmdComposer(a:names, l:path, a:excludeDirPatterns))
+                call add(l:cmdList, self.cmdComposer(a:names, l:path, a:excludeDirPatterns, a:excludeFilePatterns))
             endfor
 
             return join(l:cmdList, ' && ')
@@ -149,14 +170,14 @@ endfunction
 "--------
 
 "let s:cmd = s:findFactory().getCmd(['sniff*', {'name' : 'cac*vim'}, {'iname' : 'auto*.vim'}],
-            "\'./'', '')
+            "\'./'', '', '')
 
 "let s:cmd = s:findFactory().getCmd(['sniff*', {'iname' : 'cac*vim'}, {'name' : 'auto*.vim'}],
             "\ [{'path' : './', 'exclude' : './.vim/autoload/vital'},
-            "\ {'path' : './', 'exclude' : './.vim/autoload/vital'}] , '')
+            "\ {'path' : './', 'exclude' : './.vim/autoload/vital'}] , '', '')
 
 let s:cmd = s:findFactory().getCmd(['sniff*', {'iname' : 'cac*vim'}, {'name' : 'auto*.vim'}],
-            \ {'path' : './', 'exclude' : []}, [{'iname' : 'system'}, {'name' : 'dupa'}, 'elo'])
+            \ {'path' : './', 'exclude' : []}, [{'iname' : 'system'}, {'name' : 'dupa'}, 'elo'], {'name' : 'Sniff*'})
 
 
 echomsg 'cmd is '.s:cmd

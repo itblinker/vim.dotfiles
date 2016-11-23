@@ -211,7 +211,7 @@ endfunction
 "--------
 " tests
 "--------
-
+"
 " find: argument: <file name glob enable path>
 "
 "let s:cmd = s:findFactory().cmd('sniff*')

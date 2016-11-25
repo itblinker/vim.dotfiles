@@ -162,7 +162,7 @@ function! s:findFactory()
                     \.self.path(a:path).' '
                     \.self.excludeDirPatterns(a:excludeDirPatterns).' '
                     \.self.excludeFilePatterns(a:excludeFilePatterns).' '
-                    \.vimrc#ignore#instance().find.format().' '
+                    \.vimrc#ignore#instance().findFormat().' '
                     \.self.names(a:names)
     endfunction
 

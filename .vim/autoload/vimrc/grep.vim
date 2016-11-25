@@ -6,7 +6,7 @@ function! s:grepFactory()
     let l:obj = {}
 
     function! l:obj.cmd(string)
-        return 'grep! -I -Hr '.a:string.' '.vimrc#ignore#instance().grep.format()
+        return 'grep! -I -Hr '.a:string.' '.vimrc#ignore#instance().grepFormat()
     endfunction
 
     function! l:obj.matchInfo()

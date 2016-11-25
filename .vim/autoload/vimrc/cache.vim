@@ -14,10 +14,6 @@ function! s:localCacheFactory()
         return s:prefix().'local'
     endfunction
 
-    function! l:obj.globDirName()
-        return '*'.self.dirName().'*'
-    endfunction
-
     function! l:obj.path()
         return self.parentPath.'/'.self.dirName()
     endfunction
@@ -51,10 +47,6 @@ function! s:globalCacheFactory()
 
     function! l:obj.dirName()
         return s:prefix().substitute(getcwd(), '/', '.', 'g')
-    endfunction
-
-    function! l:obj.globDirName()
-        return '*'.self.dirName().'*'
     endfunction
 
     function! l:obj.path()

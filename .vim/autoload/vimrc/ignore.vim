@@ -5,11 +5,12 @@ let s:cpo_save = &cpo | set cpo&vim
 function! s:ignoreFactory()
 
     let l:obj = {'globs' : {
-                \   'dirs'  : ['.svn', '.git', vimrc#cache#instance().dirNamePrefix().'*' ],
+                \   'dirs'  : ['.svn', '.git', vimrc#cache#instance().local.dirName() ],
                 \   'files' : ['*.o', '*.obj', '*.pyc', '*.a', '*.so', '*.exe'] }
                 \}
 
     call extend(l:obj.globs, {'grep' : {} })
+    let l:obj.globs.grep.cache = ''
 
     function! l:obj.globs.grep.formatDir(dir)
         return '--exclude-dir='''.a:dir.''''
@@ -33,6 +34,7 @@ function! s:ignoreFactory()
 
 
     call extend(l:obj.globs, {'find' : {} })
+    let l:obj.globs.find.cache = ''
 
     function! l:obj.globs.find.formatDir(dir)
         return '-not \( -type d -name '''.a:dir.''' -prune \)'
@@ -56,6 +58,7 @@ function! s:ignoreFactory()
 
 
     call extend(l:obj.globs, {'wildignore' : {} })
+    let l:obj.globs.wildignore.cache = ''
 
     function! l:obj.globs.wildignore.formatDir(dir)
         return '*/'.a:dir
@@ -82,15 +85,29 @@ function! s:ignoreFactory()
     "   API
     "
     function! l:obj.grepFormat()
-        return self.globs.grep.get(self.globs)
+        if empty(self.globs.grep.cache)
+            let self.globs.grep.cache = self.globs.grep.get(self.globs)
+        endif
+
+        return self.globs.grep.cache
     endfunction
+
 
     function! l:obj.findFormat()
-        return self.globs.find.get(self.globs)
+        if empty(self.globs.find.cache)
+            let self.globs.find.cache = self.globs.find.get(self.globs)
+        endif
+
+        return self.globs.find.cache
     endfunction
 
+
     function! l:obj.wildignoreFormat()
-        return self.globs.wildignore.get(self.globs)
+        if empty(self.globs.wildignore.cache)
+            let self.globs.wildignore.cache = self.globs.wildignore.get(self.globs)
+        endif
+
+        return self.globs.wildignore.cache
     endfunction
 
     return l:obj
@@ -110,10 +127,12 @@ endfunction
 "----------
 " TESTS
 "----------
-"let g:test = s:ignoreFactory()
-"echomsg 'grep-format: '.g:test.grepFormat()
+"echomsg 'grep-format: '.vimrc#ignore#instance().grepFormat()
 "echomsg 'find-format: '.g:test.findFormat()
 "echomsg 'wildignore-format: '.g:test.wildignoreFormat()
+"echomsg 'grep-format: '.vimrc#ignore#instance().grepFormat()
+"echomsg 'grep-format: '.vimrc#ignore#instance().grepFormat()
+"echomsg 'grep-format: '.vimrc#ignore#instance().grepFormat()
 
 "---------------------------------------
 let &cpo = s:cpo_save | unlet s:cpo_save

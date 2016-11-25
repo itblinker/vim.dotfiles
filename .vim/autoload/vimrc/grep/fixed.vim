@@ -18,7 +18,7 @@ function! vimrc#grep#fixed#execute(pattern, ...) abort
             call s:execute(a:pattern,
                          \ getcwd(),
                          \ g:vimrc#grep#fixed#flags,
-                         \ vimrc#ignore#instance().grep.format())
+                         \ vimrc#ignore#instance().grepFormat())
         endif
 
     catch

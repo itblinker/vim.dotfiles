@@ -5,17 +5,22 @@ let s:cpo_save = &cpo | set cpo&vim
 function! s:grepFactory()
     let l:obj = {}
 
-    function! l:obj.cmd(string)
-        return 'grep! -I -Hr '.a:string.' '.vimrc#ignore#instance().grepFormat()
+    "
+    " API
+    "
+    function! l:obj.composeArgs(arguments)
+        return '-I -Hr '.a:arguments.' '.vimrc#ignore#instance().grepFormat()
     endfunction
 
-    function! l:obj.matchInfo()
-        echo 'number of matches: '.len(getqflist())
-    endfunction
 
-    function! l:obj.execute(...)
-        execute 'silent! '.self.cmd(join(a:000)) | redraw!
-        call self.matchInfo()
+    function l:obj.vimExecution(...)
+        if empty(filter(deepcopy(a:000), 'isdirectory(v:val) || filereadable(v:val)'))
+            call vimrc#message#instance().warning("grep: lack of path/file in cmd")
+            return
+        endif
+
+        execute 'silent! grep! '.self.composeArgs(join(a:000, ' ')) | redraw!
+        echo 'grep: number of matches: '.len(getqflist())
     endfunction
 
     return l:obj

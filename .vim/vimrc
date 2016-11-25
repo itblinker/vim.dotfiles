@@ -415,7 +415,7 @@ call dein#end()
 syntax enable
 filetype plugin indent on
 
-execute 'set wildignore='.vimrc#ignore#instance().wildignore.format()
+execute 'set wildignore='.vimrc#ignore#instance().wildignoreFormat()
 
 set encoding=utf-8
 set title

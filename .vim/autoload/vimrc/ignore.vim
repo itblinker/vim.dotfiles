@@ -2,68 +2,95 @@
 let s:cpo_save = &cpo | set cpo&vim
 "----------------------------------
 
-function! s:globsFactory()
-    return  { 'dir' : {
-            \         'vcs' : ['.svn', '.git'],
-            \         'vim' : [ vimrc#cache#instance().dirNamePrefix().'*' ]
-            \         },
-            \ 'file' : ['*.o', '*.obj', '*.pyc', '*.a', '*.so']
-            \}
-endfunction
-
 function! s:ignoreFactory()
-    let l:obj = extend({}, {'grep' : s:globsFactory(),
-                \           'find' : s:globsFactory(),
-                \           'wildignore' : s:globsFactory()})
 
+    let l:obj = {'globs' : {
+                \   'dirs'  : ['.svn', '.git', vimrc#cache#instance().dirNamePrefix().'*' ],
+                \   'files' : ['*.o', '*.obj', '*.pyc', '*.a', '*.so', '*.exe'] }
+                \}
 
-    function! l:obj.grep.formatDir(glob)
-        return '--exclude-dir='.a:glob
+    call extend(l:obj.globs, {'grep' : {} })
+
+    function! l:obj.globs.grep.formatDir(dir)
+        return '--exclude-dir='''.a:dir.''''
     endfunction
 
-    function! l:obj.grep.formatFile(glob)
-        return '--exclude='.a:glob
+    function! l:obj.globs.grep.formatDirs(dirs)
+        return map(deepcopy(a:dirs), 'self.formatDir(v:val)')
     endfunction
 
-    function! l:obj.grep.format()
-        let l:temp_vcs  = map(deepcopy(self.dir.vcs), 'self.formatDir(v:val)')
-        let l:temp_vim  = map(deepcopy(self.dir.vim), 'self.formatDir(v:val)')
-        let l:temp_file = map(deepcopy(self.file), 'self.formatFile(v:val)')
-
-        return join(extend(extend(l:temp_vcs, l:temp_vim), l:temp_file), ' ')
+    function! l:obj.globs.grep.formatFile(file)
+        return '--exclude='''.a:file.''''
     endfunction
 
-
-    function! l:obj.find.formatDir(glob)
-        return '-not \( -type d -name '.a:glob.' -prune \)'
+    function! l:obj.globs.grep.formatFiles(files)
+        return map(deepcopy(a:files), 'self.formatFile(v:val)')
     endfunction
 
-    function! l:obj.find.formatFile(glob)
-        return '-not \( -type f -name '.a:glob.' -prune \)'
-    endfunction
-
-    function! l:obj.find.format()
-        let l:temp_vcs  = map(deepcopy(self.dir.vcs), 'self.formatDir(v:val)')
-        let l:temp_vim  = map(deepcopy(self.dir.vim), 'self.formatDir(v:val)')
-        let l:temp_file = map(deepcopy(self.file), 'self.formatFile(v:val)')
-
-        return join(extend(extend(l:temp_vcs, l:temp_vim), l:temp_file), ' ')
+    function! l:obj.globs.grep.get(globs)
+        return  join(extend(self.formatDirs(a:globs.dirs), self.formatFiles(a:globs.files)), ' ')
     endfunction
 
 
-    function! l:obj.wildignore.formatDir(glob)
-        return '*/'.a:glob
+    call extend(l:obj.globs, {'find' : {} })
+
+    function! l:obj.globs.find.formatDir(dir)
+        return '-not \( -type d -name '''.a:dir.''' -prune \)'
     endfunction
 
-    function! l:obj.wildignore.formatFile(glob)
-        return a:glob
+    function! l:obj.globs.find.formatDirs(dirs)
+        return map(deepcopy(a:dirs), 'self.formatDir(v:val)')
     endfunction
 
-    function! l:obj.wildignore.format()
-        let l:temp_vcs  = map(deepcopy(self.dir.vcs), 'self.formatDir(v:val)')
-        let l:temp_file = map(deepcopy(self.file), 'self.formatFile(v:val)')
+    function! l:obj.globs.find.formatFile(file)
+        return '-not \( -type f -name '''.a:file.''' -prune \)'
+    endfunction
 
-        return join(extend(l:temp_vcs, l:temp_file), ',')
+    function! l:obj.globs.find.formatFiles(files)
+        return map(deepcopy(a:files), 'self.formatFile(v:val)')
+    endfunction
+
+    function! l:obj.globs.find.get(globs)
+        return  join(extend(self.formatDirs(a:globs.dirs), self.formatFiles(a:globs.files)), ' ')
+    endfunction
+
+
+    call extend(l:obj.globs, {'wildignore' : {} })
+
+    function! l:obj.globs.wildignore.formatDir(dir)
+        return '*/'.a:dir
+    endfunction
+
+    function! l:obj.globs.wildignore.formatDirs(dirs)
+        return map(deepcopy(a:dirs), 'self.formatDir(v:val)')
+    endfunction
+
+    function! l:obj.globs.wildignore.formatFile(file)
+        return a:file
+    endfunction
+
+    function! l:obj.globs.wildignore.formatFiles(files)
+        return map(deepcopy(a:files), 'self.formatFile(v:val)')
+    endfunction
+
+    function! l:obj.globs.wildignore.get(globs)
+        return  join(extend(self.formatDirs(a:globs.dirs), self.formatFiles(a:globs.files)), ',')
+    endfunction
+
+
+    "
+    "   API
+    "
+    function! l:obj.grepFormat()
+        return self.globs.grep.get(self.globs)
+    endfunction
+
+    function! l:obj.findFormat()
+        return self.globs.find.get(self.globs)
+    endfunction
+
+    function! l:obj.wildignoreFormat()
+        return self.globs.wildignore.get(self.globs)
     endfunction
 
     return l:obj
@@ -79,7 +106,14 @@ function! vimrc#ignore#instance()
     return s:ignoreLazyInstance
 endfunction
 
-let g:ignore = vimrc#ignore#instance()
+
+"----------
+" TESTS
+"----------
+"let g:test = s:ignoreFactory()
+"echomsg 'grep-format: '.g:test.grepFormat()
+"echomsg 'find-format: '.g:test.findFormat()
+"echomsg 'wildignore-format: '.g:test.wildignoreFormat()
 
 "---------------------------------------
 let &cpo = s:cpo_save | unlet s:cpo_save

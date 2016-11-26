@@ -48,17 +48,13 @@ function! s:findFactory()
     endfunction
 
 
-    function! l:obj.formatter.path(path)
-        if type(a:path) == type('')
-            return '-not \( -path '''.self.getUniquePathOfRootsChild(a:path).''' -prune \)'
-        else
-            call vimrc#exception#throw('improper arg: '.string(a:path))
-        endif
+    function! l:obj.formatter.pathExclude(path)
+        return '-not \( -path '''.fnamemodify(a:path, ':p:h').''' -prune \)'
     endfunction
 
 
-    function! l:obj.formatter.paths(pathsList)
-        return join(map(a:pathsList, 'self.path(v:val)'), ' ')
+    function! l:obj.formatter.pathsExclude(pathsList)
+        return join(map(a:pathsList, 'self.pathExclude(v:val)'), ' ')
     endfunction
 
 
@@ -75,24 +71,19 @@ function! s:findFactory()
     endfunction
 
 
-    function! l:obj.formatter.rootPath(path)
-        if a:path == './'
-            return getcwd()
-        else
-            return a:path
-        endif
+    function! l:obj.formatter.pathInclude(path)
+        return fnamemodify(a:path, ':p:h')
     endfunction
 
 
     function! l:obj.path(path)
         if type(a:path) == type('')
-            return self.formatter.rootPath(a:path)
+            return self.formatter.pathInclude(a:path)
         elseif has_key(a:path, 'path') && (! has_key(a:path, 'exclude'))
-            return self.formatter.rootPath(a:path.path)
+            return self.formatter.pathInclude(a:path.path)
         elseif has_key(a:path, 'path') && has_key(a:path, 'exclude')
-            echomsg 'yes here'
-            return self.formatter.rootPath(a:path.path).' '
-                   \ .self.formatter.paths(self.formatter.makePathsList(a:path.exclude))
+            return self.formatter.pathInclude(a:path.path).' '
+                   \ .self.formatter.pathsExclude(self.formatter.makePathsList(a:path.exclude))
         else
             call vimrc#exception#throw('invalid argument type: '.string(a:path))
         endif
@@ -241,8 +232,8 @@ endfunction
             "\ [{'path' : './', 'exclude' : './.vim/ftplugin'}])
 "let s:cmd = s:findFactory().cmd('vimrc.vim',
             "\ ['~/temp/temp', {'path' : './', 'exclude' : './.vim/ftplugin'}])
-"let s:cmd = s:findFactory().cmd(['vimrc.vim','*cpp'],
-            "\ ['~/temp/temp', {'path' : './', 'exclude' : './.vim/ftplugin'}])
+"let s:cmd = s:findFactory().cmd(['vimrc','*cpp'],
+            "\ {'path' : getcwd(), 'exclude' : ['./.vim/autoload']})
 "
 " find: argument: <exclude dir pattern>
 "

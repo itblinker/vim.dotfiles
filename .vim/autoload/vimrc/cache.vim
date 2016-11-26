@@ -106,6 +106,9 @@ function! s:cacheFactory()
         endtry
     endfunction
 
+    "
+    " API
+    "
     function! l:obj.fetch()
         if empty(self.cache_fetched_path)
             let self.cache_fetched_path = self.fetching()

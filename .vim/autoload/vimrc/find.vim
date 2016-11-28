@@ -39,15 +39,6 @@ function! s:findFactory()
     endfunction
 
 
-    function! l:obj.formatter.getUniquePathOfRootsChild(path)
-        if len(split(globpath(getcwd(), a:path), expand('<NL>'))) == 1
-            return a:path
-        else
-            call vimrc#exception#throw('exclude dir its not the part or is not unique of root tree: '.string(a:path))
-        endif
-    endfunction
-
-
     function! l:obj.formatter.pathExclude(path)
         return '-not \( -path '''.fnamemodify(a:path, ':p:h').''' -prune \)'
     endfunction

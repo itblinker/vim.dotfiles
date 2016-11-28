@@ -226,36 +226,91 @@ endfunction
 
 function! s:indexerFactory_new(configuration)
     let l:obj = { 'filenames' : {
-                \    'filelist' : 'files.list'
+                \    'filelist' : 'files.list',
+                \    'logFilelist' : 'files.list',
+                \    'logfileIndexing' : 'logs.gtags.indexing'
                 \    }
                 \}
-
     call extend(l:obj, {'configuration' : a:configuration})
 
 
-    function! l:obj.logFile(filename)
-        return 'log.'.a:filename
+    function! l:obj.file_fileslist()
+        return self.configuration.dbpath().'/'.self.filenames.filelist
     endfunction
+
+    function! l:obj.file_logfileslist()
+        return self.configuration.dbpath().'/'.self.filenames.logFilelist
+    endfunction
+
+    function! l:obj.file_logfileIndexing()
+        return self.configuration.dbpath().'/'.self.filenames.logfileIndexing
+    endfunction
+
 
     function! l:obj.createFileListCommand()
         let l:findCmd = vimrc#find#instance().getCmd(vimrc#cpp#manager#instance().filenameGlobs(),
-                                               \ self.configuration.pathList(),
-                                               \ self.configuration.excludeDirPatterns(),
-                                               \ self.configuration.excludeFilePatterns())
+                                                   \ self.configuration.pathList(),
+                                                   \ self.configuration.excludeDirPatterns(),
+                                                   \ self.configuration.excludeFilePatterns())
 
-        let l:filelist = self.configuration.dbpath().'/'.self.filenames.filelist
-        let l:logfile =  self.configuration.dbpath().'/'.self.logFile(self.filenames.filelist)
-
-        return l:findCmd.' > '.l:filelist.' 2> '.l:logfile
+        return l:findCmd.' > '.self.file_fileslist().' 2> '.self.file_logfileslist()
     endfunction
+
+
+    function! l:obj.fullTagCommand()
+        return  'gtags --file '.self.file_fileslist().' '.self.configuration.dbpath()
+              \.' --verbose --warning --statistics > '.self.file_logfileIndexing().' 2>&1'
+    endfunction
+
+
+    function! l:obj.isDbPathAvailable()
+        return isdirectory(self.configuration.dbpath())
+    endfunction
+
+    function! l:obj.createDbPath()
+        call mkdir(self.configuration.dbpath(), 'p')
+    endfunction
+
+
+    function! l:obj.updatePaths()
+        if !self.isDbPathAvailable()
+            call self.createDbPath()
+        endif
+    endfunction
+
+
+    function! l:obj.setEnvironment()
+		let $GTAGSFORCECPP = ''
+		let $GTAGSROOT = getcwd()
+		let $GTAGSDBPATH = self.configuration.dbpath()
+    endfunction
+
+
+    function! l:obj.execute(...)
+        for item in a:000
+            silent execute 'Start! '.item
+        endfor
+
+        redraw!
+    endfunction
+
+    "
+    " API
+    "
+    function! l:obj.tag()
+        call self.updatePaths()
+        call self.execute(self.createFileListCommand(), self.fullTagCommand())
+        call self.setEnvironment()
+    endfunction
+
 
     return l:obj
 endfunction
 
 
 function! Test()
-    let l:idx = s:indexerFactory_new(s:config())
-    silent execute 'Start! '.l:idx.createFileListCommand()
+    call s:indexerFactory_new(s:config()).tag()
+    "silent execute 'Start! '.l:idx.createFileListCommand()
 endfunction
 
 

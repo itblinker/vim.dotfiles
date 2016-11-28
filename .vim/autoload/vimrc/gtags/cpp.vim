@@ -308,9 +308,44 @@ function! s:indexerFactory_new(configuration)
 endfunction
 
 
-function! Test()
-    call s:indexerFactory_new(s:config()).tag()
-    "silent execute 'Start! '.l:idx.createFileListCommand()
+let s:__instance = {}
+
+function! s:instance()
+    if empty(s:__instance)
+        let s:__instance = s:indexerFactory_new(s:config())
+    endif
+
+    return s:__instance
+endfunction
+
+
+function! GtagTag()
+    call s:instance().tag()
+endfunction
+
+let s:cacheLibrary  = vital#vimrc#new().import('System.Cache.SingleFile')
+function! DumpCache()
+    let l:cache = s:cacheLibrary.new({'cache_file' : getcwd().'/cache.file'})
+
+    let l:config = ''
+    if l:cache.has('config')
+        let l:config = deepcopy(l:cache.get('config'))
+    endif
+
+    echoms 'config is '.string(l:config)
+
+    "let l:config = [{'first' : 1, 'second' : ['value', 'sraliu', 'kaliu'], 'dupsko' : {'elo' : ['ebel', 'kdkd']}}, {'first' : 1, 'second' : ['value', 'sraliu', 'kaliu'], 'dupsko' : {'elo' : ['ebel', 'kdkd']}}]
+    "echomsg 'first key in cache: '.string(l:cache.get('first'))
+
+
+    "call l:cache.set('config', deepcopy(l:config))
+    "echomsg 'keys are '.string(l:cache.keys())
+endfunction
+
+let s:tomlLibrary  = vital#vimrc#new().import('Text.TOML')
+function! TestToml()
+    let l:tom = s:tomlLibrary.parse_file('/home/mateusz/DEV/mine.dotfiles/vim/.vim/autoload/example.toml')
+    echo 'toml is '.string(l:tom)
 endfunction
 
 

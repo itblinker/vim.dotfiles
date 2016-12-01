@@ -41,7 +41,7 @@ function! s:configurationFactory()
                                     \ '',
                                     \ '[find.exclude.dir]',
                                     \ '  patterns  = []',
-                                    \ '  ipatterns = ["*test_modules*"]',
+                                    \ '  ipatterns = ["test_modules", "test_module"]',
                                     \ '',
                                     \ '[find.exclude.file]',
                                     \ '  patterns  = []',

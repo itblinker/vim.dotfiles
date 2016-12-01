@@ -57,7 +57,7 @@ function! s:find()
 
 
     function! l:obj.format.ignore.path(obj)
-        return '-not \( -path '''.fnamemodify(a:obj.path, ':p:h').''' -prune \)'
+        return '-not \( -path '''.fnamemodify(a:obj, ':p:h').''' -prune \)'
     endfunction
 
     function! l:obj.format.ignore.paths(pathsList)

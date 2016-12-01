@@ -85,6 +85,10 @@ function! s:indexerFactory(configuration)
         call self.setEnvironment()
     endfunction
 
+    "
+    " constructor
+    "
+    echomsg 'constructing indexer'
 
     return l:obj
 endfunction

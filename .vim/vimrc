@@ -128,22 +128,12 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ 'depends' : ['unite']
                 \ })
 
-    call dein#add('matfranczyk/vim.gtag.indexer.c.cpp', {
-                \ 'name' : 'gtagIndexerCCpp',
-                \
-                \ 'depends' : ['unite', 'dispatch'],
-                \
-                \ 'on_ft' : ['cpp', 'c'],
-                \ 'hook_post_source': 'call plugins#gtagIndexerCCpp#PostSourceSetup()'
-                \ })
-
     call dein#add('hewes/unite-gtags', {
                 \ 'name' : 'unitegtags',
                 \
                 \ 'depends' : ['unite'],
                 \
-                \ 'lazy' : 1,
-                \ 'on_source' : 'gtagIndexerCCpp',
+                \ 'on_ft' : ['cpp', 'c'],
                 \ 'hook_post_source': 'call plugins#unitegtags#PostSourceSetup()'
                 \ })
 

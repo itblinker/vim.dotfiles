@@ -280,7 +280,6 @@ call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
                 \ 'on_ft' : 'vim'
                 \ })
 
-
     call dein#add('tpope/vim-dispatch', {
                 \ 'name' : 'dispatch',
                 \ 'lazy' : 1

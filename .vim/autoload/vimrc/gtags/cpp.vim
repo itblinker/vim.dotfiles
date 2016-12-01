@@ -214,16 +214,6 @@ function! s:config()
 endfunction
 
 
-function! s:fileListCollector(configuration)
-    let l:cmd = vimrc#find#instance().getCmd(vimrc#cpp#manager#instance().filenameGlobs(),
-                                            \ a:configuration.pathList,
-                                            \ a:configuration.excludeDirPatterns(),
-                                            \ a:configuration.excludeFilePatterns())
-
-    execute 'Start! '.l:cmd
-endfunction
-
-
 function! s:indexerFactory_new(configuration)
     let l:obj = { 'filenames' : {
                 \    'filelist' : 'files.list',

@@ -4,3 +4,6 @@ vimrc
 System.Cache
 Vim.Message
 Text.TOML
+System.File
+System.Filepath
+Vim.Buffer

@@ -33,8 +33,8 @@ function! s:configurationFactory()
                                     \ '#',
                                     \ '[[find]]',
                                     \ '  path = "./"',
-                                    \ '  names   = ["*"]',
-                                    \ '  inames  = []',
+                                    \ '  names   = []',
+                                    \ '  inames  = '.vimrc#cpp#manager#instance().filenameGlobs(),
                                     \ '',
                                     \ '[find.exclude]',
                                     \ '  paths = []',
@@ -82,6 +82,10 @@ function! s:configurationFactory()
     return l:obj
 endfunction
 
+"
+" TEST
+"
+"let s:config = vimrc#gtags#cpp#config#factory()
 
 "---------------------------------------
 let &cpo = s:cpo_save | unlet s:cpo_save

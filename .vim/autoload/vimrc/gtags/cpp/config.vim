@@ -10,7 +10,6 @@ function! vimrc#gtags#cpp#config#factory()
 endfunction
 "
 
-
 let s:toml  = vital#vimrc#new().import('Text.TOML')
 
 function! s:configurationFactory()
@@ -34,7 +33,7 @@ function! s:configurationFactory()
                                     \ '[[find]]',
                                     \ '  path = "./"',
                                     \ '  names   = []',
-                                    \ '  inames  = '.vimrc#cpp#manager#instance().filenameGlobs(),
+                                    \ '  inames  = ['.vimrc#cpp#manager#instance().tomlConfigFormat().']',
                                     \ '',
                                     \ '[find.exclude]',
                                     \ '  paths = []',
@@ -48,8 +47,8 @@ function! s:configurationFactory()
                                     \ '  ipatterns = []',
                                     \ '#'
                                     \])
-
-            write | bwipe
+            silent write | bwipe
+            e!
         catch
             call vimrc#exception#throw('cannot create toml config for cpp#gtags#indexer')
         endtry

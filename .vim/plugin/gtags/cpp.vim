@@ -20,11 +20,22 @@ endfunction
 
 function! GtagsCppCIndexer()
     call s:buffersCommand()
-    call s:instance().filetype_autocmd()
+    call s:instance().autocmd_filetype()
+endfunction
+
+
+function! s:aucmds()
+    augroup vimrGtagsUpdateSingleFile
+    au!
+    exec 'au BufWritePost'
+         \.' '.vimrc#cpp#manager#instance().aucmdsFormat()
+         \.' call s:instance().autocmd_bufwritepost(expand(''<afile>''))'
+    augroup END
 endfunction
 
 
 call vimrc#utils#autocmd#filetype(['cpp', 'c'], 'GtagsCppCIndexer')
+call s:aucmds()
 
 "---------------------------------------
 let &cpo = s:cpo_save | unlet s:cpo_save

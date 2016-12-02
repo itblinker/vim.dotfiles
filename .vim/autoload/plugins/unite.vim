@@ -161,6 +161,6 @@ function! plugins#unite#PostSourceSetup()
     call s:settings()
     call s:commands()
     call s:globalMappings()
-    call vimrc#utils#autocmd#filetype(['unite'], 'UniteMappingsForUniteBuffer')
+    call vimrc#utils#autocmd#filetype('unite', 'UniteMappingsForUniteBuffer')
     call vimrc#utils#autocmd#filetype(['cpp', 'c'], 'UniteMappingsForCAndCppBuffer')
 endfunction

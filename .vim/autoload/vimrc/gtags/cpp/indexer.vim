@@ -31,6 +31,9 @@ function! s:indexerFactory(configuration)
         return self.configuration.dbpath().'/logs.gtags.indexing'
     endfunction
 
+    function! l:obj.logfileUpdating()
+        return self.configuration.dbpath().'/logs.gtags.updating'
+    endfunction
 
     function! l:obj.createFileListCommand()
         return vimrc#find#instance().cmd(self.configuration.findParameters())
@@ -42,6 +45,12 @@ function! s:indexerFactory(configuration)
     function! l:obj.fullTagCommand()
         return 'gtags --file '.self.fileslist().' '.self.configuration.dbpath()
                \.' --verbose --warning --statistics > '.self.logfileIndexing().' 2>&1'
+    endfunction
+
+
+    function! l:obj.updateFilesTagCommand(file)
+        return 'gtags --file '.self.fileslist().' --single-update '.a:file.' '.self.configuration.dbpath()
+               \.' --verbose --warning --statistics > '.self.logfileUpdating().' 2>&1'
     endfunction
 
 
@@ -80,6 +89,11 @@ function! s:indexerFactory(configuration)
         redraw!
     endfunction
 
+    function! l:obj.isFileIsUnderTagSack(file)
+        silent call system('global -f '.a:file) | return !v:shell_error
+    endfunction
+
+
     "
     " API
     "
@@ -90,8 +104,14 @@ function! s:indexerFactory(configuration)
     endfunction
 
 
-    function! l:obj.filetype_autocmd()
+    function! l:obj.autocmd_filetype()
         call self.updateEnvironment()
+    endfunction
+
+    function! l:obj.autocmd_bufwritepost(file)
+        if self.isFileIsUnderTagSack(a:file)
+            call self.execute(self.updateFilesTagCommand(a:file))
+        endif
     endfunction
 
     return l:obj
@@ -103,7 +123,7 @@ endfunction
 "
 "let s:instance = vimrc#gtags#cpp#indexer#new()
 "call s:instance.tag()
-"call s:instance.filetype_autocmd()
+"call s:instance.autocmd_filetype()
 
 "---------------------------------------
 let &cpo = s:cpo_save | unlet s:cpo_save

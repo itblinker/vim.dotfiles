@@ -67,6 +67,10 @@ function! s:indexerFactory(configuration)
 		let $GTAGSDBPATH = self.configuration.dbpath()
     endfunction
 
+    function! l:obj.updateEnvironment()
+		let $GTAGSROOT = getcwd()
+		let $GTAGSDBPATH = self.configuration.dbpath()
+    endfunction
 
     function! l:obj.execute(...)
         for item in a:000
@@ -85,10 +89,10 @@ function! s:indexerFactory(configuration)
         call self.setEnvironment()
     endfunction
 
-    "
-    " constructor
-    "
-    echomsg 'constructing indexer'
+
+    function! l:obj.filetype_autocmd()
+        call self.updateEnvironment()
+    endfunction
 
     return l:obj
 endfunction
@@ -99,6 +103,7 @@ endfunction
 "
 "let s:instance = vimrc#gtags#cpp#indexer#new()
 "call s:instance.tag()
+"call s:instance.filetype_autocmd()
 
 "---------------------------------------
 let &cpo = s:cpo_save | unlet s:cpo_save

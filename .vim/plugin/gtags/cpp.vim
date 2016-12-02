@@ -2,8 +2,10 @@
 let s:cpo_save = &cpo | set cpo&vim
 "----------------------------------
 
+let s:indexer = {}
+
 function! s:instance()
-    if !exists('s:indexer')
+    if empty(s:indexer)
         let s:indexer = vimrc#gtags#cpp#indexer#new(vimrc#gtags#cpp#config#factory())
     endif
 
@@ -16,12 +18,13 @@ function! s:buffersCommand()
 endfunction
 
 
-function! GtagsCppCIndexerCommands()
+function! GtagsCppCIndexer()
     call s:buffersCommand()
+    call s:instance().filetype_autocmd()
 endfunction
 
 
-call vimrc#utils#autocmd#filetype(['cpp', 'c'], 'GtagsCppCIndexerCommands')
+call vimrc#utils#autocmd#filetype(['cpp', 'c'], 'GtagsCppCIndexer')
 
 "---------------------------------------
 let &cpo = s:cpo_save | unlet s:cpo_save

@@ -14,7 +14,11 @@ endfunction
 
 
 function! s:buffersCommand()
-    command! -buffer -nargs=0 GtagsRetag  : call s:instance().tag()
+    command! -buffer -nargs=0 GtagsRetag            : call s:instance().tag()
+    command! -buffer -nargs=0 GtagsIngoreExcludes
+                              \ : call s:instance().ignoreExcludes()  | GtagsRetag
+    command! -buffer -nargs=0 GtagsConsiderExcludes
+                              \ : call s:instance().considerExcludes() | GtagsRetag
 endfunction
 
 

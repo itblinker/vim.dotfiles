@@ -17,7 +17,9 @@ endfunction
 "
 
 function! s:indexerFactory(configuration)
-    let l:obj = extend({}, {'configuration' : a:configuration})
+    let l:obj = extend( {'considerExcludeKey' : '1',
+                \        'formatter' : {} },
+                \       {'configuration' : a:configuration})
 
     function! l:obj.fileslist()
         return self.configuration.dbpath().'/files.list'
@@ -35,8 +37,26 @@ function! s:indexerFactory(configuration)
         return self.configuration.dbpath().'/logs.gtags.updating'
     endfunction
 
+    function! l:obj.formatter.ignoreExcludes(parameters)
+        let l:data = deepcopy(a:parameters)
+
+        for item in l:data
+            unlet item.exclude
+        endfor
+
+        return l:data
+    endfunction
+
+    function! l:obj.findParameters()
+        if self.considerExcludeKey
+            return self.configuration.findParameters()
+        else
+            return self.formatter.ignoreExcludes(self.configuration.findParameters())
+        endif
+    endfunction
+
     function! l:obj.createFileListCommand()
-        return vimrc#find#instance().cmd(self.configuration.findParameters())
+        return vimrc#find#instance().cmd(self.findParameters())
                \.' > '.self.fileslist().' 2> '
                \.self.logfileslist()
     endfunction
@@ -103,6 +123,13 @@ function! s:indexerFactory(configuration)
         call self.setEnvironment()
     endfunction
 
+    function! l:obj.ignoreExcludes()
+        let self.considerExcludeKey = 0
+    endfunction
+
+    function! l:obj.considerExcludes()
+        let self.considerExcludeKey = 1
+    endfunction
 
     function! l:obj.autocmd_filetype()
         call self.updateEnvironment()

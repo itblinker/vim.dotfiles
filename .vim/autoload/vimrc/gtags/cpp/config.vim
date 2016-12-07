@@ -10,13 +10,13 @@ function! vimrc#gtags#cpp#config#factory()
 endfunction
 "
 
-let s:toml  = vital#vimrc#new().import('Text.TOML')
+let s:toml_lib  = vital#vimrc#new().import('Text.TOML')
 
 function! s:configurationFactory()
     let l:obj = {}
 
     function! l:obj.tomlProjectConfigFile()
-        return self.dbpath().'/sources.toml'
+        return self.dbpath().'/indexerConfig.toml'
     endfunction
 
     function! l:obj.initTomlProjectConfigFile(tomlFile)
@@ -34,29 +34,36 @@ function! s:configurationFactory()
                                     \ '  path = "./"',
                                     \ '  names   = []',
                                     \ '  inames  = ['.vimrc#cpp#manager#instance().tomlConfigFormat().']',
-                                    \ '',
-                                    \ '[find.exclude]',
-                                    \ '  paths = []',
-                                    \ '',
-                                    \ '[find.exclude.dir]',
-                                    \ '  patterns  = []',
-                                    \ '  ipatterns = ["test_modules", "test_module"]',
-                                    \ '',
-                                    \ '[find.exclude.file]',
-                                    \ '  patterns  = []',
-                                    \ '  ipatterns = []',
+                                    \ '  [find.exclude]',
+                                    \ '    paths = []',
+                                    \ '  [find.exclude.dir]',
+                                    \ '    patterns  = []',
+                                    \ '    ipatterns = ["test_modules", "test_module"]',
+                                    \ '  [find.exclude.file]',
+                                    \ '    patterns  = []',
+                                    \ '    ipatterns = []',
                                     \ '#'
                                     \])
             silent write | bwipe
-            e!
+            filetype detect
         catch
-            call vimrc#exception#throw('cannot create toml config for cpp#gtags#indexer')
+            call vimrc#exception#throw('cannot create toml config for gtag cpp indexer')
         endtry
     endfunction
+
+    function! l:obj.editTomlProjectConfigFile(tomlFile)
+        execute 'edit '.self.tomlProjectConfigFile()
+    endfunction
+
 
     function! l:obj.setupTomlConfFile()
         if !filereadable(self.tomlProjectConfigFile())
             call self.initTomlProjectConfigFile(self.tomlProjectConfigFile())
+
+            if confirm("<gtags-cpp-indexer> created | edit config?: ", "&Yes\n&No", 1) == 1
+                call self.editTomlProjectConfigFile(self.tomlProjectConfigFile())
+            endif
+
         endif
     endfunction
 
@@ -69,7 +76,7 @@ function! s:configurationFactory()
     "
 
     function! l:obj.findParameters()
-        return s:toml.parse_file(self.tomlProjectConfigFile()).find
+        return s:toml_lib.parse_file(self.tomlProjectConfigFile()).find
     endfunction
 
     "
@@ -81,10 +88,11 @@ function! s:configurationFactory()
     return l:obj
 endfunction
 
-"
+"---------------------------------------
 " TEST
 "
 "let s:config = vimrc#gtags#cpp#config#factory()
+"---------------------------------------
 
 "---------------------------------------
 let &cpo = s:cpo_save | unlet s:cpo_save

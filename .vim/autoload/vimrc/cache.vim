@@ -1,11 +1,23 @@
 "----------------------------------
 let s:cpo_save = &cpo | set cpo&vim
 "----------------------------------
+"
+" API
+"
+function! vimrc#cache#instance()
+    if empty(s:cacheLazyInstance)
+        let s:cacheLazyInstance = s:cacheFactory()
+    endif
+
+    return s:cacheLazyInstance
+endfunction
+
+
+let s:cacheLazyInstance = {}
 
 function! s:prefix()
     return '.vim.cache.'
 endfunction
-
 
 function! s:localCacheFactory()
     let l:obj = { 'parentPath' : getcwd() }
@@ -123,17 +135,6 @@ function! s:cacheFactory()
 
     return l:obj
 endfunction
-
-
-let s:cacheLazyInstance = {}
-function! vimrc#cache#instance()
-    if empty(s:cacheLazyInstance)
-        let s:cacheLazyInstance = s:cacheFactory()
-    endif
-
-    return s:cacheLazyInstance
-endfunction
-
 
 "---------------------------------------
 let &cpo = s:cpo_save | unlet s:cpo_save

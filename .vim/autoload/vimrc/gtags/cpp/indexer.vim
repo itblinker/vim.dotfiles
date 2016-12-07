@@ -17,7 +17,7 @@ endfunction
 "
 
 function! s:indexerFactory(configuration)
-    let l:obj = extend( {'considerExcludeKey' : '1',
+    let l:obj = extend( {'ignoreExcludeKey' : '0',
                 \        'formatter' : {} },
                 \       {'configuration' : a:configuration})
 
@@ -48,10 +48,10 @@ function! s:indexerFactory(configuration)
     endfunction
 
     function! l:obj.findParameters()
-        if self.considerExcludeKey
-            return self.configuration.findParameters()
-        else
+        if self.ignoreExcludeKey
             return self.formatter.ignoreExcludes(self.configuration.findParameters())
+        else
+            return self.configuration.findParameters()
         endif
     endfunction
 
@@ -124,11 +124,11 @@ function! s:indexerFactory(configuration)
     endfunction
 
     function! l:obj.ignoreExcludes()
-        let self.considerExcludeKey = 0
+        let self.ignoreExcludeKey = 1
     endfunction
 
     function! l:obj.considerExcludes()
-        let self.considerExcludeKey = 1
+        let self.ignoreExcludeKey = 0
     endfunction
 
     function! l:obj.autocmd_filetype()

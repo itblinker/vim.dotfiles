@@ -29,14 +29,13 @@ function! s:managerFactory()
     "
     " API
     "
-    function! l:obj.tomlConfigFormat()
+    function! l:obj.extensions_format_toml()
         return join(map(deepcopy(self.globs.files), 'self.formatter.wrap(v:val)'), ', ')
     endfunction
 
-    function! l:obj.aucmdsFormat()
+    function! l:obj.extensions_format_aucmds()
         return join(deepcopy(self.globs.files), ',')
     endfunction
-
 
     return l:obj
 endfunction
@@ -46,8 +45,8 @@ endfunction
 " TEST
 "
 "let s:manager = vimrc#cpp#manager#instance()
-"echomsg 'filenames is: '.string(s:manager.filenameGlobs())
-"echomsg 'filenames is: '.s:manager.tomlConfigFormat()
+"echomsg 'filenames is: '.string(s:manager.extensions_format_aucmds())
+"echomsg 'filenames is: '.s:manager.extensions_format_toml()
 
 "---------------------------------------
 let &cpo = s:cpo_save | unlet s:cpo_save

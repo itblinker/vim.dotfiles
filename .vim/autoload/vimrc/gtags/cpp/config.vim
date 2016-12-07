@@ -33,7 +33,7 @@ function! s:configurationFactory()
                                     \ '[[find]]',
                                     \ '  path = "./"',
                                     \ '  names   = []',
-                                    \ '  inames  = ['.vimrc#cpp#manager#instance().tomlConfigFormat().']',
+                                    \ '  inames  = ['.vimrc#cpp#manager#instance().extensions_format_toml().']',
                                     \ '  [find.exclude]',
                                     \ '    paths = []',
                                     \ '  [find.exclude.dir]',

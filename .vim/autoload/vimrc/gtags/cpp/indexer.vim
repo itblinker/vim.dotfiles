@@ -62,13 +62,13 @@ function! s:indexerFactory(configuration)
     endfunction
 
 
-    function! l:obj.fullTagCommand()
+    function! l:obj.retagCommand()
         return 'gtags --file '.self.fileslist().' '.self.configuration.dbpath()
                \.' --verbose --warning --statistics > '.self.logfileIndexing().' 2>&1'
     endfunction
 
 
-    function! l:obj.updateFilesTagCommand(file)
+    function! l:obj.updateTagCommand(file)
         return 'gtags --file '.self.fileslist().' --single-update '.a:file.' '.self.configuration.dbpath()
                \.' --verbose --warning --statistics > '.self.logfileUpdating().' 2>&1'
     endfunction
@@ -119,7 +119,7 @@ function! s:indexerFactory(configuration)
     "
     function! l:obj.tag()
         call self.updatePaths()
-        call self.execute(self.createFileListCommand(), self.fullTagCommand())
+        call self.execute(self.createFileListCommand(), self.retagCommand())
         call self.setEnvironment()
     endfunction
 
@@ -137,7 +137,7 @@ function! s:indexerFactory(configuration)
 
     function! l:obj.autocmd_bufwritepost(file)
         if self.isFileIsUnderTagSack(a:file)
-            call self.execute(self.updateFilesTagCommand(a:file))
+            call self.execute(self.updateTagCommand(a:file))
         endif
     endfunction
 

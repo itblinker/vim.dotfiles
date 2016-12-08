@@ -9,14 +9,14 @@ function! s:buffersCommand()
 endfunction
 
 
-function! GtagsCppCIndexer()
+function! VimrcGtagsCppAuCmdsFiletype()
     call s:buffersCommand()
     call vimrc#gtags#cpp#instance().autocmd_filetype()
 endfunction
 
 
 function! s:aucmds()
-    augroup vimrGtagsUpdateSingleFile
+    augroup vimrGtagsCppAuCmdsUpdateSingleFile
     au!
     exec 'au BufWritePost'
          \.' '.vimrc#cpp#manager#instance().extensions_format_aucmds()
@@ -25,7 +25,7 @@ function! s:aucmds()
 endfunction
 
 
-call vimrc#utils#autocmd#filetype(['cpp', 'c'], 'GtagsCppCIndexer')
+call vimrc#utils#autocmd#filetype(['cpp', 'c'], 'VimrcGtagsCppAuCmdsFiletype')
 call s:aucmds()
 
 "---------------------------------------

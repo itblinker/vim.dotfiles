@@ -20,7 +20,7 @@ function! s:aucmds()
     au!
     exec 'au BufWritePost'
          \.' '.vimrc#cpp#manager#instance().extensions_format_aucmds()
-         \.' call s:instance().autocmd_bufwritepost(expand(''<afile>''))'
+         \.' call vimrc#gtags#cpp#instance().autocmd_bufwritepost(expand(''<afile>''))'
     augroup END
 endfunction
 

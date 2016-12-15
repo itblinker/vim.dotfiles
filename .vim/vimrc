@@ -2,16 +2,15 @@ if &compatible
   set nocompatible
 endif
 
-set nosecure
-
 "{{{ plugins | configuration
+let s:data = {
+            \ 'dein'  : expand('$HOME/bin/dein.vim'),
+            \ 'cache' : expand('$HOME/bin/dein.cache')
+            \}
 
-" {dein plugin sources}
-execute 'set rtp+='.expand('$HOME/DEV/git.softwares/dein.vim')
-
-
-" {where plugins are stored}
-call dein#begin(expand('$HOME/DEV/bin/dein.vim'), [expand('<sfile>')])
+set nosecure
+execute 'set rtp+='.s:data.dein
+call dein#begin(s:data.cache, [expand('<sfile>')])
 
     call dein#add('Shougo/dein.vim',    {'name' : 'dein'})
     call dein#add('Shougo/vimproc.vim', {'name' : 'vimproc', 'build' : 'make'})

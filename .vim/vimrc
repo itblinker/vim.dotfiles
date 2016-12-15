@@ -4,8 +4,8 @@ endif
 
 "{{{ plugins | configuration
 let s:data = {
-            \ 'dein'  : expand('$HOME/bin/dein.vim'),
-            \ 'cache' : expand('$HOME/bin/dein.vim.cache')
+            \ 'dein'  : expand('$HOME/software/bin/dein.vim'),
+            \ 'cache' : expand('$HOME/software/bin/dein.vim.cache')
             \}
 
 set nosecure
